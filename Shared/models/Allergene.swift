@@ -27,4 +27,3 @@ class Allergene {
         self.nom_allergene=nom_allergene
     }
 }
-
