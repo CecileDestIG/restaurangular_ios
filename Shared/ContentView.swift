@@ -22,9 +22,9 @@ struct ContentView: View {
     ])
     
     @StateObject var listeIngredient = IngredientListVM(ilist: [
-        Ingredient(id_ingredient: 1, nom_ingredient: "carotte", unite: "kg", cout_unitaire: 2.5, stock: 12, id_cat_ingr: 1, id_allergene: 0),
-        Ingredient(id_ingredient: 2, nom_ingredient: "poire", unite: "kg", cout_unitaire: 2.5, stock: 12, id_cat_ingr: 1, id_allergene: 0),
-        Ingredient(id_ingredient: 3, nom_ingredient: "Concombre", unite: "kg", cout_unitaire: 2.5, stock: 12, id_cat_ingr: 1, id_allergene: 0)
+        Ingredient(id_ingredient: 1, nom_ingredient: "carotte", unite: "kg", cout_unitaire: 2.5, stock: 12, id_cat_ingr: 1, id_allergene: 0, allergene : " ", nom_cat_ingr: " "),
+        Ingredient(id_ingredient: 2, nom_ingredient: "poire", unite: "kg", cout_unitaire: 2.5, stock: 12, id_cat_ingr: 1, id_allergene: 0, allergene : " ", nom_cat_ingr: " "),
+        Ingredient(id_ingredient: 3, nom_ingredient: "Concombre", unite: "kg", cout_unitaire: 2.5, stock: 12, id_cat_ingr: 1, id_allergene: 0, allergene : " ", nom_cat_ingr: " ")
     ])
     
     @StateObject var listeEtape = EtapeListVM(elist: [
