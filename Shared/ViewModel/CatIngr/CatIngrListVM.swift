@@ -10,14 +10,18 @@ import Combine
 
 class CatIngrListVM : ObservableObject, Subscriber{
     
-    public var ciList : [CatIngr]
-    
     typealias Input = IntentStateCatIngr
     
     typealias Failure = Never
     
-    init(cilist : [CatIngr]){
-        self.ciList=cilist
+    public var cat_ingr_list : [CatIngr] = []{
+        didSet{
+            objectWillChange.send()
+        }
+    }
+
+    init() {
+        self.cat_ingr_list = [CatIngr()]
     }
     
     func receive(subscription: Subscription) {

@@ -8,7 +8,7 @@ import Foundation
 
 struct AllergeneDAO {
     
-    static func allergeneGetAll() async -> [AllergeneDTO]?{
+    static func allergeneGetAll() async -> [Allergene]?{
         print("debut task")
         guard let url = URL(string: "https://restaurangularappli.herokuapp.com/allergene") else {
             print("bad request")
@@ -20,7 +20,7 @@ struct AllergeneDAO {
                 print("pb decodage")
                 return nil
             }
-            return gorest
+            return AllergeneDAO.allergeneDTOtoAllergene(data: gorest)
         }
         catch{
             print("bad request")
@@ -35,7 +35,7 @@ struct AllergeneDAO {
             allergenedto = data!
         
             for adata in allergenedto {
-                let allergene = Allergene(id_allergene: adata.id_allergene, nom_allergene: adata.allergene)
+                let allergene = Allergene(adata.id_allergene, adata.allergene)
                 allergeneListe.append(allergene)
             }
         }

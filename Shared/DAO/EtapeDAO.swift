@@ -6,3 +6,28 @@
 //
 
 import Foundation
+
+
+class EtapeDAO {
+    
+    static func getAllEtape() async -> [Etape]?{
+        if let list = await APIRequest.getAll(route: "etape", dto: EtapeDTO.self){
+            return EtapeDAO.toEtape(data: list)
+        }
+        return nil
+    }
+    
+    
+    static func toEtape(data: [EtapeDTO]) -> [Etape]?{
+          var etape_list = [Etape]()
+          for tdata in data{
+             guard (tdata.id_etape != nil) else{
+                return nil
+             }
+             let id : Int = tdata.id_etape ?? tdata.id_etape!
+              let etape = Etape(id, tdata.titre_etape, tdata.temps_etape, tdata.description_etape)
+              etape_list.append(etape)
+          }
+    return etape_list
+    }
+}
