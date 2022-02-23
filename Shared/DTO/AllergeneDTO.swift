@@ -1,14 +1,14 @@
-import SwiftUI
+//
+//  AllergeneDAO.swift
+//  Restaurangular (iOS)
+//
+//  Created by Ingrid on 22/02/2022.
+//
 
-struct AllergeneDTO {
-    var id_allergene : Int?
-    var nom_allergene : String
+import Foundation
+
+struct AllergeneDTO : Decodable, Hashable {
+    var id_allergene :Int
+    var allergene : String
 }
 
-struct GoRestAllergeneDTO : Codable, Hashable {
-    var data : [AllergeneDTO]
-}
-
-struct GoRestAllergeneResponse : Decodable {
-    var data : AllergeneDTO
-}

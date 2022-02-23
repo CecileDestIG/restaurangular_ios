@@ -11,7 +11,10 @@ protocol AllergeneObserver{
     func change(nom_allergene:String)
 }
 
-class Allergene {
+class Allergene : ObservableObject, Identifiable, Equatable {
+    static func == (lhs: Allergene, rhs: Allergene) -> Bool {
+        return lhs.id_allergene==rhs.id_allergene
+    }
     
     var allergeneObserver : AllergeneObserver?
     

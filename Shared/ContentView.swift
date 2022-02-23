@@ -6,15 +6,28 @@
 //
 
 import SwiftUI
+import Foundation
+import Combine
+/*
+struct GoRestAllergeneDTO : Codable, Hashable{
+    var id_allergene:Int
+    var allergene : String
+}
+
+struct GoRestDTO : Codable, Hashable{
+    var data : [GoRestAllergeneDTO]
+}
+
+struct GoRestResponse : Decodable {
+    var data : GoRestAllergeneDTO
+}
+*/
 
 struct ContentView: View {
-    @StateObject var listeAllergene = AllergeneListVM(allergenelist: [
-        Allergene(id_allergene: 1, nom_allergene: "lactose"),
-        Allergene(id_allergene: 2, nom_allergene: "fruits a coque"),
-        Allergene(id_allergene: 3, nom_allergene: "poisson"),
-        Allergene(id_allergene: 4, nom_allergene: "crustacés")
-    ])
     
+
+    @State var listeAllergene : AllergeneListVM = AllergeneListVM(allergenelist: [])
+        
     @StateObject var listeCI = CatIngrListVM(cilist: [
         CatIngr(id_cat_ingr: 1, nom_cat_ingr: "Poisson"),
         CatIngr(id_cat_ingr: 2, nom_cat_ingr: "Legume"),
@@ -95,8 +108,11 @@ struct ContentView: View {
 
                 Spacer()
             }
+            .task {
+                self.listeAllergene = await AllergeneListVM(allergenelist: AllergeneDAO.allergeneDTOtoAllergene(data: AllergeneDAO.allergeneGetAll()))
         }
     }
+}
 }
 
 struct ContentView_Previews: PreviewProvider {
