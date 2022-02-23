@@ -22,7 +22,7 @@ class CatIngr {
         }
     }
     
-    init (id_cat_ingr:Int, nom_cat_ingr:String){
+    init (_ id_cat_ingr:Int = 0, _ nom_cat_ingr:String = ""){
         self.id_cat_ingr=id_cat_ingr
         self.nom_cat_ingr=nom_cat_ingr
     }
