@@ -15,11 +15,8 @@ struct ContentView: View {
         Allergene(id_allergene: 4, nom_allergene: "crustacés")
     ])
     
-    @StateObject var listeCI = CatIngrListVM(cilist: [
-        CatIngr(id_cat_ingr: 1, nom_cat_ingr: "Poisson"),
-        CatIngr(id_cat_ingr: 2, nom_cat_ingr: "Legume"),
-        CatIngr(id_cat_ingr: 3, nom_cat_ingr: "Fruit")
-    ])
+    @StateObject var listeCI : CatIngrList = CatIngrList()
+    
     
     @StateObject var listeIngredient = IngredientListVM(ilist: [
         Ingredient(id_ingredient: 1, nom_ingredient: "carotte", unite: "kg", cout_unitaire: 2.5, stock: 12, id_cat_ingr: 1, id_allergene: 0, allergene : " ", nom_cat_ingr: " "),
@@ -41,7 +38,7 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView{
-            VStack{
+            VStack{/*
                 List {
                     ForEach(listeAllergene.allergeneList, id:\.id_allergene){item in
                         NavigationLink(destination: AllergeneDetailView(avm: AllergeneVM(allergene: item), alvm: self.listeAllergene)){
@@ -51,17 +48,21 @@ struct ContentView: View {
                             }
                         }.navigationTitle("Allergene")
                     }
-                }
+                }*/
                 List {
-                    ForEach(listeCI.ciList, id:\.id_cat_ingr){item in
-                        NavigationLink(destination: CatIngrDetailView(civm: CatIngrVM(ci: item), cilvm: self.listeCI)){
+                    ForEach(listeCI.cat_ingr_list, id:\.id_cat_ingr){item in
                             VStack(alignment: .leading){
                                 Text(item.nom_cat_ingr)
-                            
                             }
                         }.navigationTitle("CI")
                     }
                 }
+            .task {
+                if let list = await CatIngrDAO.getAllCatIngr(){
+                    self.listeCI.cat_ingr_list = list
+                    print("Content list : ",list)
+                }
+            }/*
                 List {
                     ForEach(listeIngredient.iList, id:\.id_ingredient){item in
                         NavigationLink(destination: IngredientDetailView(ivm: IngredientVM(i: item), ilvm: self.listeIngredient)){
@@ -91,13 +92,14 @@ struct ContentView: View {
                             }
                         }.navigationTitle("recette")
                     }
-                }
+                }*/
 
                 Spacer()
+                
             }
         }
     }
-}
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

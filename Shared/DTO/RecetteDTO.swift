@@ -1,14 +1,8 @@
-import SwiftUI
+//
+//  RecetteDTO.swift
+//  Restaurangular
+//
+//  Created by m1 on 22/02/2022.
+//
 
-struct RecetteDTO {
-    var id_recette : Int?
-    var nom_recette : String
-}
-
-struct GoRestRecetteDTO : Codable, Hashable {
-    var data : [RecetteDTO]
-}
-
-struct GoRestRecetteResponse : Decodable {
-    var data : RecetteDTO
-}
+import Foundation

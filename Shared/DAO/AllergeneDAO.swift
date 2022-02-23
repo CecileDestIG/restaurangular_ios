@@ -1,6 +1,0 @@
-import SwiftUI
-
-struct AllergeneDAO {
-   
-   
-}
