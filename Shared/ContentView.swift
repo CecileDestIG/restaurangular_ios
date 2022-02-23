@@ -8,12 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject var listeAllergene = AllergeneListVM(allergenelist: [
-        Allergene(id_allergene: 1, nom_allergene: "lactose"),
-        Allergene(id_allergene: 2, nom_allergene: "fruits a coque"),
-        Allergene(id_allergene: 3, nom_allergene: "poisson"),
-        Allergene(id_allergene: 4, nom_allergene: "crustacés")
-    ])
+    
+    @State var listeAllergene : AllergeneListVM = AllergeneListVM(allergenelist: [])
     
     @StateObject var listeCI : CatIngrList = CatIngrList()
     
@@ -38,7 +34,7 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView{
-            VStack{/*
+            VStack{
                 List {
                     ForEach(listeAllergene.allergeneList, id:\.id_allergene){item in
                         NavigationLink(destination: AllergeneDetailView(avm: AllergeneVM(allergene: item), alvm: self.listeAllergene)){
@@ -48,7 +44,7 @@ struct ContentView: View {
                             }
                         }.navigationTitle("Allergene")
                     }
-                }*/
+                }/*
                 List {
                     ForEach(listeCI.cat_ingr_list, id:\.id_cat_ingr){item in
                             VStack(alignment: .leading){
@@ -62,7 +58,7 @@ struct ContentView: View {
                     self.listeCI.cat_ingr_list = list
                     print("Content list : ",list)
                 }
-            }/*
+            }*//*
                 List {
                     ForEach(listeIngredient.iList, id:\.id_ingredient){item in
                         NavigationLink(destination: IngredientDetailView(ivm: IngredientVM(i: item), ilvm: self.listeIngredient)){
@@ -97,10 +93,13 @@ struct ContentView: View {
                 Spacer()
                 
             }
+        .task {
+            self.listeAllergene = await AllergeneListVM(allergenelist: AllergeneDAO.allergeneDTOtoAllergene(data: AllergeneDAO.allergeneGetAll()))
+                }
         }
     }
 
-
+}
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()

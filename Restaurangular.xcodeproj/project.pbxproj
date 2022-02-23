@@ -59,6 +59,10 @@
 		BFB78F1327C1A46900B33479 /* IngredientListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB78F1227C1A46900B33479 /* IngredientListVM.swift */; };
 		BFB78F1527C1A47F00B33479 /* IntentIngredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB78F1427C1A47F00B33479 /* IntentIngredient.swift */; };
 		BFB78F1827C1A4BC00B33479 /* IngredientDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB78F1727C1A4BC00B33479 /* IngredientDetailView.swift */; };
+		BFBC7FA027C63F95005FD7BC /* AllergeneDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBC7F9F27C63F95005FD7BC /* AllergeneDTO.swift */; };
+		BFBC7FA127C63F95005FD7BC /* AllergeneDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBC7F9F27C63F95005FD7BC /* AllergeneDTO.swift */; };
+		BFBC7FA327C63FA9005FD7BC /* AllergeneDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBC7FA227C63FA9005FD7BC /* AllergeneDAO.swift */; };
+		BFBC7FA427C63FA9005FD7BC /* AllergeneDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBC7FA227C63FA9005FD7BC /* AllergeneDAO.swift */; };
 		BFBE403227C2EBB2007AD5CF /* Etape.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBE403127C2EBB2007AD5CF /* Etape.swift */; };
 		BFBE403527C2EBCB007AD5CF /* EtapeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBE403427C2EBCB007AD5CF /* EtapeVM.swift */; };
 		BFBE403727C2EBD9007AD5CF /* EtapeListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBE403627C2EBD9007AD5CF /* EtapeListVM.swift */; };
@@ -127,6 +131,8 @@
 		BFB78F1227C1A46900B33479 /* IngredientListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientListVM.swift; sourceTree = "<group>"; };
 		BFB78F1427C1A47F00B33479 /* IntentIngredient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentIngredient.swift; sourceTree = "<group>"; };
 		BFB78F1727C1A4BC00B33479 /* IngredientDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientDetailView.swift; sourceTree = "<group>"; };
+		BFBC7F9F27C63F95005FD7BC /* AllergeneDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllergeneDTO.swift; sourceTree = "<group>"; };
+		BFBC7FA227C63FA9005FD7BC /* AllergeneDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllergeneDAO.swift; sourceTree = "<group>"; };
 		BFBE403127C2EBB2007AD5CF /* Etape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Etape.swift; sourceTree = "<group>"; };
 		BFBE403427C2EBCB007AD5CF /* EtapeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EtapeVM.swift; sourceTree = "<group>"; };
 		BFBE403627C2EBD9007AD5CF /* EtapeListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EtapeListVM.swift; sourceTree = "<group>"; };
@@ -181,6 +187,7 @@
 				6FA6B1F227C5259000344B21 /* IngredientDAO.swift */,
 				6FA6B20227C527B800344B21 /* RecetteDAO.swift */,
 				6FA6B20527C527C300344B21 /* EtapeDAO.swift */,
+				BFBC7FA227C63FA9005FD7BC /* AllergeneDAO.swift */,
 			);
 			path = DAO;
 			sourceTree = "<group>";
@@ -192,6 +199,7 @@
 				6FA6B1E327C5255800344B21 /* EtapeDTO.swift */,
 				6FA6B1E027C5254400344B21 /* IngredientDTO.swift */,
 				6FA6B1FC27C5271900344B21 /* RecetteDTO.swift */,
+				BFBC7F9F27C63F95005FD7BC /* AllergeneDTO.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -570,6 +578,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BFBC7FA327C63FA9005FD7BC /* AllergeneDAO.swift in Sources */,
 				BF8B691927C4D6BF0015B632 /* IntentRecette.swift in Sources */,
 				BFB78F0C27C19DCE00B33479 /* CatIngrDetailView.swift in Sources */,
 				BFB78F0E27C1A42D00B33479 /* Ingredient.swift in Sources */,
@@ -585,6 +594,7 @@
 				BFBE403527C2EBCB007AD5CF /* EtapeVM.swift in Sources */,
 				6FA6B20027C5274500344B21 /* JSONHelper.swift in Sources */,
 				BF8B691C27C4D6E80015B632 /* RecetteDetailView.swift in Sources */,
+				BFBC7FA027C63F95005FD7BC /* AllergeneDTO.swift in Sources */,
 				BFBE403227C2EBB2007AD5CF /* Etape.swift in Sources */,
 				BF8B691727C4D6AC0015B632 /* RecetteListVM.swift in Sources */,
 				BFB78F0727C16A3400B33479 /* CatIngrListVM.swift in Sources */,
@@ -622,8 +632,10 @@
 				6FA6B1DC27C5253A00344B21 /* CatIngrDTO.swift in Sources */,
 				6FA6B21D27C620D600344B21 /* CatIngrList.swift in Sources */,
 				6FA6B1F327C5259000344B21 /* IngredientDAO.swift in Sources */,
+				BFBC7FA127C63F95005FD7BC /* AllergeneDTO.swift in Sources */,
 				6FA6B1ED27C5258700344B21 /* CatIngrDAO.swift in Sources */,
 				6FA6B1D427C5238000344B21 /* APIRequest.swift in Sources */,
+				BFBC7FA427C63FA9005FD7BC /* AllergeneDAO.swift in Sources */,
 				BFB78EDB27C0FA4200B33479 /* RestaurangularApp.swift in Sources */,
 				6FA6B1FE27C5271900344B21 /* RecetteDTO.swift in Sources */,
 				6FA6B20127C5274500344B21 /* JSONHelper.swift in Sources */,
