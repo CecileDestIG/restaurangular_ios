@@ -53,9 +53,9 @@ class RecetteVM : ObservableObject, RecetteObserver, Subscriber{
     @Published var nb_couvert : Int
     @Published var id_categorie : Int
     @Published var prix_vente : Double
-    @Published var etapes : [Etape]
-    @Published var recinclus : [Recette]
-    @Published var ingredients : [Ingredient]
+    @Published var etapes : [Etape]?
+    @Published var recinclus : [Recette]?
+    @Published var ingredients : [Ingredient]?
     
     func change(id_createur: Int) {
         print("vm observer: id_createur changé => self.id_createur = '\(id_createur)'")
@@ -82,18 +82,18 @@ class RecetteVM : ObservableObject, RecetteObserver, Subscriber{
         self.prix_vente=prix_vente
     }
     
-    func change(etapes: [Etape]) {
-        print("vm observer: etapes changé => self.etapes = '\(etapes)'")
+    func change(etapes: [Etape]?) {
+        print("vm observer: etapes changé => self.etapes")
         self.etapes=etapes
     }
     
-    func change(recinclus: [Recette]) {
-        print("vm observer: recinclus changé => self.recinclus = '\(recinclus)'")
+    func change(recinclus: [Recette]?) {
+        print("vm observer: recinclus changé => self.recinclus")
         self.recinclus=recinclus
     }
     
-    func change(ingredients: [Ingredient]) {
-        print("vm observer: ingredients changé => self.ingredients = '\(ingredients)'")
+    func change(ingredients: [Ingredient]?) {
+        print("vm observer: ingredients changé => self.ingredients")
         self.ingredients=ingredients
     }
     
@@ -129,13 +129,13 @@ class RecetteVM : ObservableObject, RecetteObserver, Subscriber{
             print("vm : change model prix vente to '\(self.recette.prix_vente)'")
         case .etapesChanging(let r):
             self.recette.etapes=r
-            print("vm : change model etapes to '\(self.recette.etapes)'")
+            print("vm : change model etapes")
         case .recinclusChanging(let r):
             self.recette.recinclus=r
-            print("vm : change model recettes incluses to '\(self.recette.recinclus)'")
+            print("vm : change model recettes")
         case .ingredientsChanging(let r):
             self.recette.ingredients=r
-            print("vm : change model ingredients to '\(self.recette.ingredients)'")
+            print("vm : change model ingredients")
         }
         return .none
     }
