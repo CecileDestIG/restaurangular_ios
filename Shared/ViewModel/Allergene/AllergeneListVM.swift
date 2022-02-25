@@ -10,13 +10,17 @@ import Combine
 
 class AllergeneListVM : ObservableObject, Subscriber{
     
-    public var allergeneList : [Allergene]
+    public var allergeneList : [Allergene]{
+        didSet{
+            objectWillChange.send()
+        }
+    }
     
     typealias Input = IntentStateAllergene
     
     typealias Failure = Never
     
-    init(allergenelist : [Allergene]){
+    init(_ allergenelist : [Allergene] = [Allergene()]){
         self.allergeneList=allergenelist
     }
     

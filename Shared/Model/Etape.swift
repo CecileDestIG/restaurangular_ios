@@ -36,7 +36,7 @@ class Etape {
         }
     }
     
-    init (id_etape:Int, titre_etape:String, temps_etape: Double, description_etape: String){
+    init (_ id_etape:Int = 0,_ titre_etape:String = "",_ temps_etape: Double = 0,_ description_etape: String = ""){
         self.id_etape=id_etape
         self.titre_etape=titre_etape
         self.temps_etape=temps_etape

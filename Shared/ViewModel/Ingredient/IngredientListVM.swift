@@ -10,14 +10,18 @@ import Combine
 
 class IngredientListVM : ObservableObject, Subscriber{
     
-    public var iList : [Ingredient]
+    public var ingredient_list : [Ingredient]{
+        didSet{
+            objectWillChange.send()
+        }
+    }
     
     typealias Input = IntentStateIngredient
     
     typealias Failure = Never
     
-    init(ilist : [Ingredient]){
-        self.iList=ilist
+    init(){
+        self.ingredient_list = [Ingredient()]
     }
     
     func receive(subscription: Subscription) {

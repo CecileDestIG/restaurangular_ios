@@ -22,7 +22,7 @@ class Allergene {
         }
     }
     
-    init (id_allergene:Int, nom_allergene:String){
+    init (_ id_allergene:Int = 0,_ nom_allergene:String = ""){
         self.id_allergene=id_allergene
         self.nom_allergene=nom_allergene
     }

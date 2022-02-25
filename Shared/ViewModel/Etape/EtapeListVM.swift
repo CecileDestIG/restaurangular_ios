@@ -10,14 +10,18 @@ import Combine
 
 class EtapeListVM : ObservableObject, Subscriber{
     
-    public var eList : [Etape]
+    public var etape_list : [Etape]{
+        didSet{
+            objectWillChange.send()
+        }
+    }
     
     typealias Input = IntentStateEtape
     
     typealias Failure = Never
     
-    init(elist : [Etape]){
-        self.eList=elist
+    init(){
+        self.etape_list = [Etape()]
     }
     
     func receive(subscription: Subscription) {

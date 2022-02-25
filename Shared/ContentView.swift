@@ -9,113 +9,30 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State var listeAllergene : AllergeneListVM = AllergeneListVM(allergenelist: [])
-    
-    @StateObject var listeCI : CatIngrList = CatIngrList()
-    
-    @State var allergenecreate : AllergeneDTO = AllergeneDTO(allergene: " ")
-    
-    @StateObject var listeIngredient = IngredientListVM(ilist: [
-        Ingredient(id_ingredient: 1, nom_ingredient: "carotte", unite: "kg", cout_unitaire: 2.5, stock: 12, id_cat_ingr: 1, id_allergene: 0, allergene : " ", nom_cat_ingr: " "),
-        Ingredient(id_ingredient: 2, nom_ingredient: "poire", unite: "kg", cout_unitaire: 2.5, stock: 12, id_cat_ingr: 1, id_allergene: 0, allergene : " ", nom_cat_ingr: " "),
-        Ingredient(id_ingredient: 3, nom_ingredient: "Concombre", unite: "kg", cout_unitaire: 2.5, stock: 12, id_cat_ingr: 1, id_allergene: 0, allergene : " ", nom_cat_ingr: " ")
-    ])
-    
-    @StateObject var listeEtape = EtapeListVM(elist: [
-        Etape(id_etape: 1, titre_etape: "Blanc en neige", temps_etape: 5, description_etape: "mettre les blancs dans un bol et les battre"),
-        Etape(id_etape: 2, titre_etape: "Bretzel forme", temps_etape: 5, description_etape: "faire un boudin puis le replier comme des bras croisés"),
-        Etape(id_etape: 3, titre_etape: "Bretzel pate", temps_etape: 5, description_etape: "mettre tous les ingredients dans le bol et melanger")
-    ])
-    
-    @StateObject var listeRecette = RecetteListVM(rlist: [
-        Recette(id_recette: 1, id_createur: 1, nom_recette: "Bretzel", nb_couvert: 4, id_categorie: 1, prix_vente: 2.5, etapes: [
-            Etape(id_etape: 2, titre_etape: "Bretzel forme", temps_etape: 5, description_etape: "faire un boudin puis le replier comme des bras croisés"),
-            Etape(id_etape: 3, titre_etape: "Bretzel pate", temps_etape: 5, description_etape: "mettre tous les ingredients dans le bol et melanger")], recinclus: [], ingredients: [Ingredient(id_ingredient: 1, nom_ingredient: "carotte", unite: "kg", cout_unitaire: 2.5, stock: 12, id_cat_ingr: 1, id_allergene: 0, allergene : " ", nom_cat_ingr: " "),Ingredient(id_ingredient: 2, nom_ingredient: "poire", unite: "kg", cout_unitaire: 2.5, stock: 12, id_cat_ingr: 1, id_allergene: 0, allergene : " ", nom_cat_ingr: " "),])
-    ])
-    
     var body: some View {
-        NavigationView{
-            VStack{
-                Form{
-                    HStack{
-                        Text("nom allergene :")
-                        TextField("nom_allergene", text : $allergenecreate.allergene)
-                    }
-                }
-                List {
-                    ForEach(listeAllergene.allergeneList, id:\.id_allergene){item in
-                        NavigationLink(destination: AllergeneDetailView(avm: AllergeneVM(allergene: item), alvm: self.listeAllergene)){
-                            VStack(alignment: .leading){
-                                Text(item.nom_allergene)
-                            
-                            }
-                        }.navigationTitle("Allergene")
-                    }
-                }
-                Button("add allergene"){
-                    Task{
-                        await AllergeneDAO.createAllergene(nom_allergene: allergenecreate.allergene)
-                    }
-                }
-                List {
-                    ForEach(listeCI.cat_ingr_list, id:\.id_cat_ingr){item in
-                            VStack(alignment: .leading){
-                                Text(item.nom_cat_ingr)
-                            }
-                        }.navigationTitle("CI")
-                    }
-                }
-            .task {
-                if let list = await CatIngrDAO.getAllCatIngr(){
-                    self.listeCI.cat_ingr_list = list
-                    print("Content list : ",list)
-                }
-            /*
-                List {
-                    ForEach(listeIngredient.iList, id:\.id_ingredient){item in
-                        NavigationLink(destination: IngredientDetailView(ivm: IngredientVM(i: item), ilvm: self.listeIngredient)){
-                            VStack(alignment: .leading){
-                                Text(item.nom_ingredient)
-                            
-                            }
-                        }.navigationTitle("Ingredient")
-                    }
-                }
-                List {
-                    ForEach(listeEtape.eList, id:\.id_etape){item in
-                        NavigationLink(destination: EtapeDetailView(evm: EtapeVM(e: item), elvm: self.listeEtape)){
-                            VStack(alignment: .leading){
-                                Text(item.titre_etape)
-                            
-                            }
-                        }.navigationTitle("Etape")
-                    }
-                }
-                List {
-                    ForEach(listeRecette.rList, id:\.id_recette){item in
-                        NavigationLink(destination: RecetteDetailView(rvm: RecetteVM(r: item), rlvm: self.listeRecette)){
-                            VStack(alignment: .leading){
-                                Text(item.nom_recette)
-                            
-                            }
-                        }.navigationTitle("recette")
-                    }
-                }*/
+        TabView {
+            Accueil().tabItem{
+                Text("Accueil")
+            }.tag(0)
+            RecetteListView().tabItem{
+                Text("Recettes")
             }
-        .task {
-            self.listeAllergene = await AllergeneListVM(allergenelist: AllergeneDAO.allergeneDTOtoAllergene(data: AllergeneDAO.allergeneGetAll()))
-           /* let (data, response) = try await URLSession.shared.upload(for: request, from: encoded)
-            let httpresponse = response as! HTTPURLResponse
-            if httpresponse.statusCode == 201 {
-                print("creation 201")
-            }
-            else{
-                print("Error")
-            }*/
-                }
+            IngredientListView().tabItem{
+                Text("Ingrédients")
+            }.tag(2)
+            CatIngrListView().tabItem{
+                Text("Cat. Ingrédient")
+            }.tag(3)
+            EtapeListView().tabItem{
+                Text("Etapes")
+            }.tag(4)
+            AllergeneListView().tabItem{
+                Text("Allergènes")
+            }.tag(5)
         }
     }
 }
+
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
