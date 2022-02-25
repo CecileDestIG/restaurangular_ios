@@ -13,6 +13,7 @@ struct ContentView: View {
     
     @StateObject var listeCI : CatIngrList = CatIngrList()
     
+    @State var allergenecreate : AllergeneDTO = AllergeneDTO(allergene: " ")
     
     @StateObject var listeIngredient = IngredientListVM(ilist: [
         Ingredient(id_ingredient: 1, nom_ingredient: "carotte", unite: "kg", cout_unitaire: 2.5, stock: 12, id_cat_ingr: 1, id_allergene: 0, allergene : " ", nom_cat_ingr: " "),
@@ -35,6 +36,12 @@ struct ContentView: View {
     var body: some View {
         NavigationView{
             VStack{
+                Form{
+                    HStack{
+                        Text("nom allergene :")
+                        TextField("nom_allergene", text : $allergenecreate.allergene)
+                    }
+                }
                 List {
                     ForEach(listeAllergene.allergeneList, id:\.id_allergene){item in
                         NavigationLink(destination: AllergeneDetailView(avm: AllergeneVM(allergene: item), alvm: self.listeAllergene)){
@@ -44,7 +51,12 @@ struct ContentView: View {
                             }
                         }.navigationTitle("Allergene")
                     }
-                }/*
+                }
+                Button("add allergene"){
+                    Task{
+                        await AllergeneDAO.createAllergene(nom_allergene: allergenecreate.allergene)
+                    }
+                }
                 List {
                     ForEach(listeCI.cat_ingr_list, id:\.id_cat_ingr){item in
                             VStack(alignment: .leading){
@@ -58,7 +70,7 @@ struct ContentView: View {
                     self.listeCI.cat_ingr_list = list
                     print("Content list : ",list)
                 }
-            }*//*
+            /*
                 List {
                     ForEach(listeIngredient.iList, id:\.id_ingredient){item in
                         NavigationLink(destination: IngredientDetailView(ivm: IngredientVM(i: item), ilvm: self.listeIngredient)){
@@ -89,16 +101,20 @@ struct ContentView: View {
                         }.navigationTitle("recette")
                     }
                 }*/
-
-                Spacer()
-                
             }
         .task {
             self.listeAllergene = await AllergeneListVM(allergenelist: AllergeneDAO.allergeneDTOtoAllergene(data: AllergeneDAO.allergeneGetAll()))
+           /* let (data, response) = try await URLSession.shared.upload(for: request, from: encoded)
+            let httpresponse = response as! HTTPURLResponse
+            if httpresponse.statusCode == 201 {
+                print("creation 201")
+            }
+            else{
+                print("Error")
+            }*/
                 }
         }
     }
-
 }
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

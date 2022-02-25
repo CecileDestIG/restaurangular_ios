@@ -12,11 +12,16 @@ enum IntentStateAllergene : CustomStringConvertible, Equatable {
     
     case ready
     case nom_allergeneChanging(String)
+   /* case loading(String)
+    case loaded*/
     
     var description: String {
         switch self{
             case .ready : return "state : .ready"
             case .nom_allergeneChanging(let na) : return "state : .nom_allergene(\(na))"
+            /*case .loading(let na) : return "state : \(na)"
+            case .loaded : return "state : loaded"*/
+
         }
     }
 }
@@ -34,6 +39,10 @@ struct IntentAllergene {
     
     func intentToChange(nom_allergene:String){
         self.stateAllergene.send(.nom_allergeneChanging(nom_allergene))
+    }
+    
+    func intentToLoad(){
+        
     }
 }
 

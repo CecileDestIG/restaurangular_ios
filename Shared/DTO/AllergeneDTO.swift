@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct AllergeneDTO : Decodable, Hashable {
-    var id_allergene :Int
+struct AllergeneDTO : Codable, Hashable {
+    var id_allergene :Int?
     var allergene : String
 }
