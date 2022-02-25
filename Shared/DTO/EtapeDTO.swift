@@ -7,3 +7,8 @@ struct EtapeDTO : Codable, Hashable {
     var description_etape : String
 }
 
+struct EtapeInclusDTO : Codable, Hashable {
+    var id_etape : Int
+    var place_et : Int
+}
+

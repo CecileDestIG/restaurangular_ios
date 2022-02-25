@@ -10,5 +10,9 @@ struct IngredientDTO : Codable, Hashable {
     var nom_cat_ingr : String?
     var id_allergene : Int?
     var allergene : String?
+}
 
+struct IngredientInclusDTO : Codable, Hashable {
+    var id_ingredient : Int
+    var quantite_necessaire : Int
 }
