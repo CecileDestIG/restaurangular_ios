@@ -19,9 +19,9 @@ enum IntentStateRecette : CustomStringConvertible, Equatable {
     case nb_couvertChanging(Int)
     case id_categorieChanging(Int)
     case prix_venteChanging(Double)
-    case etapesChanging([Etape])
-    case recinclusChanging([Recette])
-    case ingredientsChanging([Ingredient])
+    case etapesChanging([EtapeInclus])
+    case recinclusChanging([RecetteInclus])
+    case ingredientsChanging([IngredientInclus])
 
     var description: String {
         switch self{
@@ -69,15 +69,15 @@ struct IntentRecette {
         self.stateRecette.send(.prix_venteChanging(prix_vente))
     }
     
-    func intentToChange(etapes:[Etape]){
+    func intentToChange(etapes:[EtapeInclus]){
         self.stateRecette.send(.etapesChanging(etapes))
     }
     
-    func intentToChange(recinclus:[Recette]){
+    func intentToChange(recinclus:[RecetteInclus]){
         self.stateRecette.send(.recinclusChanging(recinclus))
     }
     
-    func intentToChange(ingredients:[Ingredient]){
+    func intentToChange(ingredients:[IngredientInclus]){
         self.stateRecette.send(.ingredientsChanging(ingredients))
     }
 }

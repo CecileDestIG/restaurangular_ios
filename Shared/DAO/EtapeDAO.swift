@@ -17,6 +17,18 @@ class EtapeDAO {
         return nil
     }
     
+    // Conversion
+    
+    static func toEtapeInclus(data: [EtapeInclusDTO]) -> [EtapeInclus]?{
+          var etapeInclus_list = [EtapeInclus]()
+          for tdata in data{
+              let id : Int = tdata.id_etape
+              let etapeInclus = EtapeInclus(id, tdata.place_et)
+             etapeInclus_list.append(etapeInclus)
+          }
+    print("etapeInclus_list : ",etapeInclus_list)
+    return etapeInclus_list
+    }
     
     static func toEtape(data: [EtapeDTO]) -> [Etape]?{
           var etape_list = [Etape]()

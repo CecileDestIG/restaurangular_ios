@@ -22,7 +22,7 @@ struct RecetteListView: View {
                         }
                     }
                 }
-                }
+            }
             .navigationTitle("Recettes")
             .task{
                 // RECETTES

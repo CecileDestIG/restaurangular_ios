@@ -53,9 +53,9 @@ class RecetteVM : ObservableObject, RecetteObserver, Subscriber{
     @Published var nb_couvert : Int
     @Published var id_categorie : Int
     @Published var prix_vente : Double
-    @Published var etapes : [Etape]?
-    @Published var recinclus : [Recette]?
-    @Published var ingredients : [Ingredient]?
+    @Published var etapes : [EtapeInclus]?
+    @Published var recinclus : [RecetteInclus]?
+    @Published var ingredients : [IngredientInclus]?
     
     func change(id_createur: Int) {
         print("vm observer: id_createur changé => self.id_createur = '\(id_createur)'")
@@ -82,17 +82,17 @@ class RecetteVM : ObservableObject, RecetteObserver, Subscriber{
         self.prix_vente=prix_vente
     }
     
-    func change(etapes: [Etape]?) {
+    func change(etapes: [EtapeInclus]?) {
         print("vm observer: etapes changé => self.etapes")
         self.etapes=etapes
     }
     
-    func change(recinclus: [Recette]?) {
+    func change(recinclus: [RecetteInclus]?) {
         print("vm observer: recinclus changé => self.recinclus")
         self.recinclus=recinclus
     }
     
-    func change(ingredients: [Ingredient]?) {
+    func change(ingredients: [IngredientInclus]?) {
         print("vm observer: ingredients changé => self.ingredients")
         self.ingredients=ingredients
     }
