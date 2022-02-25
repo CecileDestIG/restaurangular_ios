@@ -16,10 +16,12 @@ struct IngredientListView: View {
             // Liste Ingredient
             List {
                 ForEach(ingredientList.ingredient_list, id:\.id_ingredient){item in
+                    NavigationLink(destination: IngredientDetailView(ivm: IngredientVM(i: item), ilvm: self.ingredientList)){
                         VStack(alignment: .leading){
                             Text(item.nom_ingredient)
                         }
                     }
+                }
                 }
             .navigationTitle("Ingrédients")
             .task{

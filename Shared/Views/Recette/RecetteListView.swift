@@ -16,10 +16,12 @@ struct RecetteListView: View {
             // Liste Recette
             List {
                 ForEach(recetteList.recette_list, id:\.id_recette){item in
+                    NavigationLink(destination: RecetteDetailView(rvm: RecetteVM(r: item), rlvm: self.recetteList)){
                         VStack(alignment: .leading){
                             Text(item.nom_recette)
                         }
                     }
+                }
                 }
             .navigationTitle("Recettes")
             .task{
