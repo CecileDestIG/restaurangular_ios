@@ -16,12 +16,14 @@ struct CatIngrListView: View {
             // Liste categorie ingredient
             List {
                 ForEach(listeCatIngr.cat_ingr_list, id:\.id_cat_ingr){item in
+                    NavigationLink(destination: CatIngrDetailView(civm: CatIngrVM(ci: item), cilvm: self.listeCatIngr)){
                         VStack(alignment: .leading){
                             Text(item.nom_cat_ingr)
                         }
-                    }.navigationTitle("Cat. d'ingrédient")
+                    }
                 }
-            .navigationTitle("Catégories d'ingrédient")
+                }
+            .navigationTitle("Cat. d'ingrédient")
             .task{
                 // CATEGORIES INGREDIENT
                 if let list = await CatIngrDAO.getAllCatIngr(){

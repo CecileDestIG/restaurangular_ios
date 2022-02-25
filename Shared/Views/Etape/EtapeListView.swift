@@ -16,10 +16,12 @@ struct EtapeListView: View {
             // Liste etape
             List {
                 ForEach(etapeList.etape_list, id:\.id_etape){item in
+                    NavigationLink(destination: EtapeDetailView(evm: EtapeVM(e: item), elvm: self.etapeList)){
                         VStack(alignment: .leading){
                             Text(item.titre_etape)
                         }
                     }
+                }
                 }
             .navigationTitle("Etapes")
             .task {
