@@ -10,24 +10,34 @@ import SwiftUI
 struct IngredientListView: View {
     
     @StateObject var ingredientList : IngredientListVM = IngredientListVM()
+    @StateObject var listeCatIngr : CatIngrListVM = CatIngrListVM()
     
     var body: some View {
         NavigationView{
             // Liste Ingredient
             List {
-                ForEach(ingredientList.ingredient_list, id:\.id_ingredient){item in
-                    NavigationLink(destination: IngredientDetailView(ivm: IngredientVM(i: item), ilvm: self.ingredientList)){
-                        VStack(alignment: .leading){
-                            Text(item.nom_ingredient)
+                ForEach(listeCatIngr.cat_ingr_list.sorted{ $0.nom_cat_ingr < $1.nom_cat_ingr }, id:\.id_cat_ingr){section in
+                    Section(header: Text("\(section.nom_cat_ingr)")){
+                        ForEach(ingredientList.ingredient_list.sorted{$0.nom_ingredient < $1.nom_ingredient},id:\.id_ingredient){ item in
+                            if(item.nom_cat_ingr == section.nom_cat_ingr){
+                                NavigationLink(destination: IngredientDetailView(ivm: IngredientVM(i: item), ilvm: self.ingredientList)){
+                                    Text("\(item.nom_ingredient)")
+                                }
+                            }
                         }
                     }
                 }
-                }
+            }
             .navigationTitle("Ingrédients")
             .task{
                 // INGREDIENTS
                 if let list = await IngredientDAO.getAllIngredient(){
                     self.ingredientList.ingredient_list = list
+                    print("Content list : ",list)
+                }
+                // CATEGORIES INGREDIENT
+                if let list = await CatIngrDAO.getAllCatIngr(){
+                    self.listeCatIngr.cat_ingr_list = list
                     print("Content list : ",list)
                 }
             }
