@@ -36,7 +36,7 @@ struct AllergeneDAO {
         
             for adata in allergenedto {
                 if (adata.id_allergene != nil){
-                    let allergene = Allergene(id_allergene: adata.id_allergene!, nom_allergene: adata.allergene)
+                    let allergene = Allergene(adata.id_allergene!, adata.allergene)
                     allergeneListe.append(allergene)
                 }
             }

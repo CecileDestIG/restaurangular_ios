@@ -5,6 +5,8 @@
 //  Created by Ingrid on 19/02/2022.
 //
 
+//TODO verifier que le nom est pas nul quand on créer
+
 import Foundation
 import Combine
 
@@ -37,7 +39,7 @@ class AllergeneListVM : ObservableObject, Subscriber{
         switch input {
         case .ready:
             break
-        case .nom_allergeneChanging(_) :
+        case .nom_allergeneChanging(_), .allergeneCreation(_) :
             self.objectWillChange.send()
         }
         return .none

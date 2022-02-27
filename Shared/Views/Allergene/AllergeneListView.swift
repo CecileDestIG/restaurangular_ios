@@ -11,9 +11,12 @@ struct AllergeneListView: View {
     
     @StateObject var listeAllergene : AllergeneListVM = AllergeneListVM()
     
+    @State var allergenecreate : AllergeneDTO = AllergeneDTO(allergene: "")
+    
     var body: some View {
         NavigationView{
             // Liste allergenes
+            VStack{
             List {
                 ForEach(listeAllergene.allergeneList, id:\.id_allergene){item in
                     NavigationLink(destination: AllergeneDetailView(avm: AllergeneVM(allergene: item), alvm: self.listeAllergene)){
@@ -24,12 +27,14 @@ struct AllergeneListView: View {
                     }
                 }
             }
-            .navigationTitle("Allergènes")
+                NavigationLink(destination: AllergeneCreationView(alvm: self.listeAllergene)){
+                    Text("nouvel allergene")
+                }
+        }.navigationTitle("Allergènes")
             .task{
                 //ALLERGENE
                 if let list = await AllergeneDAO.allergeneGetAll(){
                     self.listeAllergene.allergeneList = list
-                    print("Content list : ",list)
                 }
             }
         }

@@ -2,7 +2,7 @@
 //  AllergeneDAO.swift
 //  Restaurangular (iOS)
 //
-//  Created by Ingrid on 22/02/2022.
+//  Created by Cecile on 22/02/2022.
 //
 
 import Foundation

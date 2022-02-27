@@ -28,7 +28,9 @@ struct CatIngrDetailView : View {
                 Text("Nom categorie ingredient : ");
                 TextField("modele", text: $catingrVM.nom_cat_ingr)
                     .onSubmit {
-                        intentCI.intentToChange(nom_cat_ingr: catingrVM.nom_cat_ingr)
+                        Task{
+                            await intentCI.intentToChange(catingr: catingrVM)
+                        }
                     }
             }
             Spacer()

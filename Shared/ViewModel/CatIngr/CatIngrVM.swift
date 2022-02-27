@@ -31,6 +31,10 @@ class CatIngrVM : ObservableObject, CatIngrObserver, Subscriber{
     private var catingr : CatIngr
     @Published var nom_cat_ingr : String
     
+    func getId()->Int{
+        return self.catingr.id_cat_ingr
+    }
+    
     func change(nom_cat_ingr: String) {
         print("vm observer: nom_cat_ingr changé => self.nom_cat_ingr = '\(nom_cat_ingr)'")
         self.nom_cat_ingr=nom_cat_ingr
@@ -54,6 +58,8 @@ class CatIngrVM : ObservableObject, CatIngrObserver, Subscriber{
             print("vm : change model nom cat ingr to '\(nciClean)'")
             self.catingr.nom_cat_ingr=nciClean
             print("vm : change model nom cat ingr to '\(self.catingr.nom_cat_ingr)'")
+        case .catingrCreation(let nci):
+            print("creation catingr \(nci)")
         }
         return .none
     }

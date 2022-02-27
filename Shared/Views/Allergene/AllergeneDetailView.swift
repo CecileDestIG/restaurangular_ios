@@ -28,7 +28,8 @@ struct AllergeneDetailView : View {
                 Text("Nom allergene : ");
                 TextField("modele", text: $allergeneVM.nom_allergene)
                     .onSubmit {
-                        intentAl.intentToChange(nom_allergene: allergeneVM.nom_allergene)
+                        Task{
+                            await intentAl.intentToChange(allergene : allergeneVM)}
                     }
             }
             Spacer()
