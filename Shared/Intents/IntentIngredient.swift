@@ -17,6 +17,7 @@ enum IntentStateIngredient : CustomStringConvertible, Equatable {
     case stockChanging(Double)
     case id_cat_ingrChanging(Int)
     case id_allergeneChanging(Int)
+    case ingredientCreate(String)
     
     var description: String {
         switch self{
@@ -27,6 +28,7 @@ enum IntentStateIngredient : CustomStringConvertible, Equatable {
             case .stockChanging(let i) : return "state : .stock(\(i))"
             case .id_cat_ingrChanging(let i) : return "state : .id_cat_ingr(\(i))"
             case .id_allergeneChanging(let i) : return "state : .id_allergene(\(i))"
+            case .ingredientCreate(let i): return "state : .nom_ingredient(\(i))"
         }
     }
 }
@@ -64,6 +66,10 @@ struct IntentIngredient {
     
     func intentToChange(id_allergene:Int){
         self.stateIngredient.send(.id_allergeneChanging(id_allergene))
+    }
+    
+    func intentToCreate(ingredient : IngredientVM){
+        self.stateIngredient.send(.ingredientCreate(ingredient.nom_ingredient))
     }
 }
 

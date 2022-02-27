@@ -34,6 +34,7 @@
 		6FA6B22B27C7848E00344B21 /* RecetteListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA6B22A27C7848E00344B21 /* RecetteListView.swift */; };
 		BF6CA19B27C92B4E0026643C /* AllergeneCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6CA19A27C92B4E0026643C /* AllergeneCreationView.swift */; };
 		BF70F7B827CC32E900471B6C /* EtapeCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF70F7B727CC32E900471B6C /* EtapeCreateView.swift */; };
+		BF70F7BA27CC3ADE00471B6C /* IngredientCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF70F7B927CC3ADE00471B6C /* IngredientCreateView.swift */; };
 		BF893D8D27CABAFF00BA0F49 /* CatIngrCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF893D8C27CABAFF00BA0F49 /* CatIngrCreationView.swift */; };
 		BF8B690F27C4D63F0015B632 /* Recette.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8B690E27C4D63F0015B632 /* Recette.swift */; };
 		BF8B691527C4D69B0015B632 /* RecetteVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8B691427C4D69B0015B632 /* RecetteVM.swift */; };
@@ -112,6 +113,7 @@
 		6FA6B22A27C7848E00344B21 /* RecetteListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecetteListView.swift; sourceTree = "<group>"; };
 		BF6CA19A27C92B4E0026643C /* AllergeneCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllergeneCreationView.swift; sourceTree = "<group>"; };
 		BF70F7B727CC32E900471B6C /* EtapeCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EtapeCreateView.swift; sourceTree = "<group>"; };
+		BF70F7B927CC3ADE00471B6C /* IngredientCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientCreateView.swift; sourceTree = "<group>"; };
 		BF893D8C27CABAFF00BA0F49 /* CatIngrCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatIngrCreationView.swift; sourceTree = "<group>"; };
 		BF8B690E27C4D63F0015B632 /* Recette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recette.swift; sourceTree = "<group>"; };
 		BF8B691427C4D69B0015B632 /* RecetteVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecetteVM.swift; sourceTree = "<group>"; };
@@ -419,6 +421,7 @@
 			children = (
 				BFB78F1727C1A4BC00B33479 /* IngredientDetailView.swift */,
 				6FA6B22427C69F4A00344B21 /* IngredientListView.swift */,
+				BF70F7B927CC3ADE00471B6C /* IngredientCreateView.swift */,
 			);
 			path = Ingredient;
 			sourceTree = "<group>";
@@ -617,6 +620,7 @@
 				BF8B691527C4D69B0015B632 /* RecetteVM.swift in Sources */,
 				BFBE403527C2EBCB007AD5CF /* EtapeVM.swift in Sources */,
 				6FA6B20027C5274500344B21 /* JSONHelper.swift in Sources */,
+				BF70F7BA27CC3ADE00471B6C /* IngredientCreateView.swift in Sources */,
 				BF8B691C27C4D6E80015B632 /* RecetteDetailView.swift in Sources */,
 				BFBC7FA027C63F95005FD7BC /* AllergeneDTO.swift in Sources */,
 				BFBE403227C2EBB2007AD5CF /* Etape.swift in Sources */,
