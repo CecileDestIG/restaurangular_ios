@@ -12,19 +12,32 @@ struct IngredientListView: View {
     @StateObject var ingredientList : IngredientListVM = IngredientListVM()
     @StateObject var listeCatIngr : CatIngrListVM = CatIngrListVM()
     
+    @State var searchText = ""
+    
+    var searchResults : [Ingredient] {
+        if searchText.isEmpty {
+            return ingredientList.ingredient_list
+        }
+        else{
+            return ingredientList.ingredient_list.filter { $0.nom_ingredient.uppercased().contains(searchText.uppercased())}
+        }
+    }
+    
     var body: some View {
+        
         NavigationView{
             // Liste Ingredient
             List {
                 ForEach(listeCatIngr.cat_ingr_list.sorted{ $0.nom_cat_ingr < $1.nom_cat_ingr }, id:\.id_cat_ingr){section in
                     Section(header: Text("\(section.nom_cat_ingr)")){
-                        ForEach(ingredientList.ingredient_list.sorted{$0.nom_ingredient < $1.nom_ingredient},id:\.id_ingredient){ item in
+                        ForEach(searchResults.sorted{$0.nom_ingredient < $1.nom_ingredient},id:\.id_ingredient){ item in
                             if(item.nom_cat_ingr == section.nom_cat_ingr){
                                 NavigationLink(destination: IngredientDetailView(ivm: IngredientVM(i: item), ilvm: self.ingredientList)){
                                     Text("\(item.nom_ingredient)")
                                 }
                             }
                         }
+                        .searchable(text: $searchText)
                     }
                 }
             }

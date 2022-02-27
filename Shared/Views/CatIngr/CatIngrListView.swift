@@ -15,7 +15,7 @@ struct CatIngrListView: View {
         NavigationView{
             // Liste categorie ingredient
             List {
-                ForEach(listeCatIngr.cat_ingr_list, id:\.id_cat_ingr){item in
+                ForEach(listeCatIngr.cat_ingr_list.sorted{$0.nom_cat_ingr < $1.nom_cat_ingr}, id:\.id_cat_ingr){item in
                     NavigationLink(destination: CatIngrDetailView(civm: CatIngrVM(ci: item), cilvm: self.listeCatIngr)){
                         VStack(alignment: .leading){
                             Text(item.nom_cat_ingr)
