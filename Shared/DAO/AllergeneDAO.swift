@@ -35,10 +35,69 @@ struct AllergeneDAO {
             allergenedto = data!
         
             for adata in allergenedto {
-                let allergene = Allergene(adata.id_allergene, adata.allergene)
-                allergeneListe.append(allergene)
+                if (adata.id_allergene != nil){
+                    let allergene = Allergene(adata.id_allergene!, adata.allergene)
+                    allergeneListe.append(allergene)
+                }
             }
         }
         return allergeneListe
     }
+    
+    static func createAllergene(nom_allergene : String) async{
+        guard let url = URL(string: "https://restaurangularappli.herokuapp.com/allergene") else {
+            print("pb url")
+            return
+        }
+        do{
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            guard let encoded = await JSONHelper.encode(data: AllergeneDTO(allergene: nom_allergene)) else {
+                print("pb encodage")
+                return
+            }
+            let (data, response) = try await URLSession.shared.upload(for:request,from:encoded)
+            let sdata = String(data: data, encoding: .utf8)
+            let httpresponse = response as! HTTPURLResponse
+            if httpresponse.statusCode==201 {
+                print("requete 201")
+            }
+            else{
+                print("error status")
+            }
+        }
+        catch{
+            print("bad request")
+        }
+    }
+
+    static func modifierAllergene( id_allergene:Int, nom_allergene : String) async{
+        guard let url = URL(string: "https://restaurangularappli.herokuapp.com/allergene/\(id_allergene)") else {
+            print("pb url")
+            return
+        }
+        do{
+            var request = URLRequest(url: url)
+            request.httpMethod = "PUT"
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            guard let encoded = await JSONHelper.encode(data: AllergeneDTO(allergene: nom_allergene)) else {
+                print("pb encodage")
+                return
+            }
+            let (data, response) = try await URLSession.shared.upload(for:request,from:encoded)
+            let sdata = String(data: data, encoding: .utf8)
+            let httpresponse = response as! HTTPURLResponse
+            if httpresponse.statusCode==201 {
+                print("requete 201")
+            }
+            else{
+                print("error status")
+            }
+        }
+        catch{
+            print("bad request")
+        }
+    }
 }
+

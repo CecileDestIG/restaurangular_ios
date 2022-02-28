@@ -48,6 +48,10 @@ class IngredientVM : ObservableObject, IngredientObserver, Subscriber{
     @Published var nom_cat_ingr : String
     @Published var allergene : String
     
+    func getId()->Int{
+        return ingredient.id_ingredient
+    }
+    
     func change(nom_ingredient: String) {
         print("vm observer: nom_ingredient changé => self.nom_ingredient = '\(nom_ingredient)'")
         self.nom_ingredient=nom_ingredient
@@ -113,6 +117,8 @@ class IngredientVM : ObservableObject, IngredientObserver, Subscriber{
         case .id_allergeneChanging(let id_allergene):
             self.ingredient.id_allergene=id_allergene
             print("vm : change model id_allergene to '\(self.ingredient.id_allergene)'")
+        case .ingredientCreate(_):
+            print("ingredient create")
         }
         return .none
     }

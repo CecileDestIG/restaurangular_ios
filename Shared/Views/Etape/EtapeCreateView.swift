@@ -1,28 +1,26 @@
 //
-//  EtapeDetailView.swift
+//  EtapeCreateView.swift
 //  Restaurangular (iOS)
 //
-//  Created by Cecile on 20/02/2022.
+//  Created by Cecile on 27/02/2022.
 //
 
 import Foundation
 import SwiftUI
 
-struct EtapeDetailView : View {
-    @ObservedObject var etapeVM : EtapeVM
+struct EtapeCreateView : View {
+    @ObservedObject var etapeVM : EtapeVM = EtapeVM(e:Etape())
     @State var errorMessage = "Error !"
     @State var showingAlert : Bool = false
     var intentEtape : IntentEtape
     
-    init(evm : EtapeVM, elvm:EtapeListVM ){
-        self.etapeVM=evm
+    init(elvm:EtapeListVM ){
         self.intentEtape=IntentEtape()
-        self.intentEtape.addObserver(evm: evm)
         self.intentEtape.addObserver(elvm: elvm)
     }
     var body : some View {
         VStack{
-            Text("\(etapeVM.titre_etape)").font(.largeTitle).bold()
+            Text("Création Etape").font(.largeTitle).bold()
             Form{
             HStack{
                 Text("Titre : ");
@@ -40,11 +38,11 @@ struct EtapeDetailView : View {
             }
                 HStack{
                     Spacer()
-                Button("modifier"){
-                    Task{
-                        await intentEtape.intentToChange(etape: etapeVM)
+                    Button("creer"){
+                        Task{
+                            await intentEtape.intentToCreate(etape: etapeVM)
+                        }
                     }
-                }
                     Spacer()
                 }
             }

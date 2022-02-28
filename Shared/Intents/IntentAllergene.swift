@@ -12,11 +12,15 @@ enum IntentStateAllergene : CustomStringConvertible, Equatable {
     
     case ready
     case nom_allergeneChanging(String)
+    case allergeneCreation(String)
+   /* case loading(String)
+    case loaded*/
     
     var description: String {
         switch self{
             case .ready : return "state : .ready"
             case .nom_allergeneChanging(let na) : return "state : .nom_allergene(\(na))"
+            case .allergeneCreation(let na) : return "state : .nom_allergene(\(na))"
         }
     }
 }
@@ -32,8 +36,15 @@ struct IntentAllergene {
         self.stateAllergene.subscribe(alvm)
     }
     
-    func intentToChange(nom_allergene:String){
-        self.stateAllergene.send(.nom_allergeneChanging(nom_allergene))
+    func intentToChange(allergene: AllergeneVM) async{
+        await AllergeneDAO.modifierAllergene(id_allergene: allergene.getId(), nom_allergene: allergene.nom_allergene)
+        self.stateAllergene.send(.nom_allergeneChanging(allergene.nom_allergene))
     }
+    
+    @MainActor
+    func intentToCreate(nom_allergene : String) async {
+            await AllergeneDAO.createAllergene(nom_allergene: nom_allergene)
+            self.stateAllergene.send(.allergeneCreation(nom_allergene))
+        }
 }
 

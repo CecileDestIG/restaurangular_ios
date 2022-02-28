@@ -12,11 +12,13 @@ enum IntentStateCatIngr : CustomStringConvertible, Equatable {
     
     case ready
     case nom_cat_ingrChanging(String)
+    case catingrCreation(String)
     
     var description: String {
         switch self{
             case .ready : return "state : .ready"
             case .nom_cat_ingrChanging(let nci) : return "state : .nom_cat_ingr(\(nci))"
+            case .catingrCreation(let nci) : return "state : .nom_cat_ingr(\(nci))"
         }
     }
 }
@@ -32,8 +34,15 @@ struct IntentCatIngr {
         self.stateCatIngr.subscribe(cilvm)
     }
     
-    func intentToChange(nom_cat_ingr:String){
-        self.stateCatIngr.send(.nom_cat_ingrChanging(nom_cat_ingr))
+    func intentToChange(catingr:CatIngrVM) async{
+        self.stateCatIngr.send(.nom_cat_ingrChanging(catingr.nom_cat_ingr))
+        await CatIngrDAO.modifierCatingr(id_cat_ingr: catingr.getId(), nom_cat_ingr: catingr.nom_cat_ingr)
+    }
+    
+    @MainActor
+    func intentToCreate(nom_cat_ingr : String) async {
+        await CatIngrDAO.createCatIngr(nom_cat_ingr: nom_cat_ingr)
+        self.stateCatIngr.send(.catingrCreation(nom_cat_ingr))
     }
 }
 

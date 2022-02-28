@@ -42,4 +42,61 @@ class EtapeDAO {
           }
     return etape_list
     }
+    
+    
+    static func createEtape(etape : EtapeVM) async{
+        guard let url = URL(string: "https://restaurangularappli.herokuapp.com/etape") else {
+            print("pb url")
+            return
+        }
+        do{
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            guard let encoded = await JSONHelper.encode(data: EtapeDTO(titre_etape: etape.titre_etape, temps_etape: etape.temps_etape, description_etape: etape.description_etape)) else {
+                print("pb encodage")
+                return
+            }
+            let (data, response) = try await URLSession.shared.upload(for:request,from:encoded)
+            _ = String(data: data, encoding: .utf8)
+            let httpresponse = response as! HTTPURLResponse
+            if httpresponse.statusCode==201 {
+                print("requete 201")
+            }
+            else{
+                print("error status")
+            }
+        }
+        catch{
+            print("bad request")
+        }
+    }
+    
+    static func modifierEtape(etape:EtapeVM) async{
+        guard let url = URL(string: "https://restaurangularappli.herokuapp.com/etape/\(etape.getId())") else {
+            print("pb url")
+            return
+        }
+        do{
+            var request = URLRequest(url: url)
+            request.httpMethod = "PUT"
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            guard let encoded = await JSONHelper.encode(data: EtapeDTO(titre_etape: etape.titre_etape, temps_etape: etape.temps_etape, description_etape: etape.description_etape)) else {
+                print("pb encodage")
+                return
+            }
+            let (data, response) = try await URLSession.shared.upload(for:request,from:encoded)
+            let sdata = String(data: data, encoding: .utf8)
+            let httpresponse = response as! HTTPURLResponse
+            if httpresponse.statusCode==201 {
+                print("requete 201")
+            }
+            else{
+                print("error status")
+            }
+        }
+        catch{
+            print("bad request")
+        }
+    }
 }

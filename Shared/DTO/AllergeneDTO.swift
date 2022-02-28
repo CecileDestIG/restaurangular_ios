@@ -2,12 +2,12 @@
 //  AllergeneDAO.swift
 //  Restaurangular (iOS)
 //
-//  Created by Ingrid on 22/02/2022.
+//  Created by Cecile on 22/02/2022.
 //
 
 import Foundation
 
-struct AllergeneDTO : Decodable, Hashable {
-    var id_allergene :Int
+struct AllergeneDTO : Codable, Hashable {
+    var id_allergene :Int?
     var allergene : String
 }

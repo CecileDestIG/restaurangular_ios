@@ -14,6 +14,7 @@ struct IngredientListView: View {
     var body: some View {
         NavigationView{
             // Liste Ingredient
+            VStack{
             List {
                 ForEach(ingredientList.ingredient_list, id:\.id_ingredient){item in
                     NavigationLink(destination: IngredientDetailView(ivm: IngredientVM(i: item), ilvm: self.ingredientList)){
@@ -23,6 +24,10 @@ struct IngredientListView: View {
                     }
                 }
                 }
+                NavigationLink(destination: IngredientCreationView(ilvm: ingredientList)){
+                    Text("Ajouter Ingredient").padding()
+                }
+            }
             .navigationTitle("Ingrédients")
             .task{
                 // INGREDIENTS
