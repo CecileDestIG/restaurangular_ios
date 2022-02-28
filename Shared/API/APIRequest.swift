@@ -21,7 +21,7 @@ class APIRequest {
         do{
             let (data, _) = try await URLSession.shared.data(from: url)
             guard let gorest : [T] = await JSONHelper.decode(data: data) else {
-                print("API Request error : GoRest pb")
+                print("API Request getAll error : GoRest pb")
                 return nil
             }
            return gorest
@@ -40,7 +40,7 @@ class APIRequest {
         do{
             let (data, _) = try await URLSession.shared.data(from: url)
             guard let gorest : T = await JSONHelper.decode(data: data) else {
-                print("GoRest pb")
+                print("API Request get error : GoRest pb")
                 return nil
             }
             return gorest

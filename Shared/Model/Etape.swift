@@ -43,3 +43,13 @@ class Etape {
         self.description_etape=description_etape
     }
 }
+
+class EtapeInclus {
+    var id_etape : Int
+    var place_et : Int
+    
+    init(_ id_etape : Int = 0,_ place_et : Int = 0){
+        self.id_etape = id_etape
+        self.place_et = place_et
+    }
+}

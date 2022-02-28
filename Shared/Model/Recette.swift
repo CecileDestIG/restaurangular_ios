@@ -51,9 +51,9 @@ protocol RecetteObserver{
     func change(nb_couvert:Int)
     func change(id_categorie:Int)
     func change(prix_vente:Double)
-    func change(etapes:[Etape]?)
-    func change(recinclus:[Recette]?)
-    func change(ingredients:[Ingredient]?)
+    func change(etapes:[EtapeInclus]?)
+    func change(recinclus:[RecetteInclus]?)
+    func change(ingredients:[IngredientInclus]?)
 
 }
 
@@ -92,25 +92,25 @@ class Recette {
         }
     }
     
-    var etapes : [Etape]? {
+    var etapes : [EtapeInclus]? {
         didSet{
             self.recetteObserver?.change(etapes : self.etapes)
         }
     }
 
-    var recinclus : [Recette]? {
+    var recinclus : [RecetteInclus]? {
         didSet{
             self.recetteObserver?.change(recinclus : self.recinclus)
         }
     }
     
-    var ingredients : [Ingredient]? {
+    var ingredients : [IngredientInclus]? {
         didSet{
             self.recetteObserver?.change(ingredients : self.ingredients)
         }
     }
     
-    init(_ id_recette:Int = 0,_ id_createur : Int = 0,_ nom_recette : String = "",_ nb_couvert : Int = 0,_ id_categorie : Int = 0,_ prix_vente : Double = 0,_ etapes : [Etape]? = nil,_ recinclus : [Recette]? = nil,_ ingredients : [Ingredient]? = nil ){
+    init(_ id_recette:Int = 0,_ id_createur : Int = 0,_ nom_recette : String = "",_ nb_couvert : Int = 0,_ id_categorie : Int = 0,_ prix_vente : Double = 0,_ etapes : [EtapeInclus]? = nil,_ recinclus : [RecetteInclus]? = nil,_ ingredients : [IngredientInclus]? = nil ){
         self.id_recette=id_recette
         self.id_createur=id_createur
         self.nom_recette=nom_recette
@@ -120,5 +120,15 @@ class Recette {
         self.etapes=etapes
         self.recinclus=recinclus
         self.ingredients=ingredients
+    }
+}
+
+class RecetteInclus {
+    var id_recincl : Int
+    var place_rec : Int
+    
+    init(_ id_recincl : Int = 0,_ place_rec : Int = 0){
+        self.id_recincl = id_recincl
+        self.place_rec = place_rec
     }
 }

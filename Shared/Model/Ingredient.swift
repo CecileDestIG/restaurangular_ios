@@ -73,3 +73,13 @@ class Ingredient {
         self.nom_cat_ingr=nom_cat_ingr
     }
 }
+
+class IngredientInclus {
+    var id_ingredient : Int
+    var quantite_necessaire : Int
+    
+    init(_ id_ingredient : Int = 0,_ quantite_necessaire : Int = 0){
+        self.id_ingredient = id_ingredient
+        self.quantite_necessaire = quantite_necessaire
+    }
+}
