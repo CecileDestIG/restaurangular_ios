@@ -24,15 +24,17 @@ struct CatIngrDetailView : View {
     
     var body : some View {
         VStack{
+            Text("\(catingrVM.nom_cat_ingr)").font(.largeTitle).bold()
+            Form{
             HStack{
-                Text("Nom categorie ingredient : ");
+                Text("Categorie : ");
                 TextField("modele", text: $catingrVM.nom_cat_ingr)
                     .onSubmit {
                         Task{
                             await intentCI.intentToChange(catingr: catingrVM)
                         }
                     }
-            }
+                }}
             Spacer()
         }.padding()
     }

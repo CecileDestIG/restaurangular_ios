@@ -17,7 +17,7 @@ class IngredientDAO {
                 return nil
              }
              let id : Int = tdata.id_ingredient!
-              let ingredient = Ingredient(id, tdata.nom_ingredient, tdata.unite, tdata.cout_unitaire, tdata.stock, tdata.id_cat_ingr, tdata.id_allergene ?? -1 , tdata.allergene ?? "Aucun", tdata.nom_ingredient)
+             let ingredient = Ingredient(id, tdata.nom_ingredient, tdata.unite, tdata.cout_unitaire, tdata.stock, tdata.id_cat_ingr, tdata.id_allergene ?? -1 , tdata.allergene ?? "Aucun", tdata.nom_cat_ingr ?? "Aucun")
              ingredient_list.append(ingredient)
           }
     print("ingredient_list : ",ingredient_list)

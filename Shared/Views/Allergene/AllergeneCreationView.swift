@@ -22,16 +22,22 @@ struct AllergeneCreationView : View {
     
     var body : some View {
         VStack{
+            Text("Création Allergène").font(.largeTitle).bold()
             Form{
                 HStack{
                     TextField("nom allergene : ", text : $allergenecreate.allergene)
                 }
-                Button("nouvel allergene"){
-                    Task{
-                        await AllergeneDAO.createAllergene(nom_allergene: allergenecreate.allergene)
+                HStack{
+                    Spacer()
+                    Button("nouvel allergene"){
+                        Task{
+                            await AllergeneDAO.createAllergene(nom_allergene: allergenecreate.allergene)
+                        }
                     }
+                    Spacer()
+
                 }
             }
-        }.padding()
+        }
     }
 }

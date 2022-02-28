@@ -25,7 +25,7 @@ struct EtapeListView: View {
                 }
             }
             NavigationLink(destination: EtapeCreateView(elvm: self.etapeList)){
-                Text("creer une etape")
+                Text("Ajouter Etape").padding()
             }
             }
             .navigationTitle("Etapes")
@@ -33,7 +33,6 @@ struct EtapeListView: View {
                 // ETAPES
                 if let list = await EtapeDAO.getAllEtape(){
                     self.etapeList.etape_list = list
-                    print("Etape list : ",list)
                 }
             }
         }

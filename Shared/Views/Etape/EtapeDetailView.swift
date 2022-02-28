@@ -2,7 +2,7 @@
 //  EtapeDetailView.swift
 //  Restaurangular (iOS)
 //
-//  Created by Ingrid on 20/02/2022.
+//  Created by Cecile on 20/02/2022.
 //
 
 import Foundation
@@ -22,25 +22,30 @@ struct EtapeDetailView : View {
     }
     var body : some View {
         VStack{
+            Text("\(etapeVM.titre_etape)").font(.largeTitle).bold()
             Form{
             HStack{
-                Text("Nom titre etape : ");
-                TextField("modele", text: $etapeVM.titre_etape)
+                Text("Titre : ");
+                TextField("titre", text: $etapeVM.titre_etape)
                     
             }
             HStack{
-                Text("temps etape : ");
-                TextField("modele", value: $etapeVM.temps_etape, formatter: NumberFormatter())
+                Text("Temps : ");
+                TextField("temps", value: $etapeVM.temps_etape, formatter: NumberFormatter())
                     
             }
             HStack{
-                Text("Description etape : ");
-                TextField("modele", text: $etapeVM.description_etape)
+                Text("Description : ");
+                TextEditor(text:  $etapeVM.description_etape)
             }
+                HStack{
+                    Spacer()
                 Button("modifier"){
                     Task{
                         await intentEtape.intentToChange(etape: etapeVM)
                     }
+                }
+                    Spacer()
                 }
             }
             Spacer()

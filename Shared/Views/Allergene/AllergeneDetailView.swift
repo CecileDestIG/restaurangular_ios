@@ -24,6 +24,8 @@ struct AllergeneDetailView : View {
     
     var body : some View {
         VStack{
+            Text("\(allergeneVM.nom_allergene)").font(.largeTitle).bold()
+            Form{
             HStack{
                 Text("Nom allergene : ");
                 TextField("modele", text: $allergeneVM.nom_allergene)
@@ -32,7 +34,8 @@ struct AllergeneDetailView : View {
                             await intentAl.intentToChange(allergene : allergeneVM)}
                     }
             }
+            }
             Spacer()
-        }.padding()
+        }
     }
 }

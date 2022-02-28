@@ -25,7 +25,7 @@ struct IngredientListView: View {
                 }
                 }
                 NavigationLink(destination: IngredientCreationView(ilvm: ingredientList)){
-                    Text("nouvel ingr")
+                    Text("Ajouter Ingredient").padding()
                 }
             }
             .navigationTitle("Ingrédients")

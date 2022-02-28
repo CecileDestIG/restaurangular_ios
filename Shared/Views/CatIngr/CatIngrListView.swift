@@ -25,7 +25,7 @@ struct CatIngrListView: View {
                 }
             }
             NavigationLink(destination: CatIngrCreationView(cilvm: listeCatIngr)){
-                Text("nouvelle cat ingr")
+                Text("Ajouter Catégorie").padding()
             }
             }
             .navigationTitle("Cat. d'ingrédient")

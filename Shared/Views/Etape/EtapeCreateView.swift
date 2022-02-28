@@ -20,25 +20,30 @@ struct EtapeCreateView : View {
     }
     var body : some View {
         VStack{
+            Text("Création Etape").font(.largeTitle).bold()
             Form{
             HStack{
-                Text("Nom titre etape : ");
-                TextField("modele", text: $etapeVM.titre_etape)
+                Text("Titre : ");
+                TextField("titre", text: $etapeVM.titre_etape)
                     
             }
             HStack{
-                Text("temps etape : ");
-                TextField("modele", value: $etapeVM.temps_etape, formatter: NumberFormatter())
+                Text("Temps : ");
+                TextField("temps", value: $etapeVM.temps_etape, formatter: NumberFormatter())
                     
             }
             HStack{
-                Text("Description etape : ");
-                TextField("modele", text: $etapeVM.description_etape)
+                Text("Description : ");
+                TextEditor(text:  $etapeVM.description_etape)
             }
-                Button("creer"){
-                    Task{
-                        await intentEtape.intentToCreate(etape: etapeVM)
+                HStack{
+                    Spacer()
+                    Button("creer"){
+                        Task{
+                            await intentEtape.intentToCreate(etape: etapeVM)
+                        }
                     }
+                    Spacer()
                 }
             }
             Spacer()

@@ -28,7 +28,7 @@ struct AllergeneListView: View {
                 }
             }
                 NavigationLink(destination: AllergeneCreationView(alvm: self.listeAllergene)){
-                    Text("nouvel allergene")
+                    Text("Ajouter Allergene").padding()
                 }
         }.navigationTitle("Allergènes")
             .task{

@@ -22,14 +22,19 @@ struct CatIngrCreationView : View {
     
     var body : some View {
         VStack{
+            Text("Création Catégorie").font(.largeTitle).bold()
             Form{
                 HStack{
-                    TextField("nom cat ingr : ", text : $catingrcreate.nom_cat_ingr)
+                    TextField("Nom Catégorie : ", text : $catingrcreate.nom_cat_ingr)
                 }
-                Button("nouvelle cat ingr"){
-                    Task{
-                        await CatIngrDAO.createCatIngr(nom_cat_ingr: catingrcreate.nom_cat_ingr)
+                HStack{
+                    Spacer()
+                    Button("Enregistrer"){
+                        Task{
+                            await CatIngrDAO.createCatIngr(nom_cat_ingr: catingrcreate.nom_cat_ingr)
+                        }
                     }
+                    Spacer()
                 }
             }
         }.padding()
