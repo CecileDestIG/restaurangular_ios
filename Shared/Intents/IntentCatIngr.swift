@@ -34,6 +34,7 @@ struct IntentCatIngr {
         self.stateCatIngr.subscribe(cilvm)
     }
     
+    @MainActor
     func intentToChange(catingr:CatIngrVM) async{
         self.stateCatIngr.send(.nom_cat_ingrChanging(catingr.nom_cat_ingr))
         await CatIngrDAO.modifierCatingr(id_cat_ingr: catingr.getId(), nom_cat_ingr: catingr.nom_cat_ingr)

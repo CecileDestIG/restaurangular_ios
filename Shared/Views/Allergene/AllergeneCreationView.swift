@@ -29,9 +29,9 @@ struct AllergeneCreationView : View {
                 }
                 HStack{
                     Spacer()
-                    Button("nouvel allergene"){
+                    Button("Enregistrer"){
                         Task{
-                            await AllergeneDAO.createAllergene(nom_allergene: allergenecreate.allergene)
+                            await intentAl.intentToCreate(nom_allergene: allergenecreate.allergene)
                         }
                     }
                     Spacer()

@@ -2,7 +2,7 @@
 //  IngredientVM.swift
 //  Restaurangular (iOS)
 //
-//  Created by Ingrid on 19/02/2022.
+//  Created by Cecile on 19/02/2022.
 //
 
 import Foundation
@@ -95,30 +95,28 @@ class IngredientVM : ObservableObject, IngredientObserver, Subscriber{
         switch input {
         case .ready :
             break
-        case .nom_ingredientChanging(let i):
-            let iClean = i.trimmingCharacters(in: .whitespacesAndNewlines)
-            print("vm : change model nom ingr to '\(iClean)'")
-            self.ingredient.nom_ingredient=iClean
+        case .ingredientCreate(_):
+            print("ingredient create")
+        case .ingredientChanging(let i):
+            print("ingredient change")
+            let niClean = i.nom_ingredient.trimmingCharacters(in: .whitespacesAndNewlines)
+            print("vm : change model nom ingr to '\(niClean)'")
+            self.ingredient.nom_ingredient=niClean
             print("vm : change model nom cat ingr to '\(self.ingredient.nom_ingredient)'")
-        case .uniteChanging(let i):
-            let iClean = i.trimmingCharacters(in: .whitespacesAndNewlines)
+            let iClean = i.unite.trimmingCharacters(in: .whitespacesAndNewlines)
             print("vm : change model unite to '\(iClean)'")
             self.ingredient.unite=iClean
             print("vm : change model unite to '\(self.ingredient.unite)'")
-        case .cout_unitaireChanging(let cu):
-            self.ingredient.cout_unitaire=cu
+            self.ingredient.cout_unitaire=i.cout_unitaire
             print("vm : change model cout unite to '\(self.ingredient.cout_unitaire)'")
-        case .stockChanging(let stock):
-            self.ingredient.stock=stock
+            self.ingredient.stock=i.stock
             print("vm : change model stock to '\(self.ingredient.stock)'")
-        case .id_cat_ingrChanging(let id_cat_ingr):
-            self.ingredient.id_cat_ingr=id_cat_ingr
+            self.ingredient.id_cat_ingr=i.id_cat_ingr
             print("vm : change model id_cat_ingr to '\(self.ingredient.id_cat_ingr)'")
-        case .id_allergeneChanging(let id_allergene):
-            self.ingredient.id_allergene=id_allergene
+            self.ingredient.id_allergene=i.id_allergene
             print("vm : change model id_allergene to '\(self.ingredient.id_allergene)'")
-        case .ingredientCreate(_):
-            print("ingredient create")
+            
+            
         }
         return .none
     }

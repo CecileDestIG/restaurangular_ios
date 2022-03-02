@@ -2,7 +2,7 @@
 //  CatIngr.swift
 //  Restaurangular (iOS)
 //
-//  Created by Ingrid on 19/02/2022.
+//  Created by Cecile on 19/02/2022.
 //
 
 import Foundation

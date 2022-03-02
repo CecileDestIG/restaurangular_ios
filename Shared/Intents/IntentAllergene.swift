@@ -2,7 +2,7 @@
 //  IntentAllergene.swift
 //  Restaurangular (iOS)
 //
-//  Created by Ingrid on 19/02/2022.
+//  Created by Cecile on 19/02/2022.
 //
 
 import Foundation
@@ -36,6 +36,7 @@ struct IntentAllergene {
         self.stateAllergene.subscribe(alvm)
     }
     
+    @MainActor
     func intentToChange(allergene: AllergeneVM) async{
         await AllergeneDAO.modifierAllergene(id_allergene: allergene.getId(), nom_allergene: allergene.nom_allergene)
         self.stateAllergene.send(.nom_allergeneChanging(allergene.nom_allergene))
