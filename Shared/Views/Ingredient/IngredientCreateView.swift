@@ -47,19 +47,22 @@ struct IngredientCreationView : View {
                         Text(item.nom_cat_ingr)
                     }
                 }
-                Picker("Allergne : ", selection: $ingredientVM.id_allergene) {
+                NavigationLink(destination: CatIngrCreationView(cilvm: self.listeCatIngr)){
+                Button("+ Cat Ingredient"){}
+            }
+                Picker("Allergène : ", selection: $ingredientVM.id_allergene) {
                     ForEach(listeAllergene.allergeneList, id:\.id_allergene){item in
                         List{
                         Text(item.nom_allergene)
                         }
                     }
             }
-                NavigationLink(destination: AllergeneCreationView(alvm: self.listeAllergene)){
-                    Button("Ajouter Allergene"){}
+                    NavigationLink(destination: AllergeneCreationView(alvm: self.listeAllergene)){
+                    Button("+ Allergène"){}
                 }
                 HStack{
                     Spacer()
-                    Button("nouvel ingr"){
+                    Button("Ajouter Ingredient"){
                         Task{
                             await intentI.intentToCreate(ingredient: ingredientVM)
                         }

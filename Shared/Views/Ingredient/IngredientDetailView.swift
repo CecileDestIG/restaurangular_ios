@@ -44,20 +44,24 @@ struct IngredientDetailView : View {
                 Text("stock : ");
                 TextField("stock", value: $ingredientVM.stock, formatter: NumberFormatter())
             }
-            HStack{
-                Picker("Catégorie :", selection: $ingredientVM.id_cat_ingr) {
+                Picker("Catégorie : ", selection: $ingredientVM.id_cat_ingr) {
                     ForEach(listeCatIngr.cat_ingr_list, id:\.id_cat_ingr){item in
                         Text(item.nom_cat_ingr)
                     }
                 }
+                NavigationLink(destination: CatIngrCreationView(cilvm: self.listeCatIngr)){
+                Button("+ Cat Ingredient"){}
             }
-            HStack{
-                Picker("Allergne :", selection: $ingredientVM.id_allergene) {
+                Picker("Allergène : ", selection: $ingredientVM.id_allergene) {
                     ForEach(listeAllergene.allergeneList, id:\.id_allergene){item in
+                        List{
                         Text(item.nom_allergene)
+                        }
                     }
-                }
             }
+                    NavigationLink(destination: AllergeneCreationView(alvm: self.listeAllergene)){
+                    Button("+ Allergène"){}
+                }
                 HStack{
                     Spacer()
                     Button("modifier"){
