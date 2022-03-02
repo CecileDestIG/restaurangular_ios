@@ -13,6 +13,7 @@ struct IngredientDetailView : View {
     @State var errorMessage = "Error !"
     @State var showingAlert : Bool = false
     var intentI : IntentIngredient
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     init(ivm : IngredientVM, ilvm:IngredientListVM ){
         self.ingredientVM=ivm
@@ -66,6 +67,10 @@ struct IngredientDetailView : View {
                         intentI.intentToChange(id_allergene: ingredientVM.id_allergene)
                     }
             }
+            Button(
+                        "Here is Detail View. Tap to go back.",
+                        action: { self.presentationMode.wrappedValue.dismiss() }
+                    )
             Spacer()
         }.padding()
     }

@@ -41,11 +41,11 @@ class RecetteDAO {
     }
     
     static func toRecette(data: RecetteDTO) -> Recette?{
-        guard (data.id_recette != nil) else{
+        guard (data.data.id_recette != nil) else{
             print("Erreur lors de la conversion en recette")
         return nil
         }
-        let id : Int = data.id_recette!
+        let id : Int = data.data.id_recette!
         var etapetmp : [EtapeInclus]? = nil
         var recettetmp : [RecetteInclus]? = nil
         if let etapes = data.etapes {
@@ -55,7 +55,7 @@ class RecetteDAO {
             recettetmp = RecetteDAO.toRecetteInclus(data: recettes)
         }
         let ingredienttmp = IngredientDAO.toIngredientInclus(data: data.ingredients)
-        let recette = Recette(id, data.id_createur, data.nom_recette, data.nb_couvert, data.id_categorie, data.prix_vente,etapetmp , recettetmp, ingredienttmp)
+        let recette = Recette(id, data.data.id_createur, data.data.nom_recette, data.data.nb_couvert, data.data.id_categorie, data.data.prix_vente,etapetmp , recettetmp, ingredienttmp)
         print("recette_list : ",recette)
         return recette
     }

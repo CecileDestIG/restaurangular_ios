@@ -62,6 +62,7 @@ class Recette {
     var recetteObserver : RecetteObserver?
     
     var id_recette : Int
+    
     var id_createur : Int {
         didSet{
             self.recetteObserver?.change(id_createur : self.id_createur)
