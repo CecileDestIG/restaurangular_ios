@@ -13,7 +13,6 @@ struct RecetteDetailView : View {
     @State var errorMessage = "Error !"
     @State var showingAlert : Bool = false
     var intentR : IntentRecette
-    @State var recette : Recette = Recette()
     
     init(rvm : RecetteVM, rlvm:RecetteListVM ){
         self.recetteVM=rvm
@@ -46,32 +45,15 @@ struct RecetteDetailView : View {
                         intentR.intentToChange(prix_vente: recetteVM.prix_vente)
                     }
             }
-            Spacer()
-        }.padding()
-        .task{
-            if let rec = await RecetteDAO.getRecette(id_recette: 0){
-                self.recette = rec
-            }
-        }
-        VStack {
             HStack{
-                Text("ID : "+"\(recette.id_recette)")
+                Text("Catégorie : "+"\(recetteVM.nom_categorie)")
             }
             HStack{
-                Text("Nom : "+"\(recette.nom_recette)")
+                Text("Prix vente :"+"\(recetteVM.prix_vente)")
             }
             HStack{
-                Text("Nombre de couverts : "+"\(recette.nb_couvert)")
-            }
-            HStack{
-                Text("ID Catégorie : "+"\(recette.id_categorie)")
-            }
-            HStack{
-                Text("Prix vente :"+"\(recette.prix_vente)")
-            }
-            HStack{
-                if (recette.etapes != nil){
-                    ForEach(recette.etapes!, id:\.id_etape){item in
+                if (recetteVM.etapes != nil){
+                    ForEach(recetteVM.etapes!, id:\.id_etape){item in
                         VStack{
                             Text("id : "+"\(item.id_etape)")
                             Text("position : "+"\(item.place_et)")
@@ -80,8 +62,8 @@ struct RecetteDetailView : View {
                 }
             }
             HStack{
-                if (recette.recinclus != nil){
-                    ForEach(recette.recinclus!, id:\.id_recincl){item in
+                if (recetteVM.recinclus != nil){
+                    ForEach(recetteVM.recinclus!, id:\.id_recincl){item in
                         VStack{
                             Text("id : "+"\(item.id_recincl)")
                             Text("position : "+"\(item.place_rec)")
@@ -90,8 +72,8 @@ struct RecetteDetailView : View {
                 }
             }
             HStack{
-                if (recette.ingredients != nil){
-                    ForEach(recette.ingredients!, id:\.id_ingredient){item in
+                if (recetteVM.ingredients != nil){
+                    ForEach(recetteVM.ingredients!, id:\.id_ingredient){item in
                         VStack{
                             Text("id : "+"\(item.id_ingredient)")
                             Text("quantite : "+"\(item.quantite_necessaire)")
@@ -99,6 +81,7 @@ struct RecetteDetailView : View {
                     }
                 }
             }
-        }
+            Spacer()
+        }.padding()
     }
 }

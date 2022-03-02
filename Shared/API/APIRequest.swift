@@ -11,6 +11,7 @@ class APIRequest {
     
     private static var urlBack = "https://restaurangularappli.herokuapp.com/"
     
+    // GETALL
     
     static public func getAll<T : Decodable>(route : String, dto : T.Type) async -> [T]? {
         // Setup the request
@@ -31,6 +32,8 @@ class APIRequest {
             return nil
         }
     }
+    
+    //GET
     
     static public func get<T : Decodable>(route : String, dto : T.Type) async -> T? {
         guard let url = URL(string : urlBack+route) else {

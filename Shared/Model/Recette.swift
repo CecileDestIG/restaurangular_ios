@@ -12,6 +12,7 @@ import Foundation
     "nb_couvert" : 8,
     "id_categorie":2,
     "prix_vente":8.99,
+    "nom_categorie":"Plat",
     "etapes":[
         {
             "id_etape":1,
@@ -62,6 +63,7 @@ class Recette {
     var recetteObserver : RecetteObserver?
     
     var id_recette : Int
+    
     var id_createur : Int {
         didSet{
             self.recetteObserver?.change(id_createur : self.id_createur)
@@ -85,6 +87,8 @@ class Recette {
             self.recetteObserver?.change(id_categorie : self.id_categorie)
         }
     }
+    
+    var nom_categorie : String
     
     var prix_vente : Double {
         didSet{
@@ -110,7 +114,7 @@ class Recette {
         }
     }
     
-    init(_ id_recette:Int = 0,_ id_createur : Int = 0,_ nom_recette : String = "",_ nb_couvert : Int = 0,_ id_categorie : Int = 0,_ prix_vente : Double = 0,_ etapes : [EtapeInclus]? = nil,_ recinclus : [RecetteInclus]? = nil,_ ingredients : [IngredientInclus]? = nil ){
+    init(_ id_recette:Int = 0,_ id_createur : Int = 0,_ nom_recette : String = "",_ nb_couvert : Int = 0,_ id_categorie : Int = 0,_ nom_categorie : String = "",_ prix_vente : Double = 0,_ etapes : [EtapeInclus]? = nil,_ recinclus : [RecetteInclus]? = nil,_ ingredients : [IngredientInclus]? = nil ){
         self.id_recette=id_recette
         self.id_createur=id_createur
         self.nom_recette=nom_recette
@@ -120,6 +124,7 @@ class Recette {
         self.etapes=etapes
         self.recinclus=recinclus
         self.ingredients=ingredients
+        self.nom_categorie = nom_categorie
     }
 }
 

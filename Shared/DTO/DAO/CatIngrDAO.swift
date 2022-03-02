@@ -1,5 +1,11 @@
+//
+//  CatIngrDAO.swift
+//  Restaurangular (iOS)
+//
+//  Created by m1 on 02/03/2022.
+//
 
-import SwiftUI
+import Foundation
 
 class CatIngrDAO {
     
