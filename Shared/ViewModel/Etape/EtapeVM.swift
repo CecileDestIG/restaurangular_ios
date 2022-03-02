@@ -2,7 +2,7 @@
 //  EtapeVM.swift
 //  Restaurangular (iOS)
 //
-//  Created by Ingrid on 20/02/2022.
+//  Created by Cécile on 20/02/2022.
 //
 
 
@@ -39,6 +39,10 @@ class EtapeVM : ObservableObject, EtapeObserver, Subscriber{
     @Published var temps_etape : Double
     @Published var description_etape : String
 
+    func getId()->Int{
+        return self.etape.id_etape
+    }
+    
     func change(titre_etape: String) {
         print("vm observer: titre_etape changé => self.titre_etape = '\(titre_etape)'")
         self.titre_etape=titre_etape
@@ -67,19 +71,19 @@ class EtapeVM : ObservableObject, EtapeObserver, Subscriber{
         switch input {
         case .ready :
             break
-        case .titre_etapeChanging(let e):
-            let eClean = e.trimmingCharacters(in: .whitespacesAndNewlines)
+        case .etapeChanging(let e):
+            let eClean = e.titre_etape.trimmingCharacters(in: .whitespacesAndNewlines)
             print("vm : change model titre  to '\(eClean)'")
             self.etape.titre_etape=eClean
             print("vm : change model titre to '\(self.etape.titre_etape)'")
-        case .description_etapeChanging(let e):
-            let eClean = e.trimmingCharacters(in: .whitespacesAndNewlines)
-            print("vm : change model description  to '\(eClean)'")
-            self.etape.description_etape=eClean
-            print("vm : change model description to '\(self.etape.description_etape)'")
-        case .temps_etapeChanging(let e):
-            self.etape.temps_etape=e
-            print("vm : change model description to '\(self.etape.temps_etape)'")
+            self.etape.temps_etape=e.temps_etape
+            print("vm : change model titre to '\(self.etape.temps_etape)'")
+            let desClean = e.description_etape.trimmingCharacters(in: .whitespacesAndNewlines)
+            print("vm : change model titre  to '\(desClean)'")
+            self.etape.description_etape=desClean
+            print("vm : change model titre to '\(self.etape.description_etape)'")
+        case .etapeCreation(_):
+            print("creation etape")
         }
         
         return .none

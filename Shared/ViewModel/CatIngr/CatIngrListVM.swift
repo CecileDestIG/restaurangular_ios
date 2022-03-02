@@ -2,7 +2,7 @@
 //  CatIngrListVM.swift
 //  Restaurangular (iOS)
 //
-//  Created by Ingrid on 19/02/2022.
+//  Created by Cecile on 19/02/2022.
 //
 
 import Foundation
@@ -37,7 +37,7 @@ class CatIngrListVM : ObservableObject, Subscriber{
         switch input {
         case .ready:
             break
-        case .nom_cat_ingrChanging(_) :
+        case .nom_cat_ingrChanging(_), .catingrCreation(_) :
             self.objectWillChange.send()
         }
         return .none

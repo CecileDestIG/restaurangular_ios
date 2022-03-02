@@ -31,6 +31,10 @@ class AllergeneVM : ObservableObject, AllergeneObserver, Subscriber{
     private var allergene : Allergene
     @Published var nom_allergene : String
     
+    func getId()->Int{
+        return self.allergene.id_allergene
+    }
+    
     func change(nom_allergene: String) {
         print("vm observer: nom_allergene changé => self.nom_allergene = '\(nom_allergene)'")
         self.nom_allergene=nom_allergene
@@ -54,6 +58,8 @@ class AllergeneVM : ObservableObject, AllergeneObserver, Subscriber{
             print("vm : change model nom_allergene to '\(naClean)'")
             self.allergene.nom_allergene=naClean
             print("vm : change model nom_allergene to '\(self.allergene.nom_allergene)'")
+        case .allergeneCreation(let a):
+            print("creation allergene \(a)")
         }
         return .none
     }

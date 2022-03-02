@@ -38,4 +38,60 @@ class CatIngrDAO {
           }
     return cat_ingr_list
     }
+    
+    static func createCatIngr(nom_cat_ingr : String) async{
+        guard let url = URL(string: "https://restaurangularappli.herokuapp.com/cat_ingr") else {
+            print("pb url")
+            return
+        }
+        do{
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            guard let encoded = await JSONHelper.encode(data: CatIngrDTO(nom_cat_ingr: nom_cat_ingr)) else {
+                print("pb encodage")
+                return
+            }
+            let (data, response) = try await URLSession.shared.upload(for:request,from:encoded)
+            _ = String(data: data, encoding: .utf8)
+            let httpresponse = response as! HTTPURLResponse
+            if httpresponse.statusCode==201 {
+                print("requete 201")
+            }
+            else{
+                print("error status")
+            }
+        }
+        catch{
+            print("bad request")
+        }
+    }
+    
+    static func modifierCatingr( id_cat_ingr:Int, nom_cat_ingr : String) async{
+        guard let url = URL(string: "https://restaurangularappli.herokuapp.com/cat_ingr/\(id_cat_ingr)") else {
+            print("pb url")
+            return
+        }
+        do{
+            var request = URLRequest(url: url)
+            request.httpMethod = "PUT"
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            guard let encoded = await JSONHelper.encode(data: CatIngrDTO(nom_cat_ingr: nom_cat_ingr)) else {
+                print("pb encodage")
+                return
+            }
+            let (data, response) = try await URLSession.shared.upload(for:request,from:encoded)
+            let sdata = String(data: data, encoding: .utf8)
+            let httpresponse = response as! HTTPURLResponse
+            if httpresponse.statusCode==201 {
+                print("requete 201")
+            }
+            else{
+                print("error status")
+            }
+        }
+        catch{
+            print("bad request")
+        }
+    }
 }

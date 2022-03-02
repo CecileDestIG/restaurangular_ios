@@ -14,6 +14,7 @@ struct EtapeListView: View {
     var body: some View {
         NavigationView{
             // Liste etape
+            VStack{
             List {
                 ForEach(etapeList.etape_list, id:\.id_etape){item in
                     NavigationLink(destination: EtapeDetailView(evm: EtapeVM(e: item), elvm: self.etapeList)){
@@ -22,18 +23,22 @@ struct EtapeListView: View {
                         }
                     }
                 }
-                }
+            }
+            NavigationLink(destination: EtapeCreateView(elvm: self.etapeList)){
+                Text("Ajouter Etape").padding()
+            }
+            }
             .navigationTitle("Etapes")
             .task {
                 // ETAPES
                 if let list = await EtapeDAO.getAllEtape(){
                     self.etapeList.etape_list = list
-                    print("Etape list : ",list)
                 }
             }
         }
     }
 }
+
 
 struct EtapeListView_Previews: PreviewProvider {
     static var previews: some View {

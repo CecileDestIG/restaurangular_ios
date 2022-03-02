@@ -2,7 +2,7 @@
 //  EtapeListVM.swift
 //  Restaurangular (iOS)
 //
-//  Created by Ingrid on 20/02/2022.
+//  Created by Cecile on 20/02/2022.
 //
 
 import Foundation
@@ -37,7 +37,7 @@ class EtapeListVM : ObservableObject, Subscriber{
         switch input {
         case .ready:
             break
-        case .temps_etapeChanging(_), .titre_etapeChanging(_), .description_etapeChanging(_):
+        case .etapeChanging(_), .etapeCreation(_):
             self.objectWillChange.send()
         }
         return .none
