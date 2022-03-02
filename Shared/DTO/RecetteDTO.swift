@@ -8,7 +8,7 @@
 import Foundation
 
 struct RecetteDTO : Codable, Hashable {
-    var data : RecettesDTO
+    var r : [RecettesDTO]
     var etapes : [EtapeInclusDTO]?
     var recinclus : [RecetteInclusDTO]?
     var ingredients : [IngredientInclusDTO]
@@ -21,6 +21,7 @@ struct RecettesDTO : Codable, Hashable {
     var nb_couvert : Int
     var id_categorie : Int
     var prix_vente : Double
+    var nom_categorie : String
 }
 
 struct RecetteInclusDTO : Codable, Hashable {

@@ -52,6 +52,7 @@ class RecetteVM : ObservableObject, RecetteObserver, Subscriber{
     @Published var nom_recette : String
     @Published var nb_couvert : Int
     @Published var id_categorie : Int
+    @Published var nom_categorie : String
     @Published var prix_vente : Double
     @Published var etapes : [EtapeInclus]?
     @Published var recinclus : [RecetteInclus]?
@@ -146,6 +147,7 @@ class RecetteVM : ObservableObject, RecetteObserver, Subscriber{
         self.nom_recette=r.nom_recette
         self.nb_couvert=r.nb_couvert
         self.id_categorie=r.id_categorie
+        self.nom_categorie=r.nom_categorie
         self.prix_vente=r.prix_vente
         self.etapes=r.etapes
         self.recinclus = r.recinclus
