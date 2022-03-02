@@ -61,7 +61,7 @@ class Ingredient {
     
     var nom_cat_ingr : String
     
-    init (_ id_ingredient:Int = 0,_ nom_ingredient:String = "",_ unite:String = "",_ cout_unitaire:Double = 0,_ stock:Double = 0,_ id_cat_ingr : Int = 0,_ id_allergene : Int = 0,_ allergene : String = "",_ nom_cat_ingr : String = ""){
+    init (_ id_ingredient:Int = 0,_ nom_ingredient:String = "",_ unite:String = "",_ cout_unitaire:Double = 0.0,_ stock:Double = 0,_ id_cat_ingr : Int = 0,_ id_allergene : Int = 0,_ allergene : String = "",_ nom_cat_ingr : String = ""){
         self.id_ingredient=id_ingredient
         self.nom_ingredient=nom_ingredient
         self.unite=unite
