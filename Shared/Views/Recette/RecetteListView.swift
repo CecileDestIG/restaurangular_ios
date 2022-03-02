@@ -13,6 +13,17 @@ struct RecetteListView: View {
     
     var body: some View {
         NavigationView{
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
             // Liste Recette
             List {
                 ForEach(recetteList.recette_list, id:\.id_recette){item in
