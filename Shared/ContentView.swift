@@ -18,7 +18,7 @@ struct ContentView: View {
                 Text("Recettes")
             }.tag(1)
             IngredientListView().tabItem{
-                Text("Ingrédients")
+                Text("Stock")
             }.tag(2)
             CatIngrListView().tabItem{
                 Text("Cat. Ingrédient")

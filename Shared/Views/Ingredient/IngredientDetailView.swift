@@ -71,6 +71,10 @@ struct IngredientDetailView : View {
                 }
             }
             }
+            Button(
+                        "Here is Detail View. Tap to go back.",
+                        action: { self.presentationMode.wrappedValue.dismiss() }
+                    )
             Spacer()
         }.padding()
             .task{

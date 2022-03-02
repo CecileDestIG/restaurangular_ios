@@ -10,32 +10,85 @@ import SwiftUI
 struct IngredientListView: View {
     
     @StateObject var ingredientList : IngredientListVM = IngredientListVM()
+    @StateObject var listeCatIngr : CatIngrListVM = CatIngrListVM()
+    
+    @State var searchTextCat = ""
+    @State var searchTextIngr = ""
+    @State var button = false
+    @State var isActivated = false
+    @State var itemSelected : Ingredient? = nil
+    
+    var searchResultsIngredient : [Ingredient] {
+        if searchTextIngr.isEmpty {
+            return ingredientList.ingredient_list
+        }
+        else{
+            return ingredientList.ingredient_list.filter { $0.nom_ingredient.uppercased().contains(searchTextIngr.uppercased())}
+        }
+    }
     
     var body: some View {
         NavigationView{
-            // Liste Ingredient
             VStack{
-            List {
-                ForEach(ingredientList.ingredient_list, id:\.id_ingredient){item in
-                    NavigationLink(destination: IngredientDetailView(ivm: IngredientVM(i: item), ilvm: self.ingredientList)){
-                        VStack(alignment: .leading){
-                            Text(item.nom_ingredient)
+                VStack{
+                    NavigationLink(destination:IngredientCreationView()){
+                        Text("Ajouter un ingrédient")
+                    }
+                    .padding()
+                    .foregroundColor(.blue)
+                    NavigationLink(destination:CatIngrCreationView()){
+                        Text("Ajouter une catégorie")
+                    }
+                    .padding()
+                    .foregroundColor(.green)
+                }
+                // Liste Ingredient
+                List {
+                    ForEach(self.listeCatIngr.cat_ingr_list, id:\.id_cat_ingr){
+                        section in
+                        Section(header: Text("\(section.nom_cat_ingr)")){
+                            ForEach(self.searchResultsIngredient,id:\.id_ingredient){
+                                item in
+                                if(item.nom_cat_ingr == section.nom_cat_ingr){
+                                    VStack{
+                                        NavigationLink(destination: IngredientDetailView(ivm: IngredientVM(i: item), ilvm: self.ingredientList)){
+                                            Text("\(item.nom_ingredient) (\(item.stock,specifier: "%.2f")\(item.unite))")
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
+                .searchable(text: $searchTextIngr)
+                .navigationTitle("Stock")
+                .task{
+                    // INGREDIENTS
+                    if let list = await IngredientDAO.getAllIngredient(){
+                        self.ingredientList.ingredient_list = list.sorted{$0.nom_ingredient < $1.nom_ingredient}
+                        print("Content list : ",list)
+                    }
+                    // CATEGORIES INGREDIENT
+                    if let list = await CatIngrDAO.getAllCatIngr(){
+                        self.listeCatIngr.cat_ingr_list = list.sorted{ $0.nom_cat_ingr < $1.nom_cat_ingr }
+                        print("Content list : ",list)
+                    }
                 }
-                NavigationLink(destination: IngredientCreationView(ilvm: ingredientList)){
-                    Text("Ajouter Ingredient").padding()
-                }
+                VStack{
+                    if(itemSelected != nil){
+                        
+                    }
+                }.hidden()
             }
-            .navigationTitle("Ingrédients")
-            .task{
-                // INGREDIENTS
-                if let list = await IngredientDAO.getAllIngredient(){
-                    self.ingredientList.ingredient_list = list
-                    print("Content list : ",list)
-                }
-            }
+        }
+    }
+}
+
+struct IngrView: View {
+    let ingredient : Ingredient
+    var body : some View {
+        HStack{
+            Text("\(ingredient.nom_ingredient) (\(ingredient.stock,specifier: "%.2f")\(ingredient.unite))")
         }
     }
 }
