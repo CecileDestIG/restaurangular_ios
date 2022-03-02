@@ -34,69 +34,76 @@ struct RecetteDetailView : View {
     }
     
     var body : some View {
-        VStack{
-            HStack{
-                Text("Nom recette : ");
-                TextField("modele", text: $recetteVM.nom_recette)
-                    .onSubmit {
-                        intentR.intentToChange(nom_recette: recetteVM.nom_recette)
-                    }
-            }
-            HStack{
-                Text("Nb couvert : ");
-                TextField("modele",value:$recetteVM.nb_couvert, formatter: NumberFormatter())
-                    .onSubmit {
-                        intentR.intentToChange(nb_couvert: recetteVM.nb_couvert)
-                    }
-            }
-            HStack{
-                Text("Prix vente : ");
-                TextField("modele",value:$recetteVM.prix_vente, formatter: NumberFormatter())
-                    .onSubmit {
-                        intentR.intentToChange(prix_vente: recetteVM.prix_vente)
-                    }
-            }
-            HStack{
-                Text("Catégorie : "+"\(recetteVM.nom_categorie)")
-            }
-            HStack{
-                Text("Prix vente :"+"\(recetteVM.prix_vente)")
-            }
-            HStack{
-                if (recetteVM.etapes != nil){
-                    Text("Etapes")
-                    ForEach(recetteVM.etapes!, id:\.id_etape){item in
-                        VStack{
-                            Text("\(item.titre_etape)")
-                            Text("Position : "+"\(item.place_et)")
+        List{
+            VStack(spacing:20){
+                HStack(spacing:20){
+                    Text("Nom recette : ");
+                    TextField("modele", text: $recetteVM.nom_recette)
+                        .onSubmit {
+                            intentR.intentToChange(nom_recette: recetteVM.nom_recette)
+                        }
+                }
+                HStack(spacing:20){
+                    Text("Nb couvert : ");
+                    TextField("modele",value:$recetteVM.nb_couvert, formatter: NumberFormatter())
+                        .onSubmit {
+                            intentR.intentToChange(nb_couvert: recetteVM.nb_couvert)
+                        }
+                }
+                HStack(spacing:20){
+                    Text("Prix vente : ");
+                    TextField("modele",value:$recetteVM.prix_vente, formatter: NumberFormatter())
+                        .onSubmit {
+                            intentR.intentToChange(prix_vente: recetteVM.prix_vente)
+                        }
+                }
+                HStack(spacing:20){
+                    Text("Catégorie : \(recetteVM.nom_categorie)")
+                }
+                HStack(spacing:20){
+                    Text("Prix vente : \(recetteVM.prix_vente)")
+                }
+                VStack(spacing:20){
+                    if (recetteVM.etapes != nil){
+                        Text("ETAPES")
+                        ForEach(recetteVM.etapes!, id:\.id_etape){item in
+                            VStack(spacing:20){
+                                HStack{
+                                    Text("\(item.titre_etape)")
+                                    Text("Position : "+"\(item.place_et)")
+                                }
+                            }
                         }
                     }
                 }
-            }
-            HStack{
-                if (recetteVM.recinclus != nil){
-                    Text("Sous-recettes")
-                    ForEach(recetteVM.recinclus!, id:\.id_recincl){item in
-                        VStack{
-                            let r = findRecette(id:item.id_recincl,list:recetteList)
-                            Text("\(r.nom_recette)")
-                            Text("Position : "+"\(item.place_rec)")
+                Divider()
+                VStack(spacing:20){
+                    if (recetteVM.recinclus != nil){
+                        Text("SOUS-RECETTES")
+                        ForEach(recetteVM.recinclus!, id:\.id_recincl){item in
+                            VStack(spacing:20){
+                                let r = findRecette(id:item.id_recincl,list:recetteList)
+                                HStack{
+                                    Text("\(r.nom_recette)")
+                                    Text("Position : "+"\(item.place_rec)")
+                                }
+                            }
                         }
                     }
                 }
-            }
-            HStack{
-                if (recetteVM.ingredients != nil){
-                    Text("Ingredients")
-                    ForEach(recetteVM.ingredients!, id:\.id_ingredient){item in
-                        VStack{
-                            Text("\(item.nom_ingredient)")
-                            Text("Quantite : \(item.quantite_necessaire)\(item.unite)")
+                Divider()
+                VStack(spacing:20){
+                    if (recetteVM.ingredients != nil){
+                        Text("INGREDIENTS")
+                        ForEach(recetteVM.ingredients!, id:\.id_ingredient){item in
+                            VStack(spacing:20){
+                                Text("\(item.nom_ingredient)")
+                                Text("Quantite : \(item.quantite_necessaire)\(item.unite)")
+                            }
                         }
                     }
                 }
-            }
-            Spacer()
-        }.padding()
+            }.padding()
+        }
     }
 }
