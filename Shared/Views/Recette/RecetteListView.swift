@@ -31,12 +31,16 @@ struct RecetteListView: View {
                         Text("Ajouter une recette")
                     }
                     .padding()
+                    .background(Color.blue)
+                    .cornerRadius(5)
                     .foregroundColor(.blue)
                     NavigationLink(destination:CategorieCreateView()){
                         Text("Ajouter une catégorie")
                     }
                     .padding()
-                    .foregroundColor(.green)
+                    .background(Color.gray)
+                    .cornerRadius(5)
+                    .foregroundColor(.blue)
                 }
                 // Liste Recette
                 List {

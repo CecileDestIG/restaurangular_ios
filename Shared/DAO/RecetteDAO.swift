@@ -50,7 +50,6 @@ class RecetteDAO {
               let ingredienttmp = IngredientDAO.toIngredientInclus(data: tdata.ingredients)
               let recette = Recette(id, tdata.r[0].id_createur, tdata.r[0].nom_recette, tdata.r[0].nb_couvert, tdata.r[0].id_categorie,tdata.r[0].nom_categorie,tdata.r[0].prix_vente,etapetmp , recettetmp, ingredienttmp)
               recette_list.append(recette)
-              print("recette_list : ",recette)
           }
     print("recette_list : ",recette_list)
     return recette_list
