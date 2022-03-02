@@ -85,9 +85,9 @@ class IngredientInclus {
     var id_cat_ingr : Int
     var nom_cat_ingr : String
     var id_recette : Int
-    var quantite_necessaire : Int
+    var quantite_necessaire : Double
     
-    init(_ id_ingredient : Int = 0,_ quantite_necessaire : Int = 0,_ nom_ingredient : String = "",_ unite : String = "",_ cout_unitaire : Double = 0,_ stock : Double = 0,_ id_allergene : Int = 0,_ allergene : String = "",_ id_cat_ingr : Int = 0,_ nom_cat_ingr : String = "",_ id_recette : Int = 0){
+    init(_ id_ingredient : Int = 0,_ quantite_necessaire : Double = 0,_ nom_ingredient : String = "",_ unite : String = "",_ cout_unitaire : Double = 0,_ stock : Double = 0,_ id_allergene : Int = 0,_ allergene : String = "",_ id_cat_ingr : Int = 0,_ nom_cat_ingr : String = "",_ id_recette : Int = 0){
         self.id_ingredient = id_ingredient
         self.nom_ingredient = nom_ingredient
         self.unite = unite

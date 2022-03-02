@@ -234,7 +234,6 @@
 				6FA6B1FC27C5271900344B21 /* RecetteDTO.swift */,
 				BFBC7F9F27C63F95005FD7BC /* AllergeneDTO.swift */,
 				6FA6B23927CF8C8700344B21 /* CatIngrDTO.swift */,
-				6FA6B1D527C524B600344B21 /* DAO */,
 			);
 			path = DTO;
 			sourceTree = "<group>";

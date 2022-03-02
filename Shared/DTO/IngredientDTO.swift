@@ -23,5 +23,5 @@ struct IngredientInclusDTO : Codable, Hashable {
     var id_cat_ingr : Int
     var nom_cat_ingr : String
     var id_recette : Int
-    var quantite_necessaire : Int
+    var quantite_necessaire : Double
 }
