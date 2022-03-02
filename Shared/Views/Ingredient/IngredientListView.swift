@@ -12,11 +12,7 @@ struct IngredientListView: View {
     @StateObject var ingredientList : IngredientListVM = IngredientListVM()
     @StateObject var listeCatIngr : CatIngrListVM = CatIngrListVM()
     
-    @State var searchTextCat = ""
     @State var searchTextIngr = ""
-    @State var button = false
-    @State var isActivated = false
-    @State var itemSelected : Ingredient? = nil
     
     var searchResultsIngredient : [Ingredient] {
         if searchTextIngr.isEmpty {
@@ -31,12 +27,12 @@ struct IngredientListView: View {
         NavigationView{
             VStack{
                 VStack{
-                    NavigationLink(destination:IngredientCreationView()){
+                    NavigationLink(destination:IngredientCreationView(ilvm: ingredientList)){
                         Text("Ajouter un ingrédient")
                     }
                     .padding()
                     .foregroundColor(.blue)
-                    NavigationLink(destination:CatIngrCreationView()){
+                    NavigationLink(destination:CatIngrCreationView(cilvm:listeCatIngr)){
                         Text("Ajouter une catégorie")
                     }
                     .padding()
@@ -52,7 +48,7 @@ struct IngredientListView: View {
                                 if(item.nom_cat_ingr == section.nom_cat_ingr){
                                     VStack{
                                         NavigationLink(destination: IngredientDetailView(ivm: IngredientVM(i: item), ilvm: self.ingredientList)){
-                                            Text("\(item.nom_ingredient) (\(item.stock,specifier: "%.2f")\(item.unite))")
+                                            IngrView(ingredient:item)
                                         }
                                     }
                                 }
@@ -74,11 +70,6 @@ struct IngredientListView: View {
                         print("Content list : ",list)
                     }
                 }
-                VStack{
-                    if(itemSelected != nil){
-                        
-                    }
-                }.hidden()
             }
         }
     }
