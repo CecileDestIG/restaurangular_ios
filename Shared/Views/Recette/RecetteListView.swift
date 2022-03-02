@@ -26,21 +26,21 @@ struct RecetteListView: View {
     var body: some View {
         NavigationView{
             VStack{
-                VStack{
+                HStack{
                     NavigationLink(destination:RecetteCreateView()){
-                        Text("Ajouter une recette")
+                        Text("Nouvelle recette")
                     }
                     .padding()
                     .background(Color.blue)
                     .cornerRadius(5)
-                    .foregroundColor(.blue)
+                    .foregroundColor(.white)
                     NavigationLink(destination:CategorieCreateView()){
-                        Text("Ajouter une catégorie")
+                        Text("Nouvelle catégorie")
                     }
                     .padding()
                     .background(Color.gray)
                     .cornerRadius(5)
-                    .foregroundColor(.blue)
+                    .foregroundColor(.white)
                 }
                 // Liste Recette
                 List {
