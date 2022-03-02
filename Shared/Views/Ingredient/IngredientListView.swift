@@ -31,12 +31,16 @@ struct IngredientListView: View {
                         Text("Ajouter un ingrédient")
                     }
                     .padding()
+                    .background(Color.blue)
+                    .cornerRadius(5)
                     .foregroundColor(.blue)
                     NavigationLink(destination:CatIngrCreationView(cilvm:listeCatIngr)){
                         Text("Ajouter une catégorie")
                     }
                     .padding()
-                    .foregroundColor(.green)
+                    .background(Color.gray)
+                    .cornerRadius(5)
+                    .foregroundColor(.blue)
                 }
                 // Liste Ingredient
                 List {

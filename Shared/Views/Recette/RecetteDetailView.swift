@@ -13,13 +13,24 @@ struct RecetteDetailView : View {
     @State var errorMessage = "Error !"
     @State var showingAlert : Bool = false
     var intentR : IntentRecette
+    var recetteList : RecetteListVM
     
     init(rvm : RecetteVM, rlvm:RecetteListVM ){
         self.recetteVM=rvm
         self.intentR=IntentRecette()
         self.intentR.addObserver(rvm: rvm)
         self.intentR.addObserver(rlvm: rlvm)
-
+        self.recetteList = rlvm
+    }
+    
+    func findRecette(id : Int,list : RecetteListVM) -> Recette{
+        var recette : Recette = Recette()
+        for r in list.recette_list {
+            if(r.id_recette == id){
+                recette = r
+            }
+        }
+        return recette
     }
     
     var body : some View {
@@ -53,30 +64,34 @@ struct RecetteDetailView : View {
             }
             HStack{
                 if (recetteVM.etapes != nil){
+                    Text("Etapes")
                     ForEach(recetteVM.etapes!, id:\.id_etape){item in
                         VStack{
-                            Text("id : "+"\(item.id_etape)")
-                            Text("position : "+"\(item.place_et)")
+                            Text("\(item.titre_etape)")
+                            Text("Position : "+"\(item.place_et)")
                         }
                     }
                 }
             }
             HStack{
                 if (recetteVM.recinclus != nil){
+                    Text("Sous-recettes")
                     ForEach(recetteVM.recinclus!, id:\.id_recincl){item in
                         VStack{
-                            Text("id : "+"\(item.id_recincl)")
-                            Text("position : "+"\(item.place_rec)")
+                            let r = findRecette(id:item.id_recincl,list:recetteList)
+                            Text("\(r.nom_recette)")
+                            Text("Position : "+"\(item.place_rec)")
                         }
                     }
                 }
             }
             HStack{
                 if (recetteVM.ingredients != nil){
+                    Text("Ingredients")
                     ForEach(recetteVM.ingredients!, id:\.id_ingredient){item in
                         VStack{
-                            Text("id : "+"\(item.id_ingredient)")
-                            Text("quantite : "+"\(item.quantite_necessaire)")
+                            Text("\(item.nom_ingredient)")
+                            Text("Quantite : \(item.quantite_necessaire)\(item.unite)")
                         }
                     }
                 }

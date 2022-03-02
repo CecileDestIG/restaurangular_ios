@@ -46,10 +46,18 @@ class Etape {
 
 class EtapeInclus {
     var id_etape : Int
+    var titre_etape : String
+    var id_recette : Int
     var place_et : Int
+    var temps_etape : Double
+    var description_etape : String
     
-    init(_ id_etape : Int = 0,_ place_et : Int = 0){
+    init(_ id_etape : Int = 0,_ place_et : Int = 0,_ titre_etape : String = "",_ id_recette : Int = 0,_ temps_etape : Double = 0,_ description_etape : String = ""){
         self.id_etape = id_etape
+        self.titre_etape = titre_etape
+        self.id_recette = id_recette
         self.place_et = place_et
+        self.temps_etape = temps_etape
+        self.description_etape = description_etape
     }
 }
