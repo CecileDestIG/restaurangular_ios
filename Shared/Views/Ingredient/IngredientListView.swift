@@ -48,7 +48,7 @@ struct IngredientListView: View {
                                 if(item.nom_cat_ingr == section.nom_cat_ingr){
                                     VStack{
                                         NavigationLink(destination: IngredientDetailView(ivm: IngredientVM(i: item), ilvm: self.ingredientList)){
-                                            Text("\(item.nom_ingredient) (\(item.stock,specifier: "%.2f")\(item.unite))")
+                                            IngrView(ingredient:item)
                                         }
                                     }
                                 }
