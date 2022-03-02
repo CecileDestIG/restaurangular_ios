@@ -17,7 +17,7 @@ class IngredientDAO {
           var ingredientInclus_list = [IngredientInclus]()
           for tdata in data{
               let id : Int = tdata.id_ingredient
-              let ingredientInclus = IngredientInclus(id, tdata.quantite_necessaire)
+              let ingredientInclus = IngredientInclus(id,tdata.quantite_necessaire,tdata.nom_ingredient,tdata.unite,tdata.cout_unitaire,tdata.stock,tdata.id_allergene ?? 0,tdata.allergene ?? "",tdata.id_cat_ingr,tdata.nom_cat_ingr,tdata.id_recette)
              ingredientInclus_list.append(ingredientInclus)
           }
     print("ingredientInclus_list : ",ingredientInclus_list)

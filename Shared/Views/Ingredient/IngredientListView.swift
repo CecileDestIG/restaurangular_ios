@@ -26,17 +26,21 @@ struct IngredientListView: View {
     var body: some View {
         NavigationView{
             VStack{
-                VStack{
+                HStack{
                     NavigationLink(destination:IngredientCreationView(ilvm: ingredientList)){
-                        Text("Ajouter un ingrédient")
+                        Text("Nouvel ingrédient")
                     }
                     .padding()
-                    .foregroundColor(.blue)
+                    .background(Color.blue)
+                    .cornerRadius(5)
+                    .foregroundColor(.white)
                     NavigationLink(destination:CatIngrCreationView(cilvm:listeCatIngr)){
-                        Text("Ajouter une catégorie")
+                        Text("Nouvelle catégorie")
                     }
                     .padding()
-                    .foregroundColor(.green)
+                    .background(Color.gray)
+                    .cornerRadius(5)
+                    .foregroundColor(.white)
                 }
                 // Liste Ingredient
                 List {

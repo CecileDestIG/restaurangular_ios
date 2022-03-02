@@ -23,7 +23,7 @@ class EtapeDAO {
           var etapeInclus_list = [EtapeInclus]()
           for tdata in data{
               let id : Int = tdata.id_etape
-              let etapeInclus = EtapeInclus(id, tdata.place_et)
+              let etapeInclus = EtapeInclus(id, tdata.place_et,tdata.titre_etape,tdata.id_recette,tdata.temps_etape,tdata.description_etape)
              etapeInclus_list.append(etapeInclus)
           }
     print("etapeInclus_list : ",etapeInclus_list)

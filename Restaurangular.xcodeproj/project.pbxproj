@@ -234,7 +234,6 @@
 				6FA6B1FC27C5271900344B21 /* RecetteDTO.swift */,
 				BFBC7F9F27C63F95005FD7BC /* AllergeneDTO.swift */,
 				6FA6B23927CF8C8700344B21 /* CatIngrDTO.swift */,
-				6FA6B1D527C524B600344B21 /* DAO */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -305,6 +304,7 @@
 		BFB78EB127C0FA4000B33479 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				6FA6B1D527C524B600344B21 /* DAO */,
 				6FA6B1F827C526A100344B21 /* Helpers */,
 				6FA6B1D627C5252100344B21 /* DTO */,
 				6FA6B1D127C5233B00344B21 /* API */,
