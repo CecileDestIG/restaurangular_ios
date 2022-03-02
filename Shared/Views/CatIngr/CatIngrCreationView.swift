@@ -31,7 +31,7 @@ struct CatIngrCreationView : View {
                     Spacer()
                     Button("Enregistrer"){
                         Task{
-                            await CatIngrDAO.createCatIngr(nom_cat_ingr: catingrcreate.nom_cat_ingr)
+                            await intentCI.intentToCreate(nom_cat_ingr: catingrcreate.nom_cat_ingr)
                         }
                     }
                     Spacer()

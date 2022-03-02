@@ -38,11 +38,13 @@ struct IntentEtape {
         self.stateEtape.subscribe(elvm)
     }
     
+    @MainActor
     func intentToChange(etape:EtapeVM) async{
         await EtapeDAO.modifierEtape(etape: etape)
         self.stateEtape.send(.etapeChanging(etape))
     }
     
+    @MainActor
     func intentToCreate(etape : EtapeVM) async{
         await EtapeDAO.createEtape(etape: etape)
         self.stateEtape.send(.etapeCreation(etape.titre_etape))

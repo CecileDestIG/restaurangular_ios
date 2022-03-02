@@ -31,30 +31,18 @@ struct IngredientDetailView : View {
             HStack{
                 Text("Nom ingredient : ");
                 TextField("nom", text: $ingredientVM.nom_ingredient)
-                    .onSubmit {
-                        intentI.intentToChange(nom_ingredient: ingredientVM.nom_ingredient)
-                    }
             }
                 HStack{
                 Text("unite : ");
                 TextField("unité", text: $ingredientVM.unite)
-                    .onSubmit {
-                        intentI.intentToChange(unite: ingredientVM.unite)
-                    }
                 }
                 HStack{
                 Text("cout_unitaire : ");
                 TextField("cout unitaire", value: $ingredientVM.cout_unitaire, formatter: NumberFormatter())
-                    .onSubmit {
-                        intentI.intentToChange(cout_unitaire: ingredientVM.cout_unitaire)
-                    }
                 }
             HStack{
                 Text("stock : ");
                 TextField("stock", value: $ingredientVM.stock, formatter: NumberFormatter())
-                    .onSubmit {
-                        intentI.intentToChange(stock: ingredientVM.stock)
-                    }
             }
             HStack{
                 Picker("Catégorie :", selection: $ingredientVM.id_cat_ingr) {
@@ -70,6 +58,15 @@ struct IngredientDetailView : View {
                     }
                 }
             }
+                HStack{
+                    Spacer()
+                    Button("modifier"){
+                        Task{
+                            await intentI.intentToChange(ingredient: ingredientVM)
+                        }
+                    }
+                    Spacer()
+                }
             }
             Spacer()
         }.padding()

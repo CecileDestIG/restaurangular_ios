@@ -49,15 +49,19 @@ struct IngredientCreationView : View {
                 }
                 Picker("Allergne : ", selection: $ingredientVM.id_allergene) {
                     ForEach(listeAllergene.allergeneList, id:\.id_allergene){item in
+                        List{
                         Text(item.nom_allergene)
+                        }
                     }
-                
             }
+                NavigationLink(destination: AllergeneCreationView(alvm: self.listeAllergene)){
+                    Button("Ajouter Allergene"){}
+                }
                 HStack{
                     Spacer()
                     Button("nouvel ingr"){
                         Task{
-                            await IngredientDAO.createIngredient(ingredient: ingredientVM)
+                            await intentI.intentToCreate(ingredient: ingredientVM)
                         }
                     }
                     Spacer()

@@ -67,4 +67,32 @@ class IngredientDAO {
         }
     }
     
+    static func modifierCatingr( ingredient : IngredientVM) async{
+        guard let url = URL(string: "https://restaurangularappli.herokuapp.com/ingredient/\(ingredient.getId())") else {
+            print("pb url")
+            return
+        }
+        do{
+            var request = URLRequest(url: url)
+            request.httpMethod = "PUT"
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            guard let encoded = await JSONHelper.encode(data: IngredientDTO(nom_ingredient: ingredient.nom_ingredient, unite: ingredient.unite, cout_unitaire: ingredient.cout_unitaire, stock: ingredient.stock, id_cat_ingr: ingredient.id_cat_ingr, id_allergene: ingredient.id_allergene)) else {
+                print("pb encodage")
+                return
+            }
+            let (data, response) = try await URLSession.shared.upload(for:request,from:encoded)
+            let sdata = String(data: data, encoding: .utf8)
+            let httpresponse = response as! HTTPURLResponse
+            if httpresponse.statusCode==201 {
+                print("requete 201")
+            }
+            else{
+                print("error status")
+            }
+        }
+        catch{
+            print("bad request")
+        }
+    }
+    
 }

@@ -37,7 +37,7 @@ class IngredientListVM : ObservableObject, Subscriber{
         switch input {
         case .ready:
             break
-        case .nom_ingredientChanging(_), .uniteChanging(_), .cout_unitaireChanging(_), .stockChanging(_), .id_allergeneChanging(_), .id_cat_ingrChanging(_), .ingredientCreate(_) :
+        case .ingredientCreate(_), .ingredientChanging(_) :
             self.objectWillChange.send()
         }
         return .none
