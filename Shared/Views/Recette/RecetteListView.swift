@@ -34,7 +34,7 @@ struct RecetteListView: View {
                     .background(Color.blue)
                     .cornerRadius(5)
                     .foregroundColor(.white)
-                    NavigationLink(destination:CategorieCreateView()){
+                    NavigationLink(destination:CategorieCreateView(clvm: categorieList)){
                         Text("Nouvelle catégorie")
                     }
                     .padding()

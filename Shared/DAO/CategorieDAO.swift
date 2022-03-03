@@ -22,14 +22,18 @@ class CategorieDAO {
     }
     
     static func toCategorie(data: CategorieDTO) -> Categorie?{
-        return Categorie(data.id_categorie ,data.nom_categorie)
+        return Categorie(data.id_categorie ?? 0 ,data.nom_categorie)
     }
     
-    
+ 
     static func toCategorie(data: [CategorieDTO]) -> [Categorie]?{
           var categories = [Categorie]()
           for tdata in data{
-              let categorie = Categorie(tdata.id_categorie, tdata.nom_categorie)
+              guard (tdata.id_categorie != nil) else{
+                  return nil
+               }
+              let id : Int = tdata.id_categorie ?? tdata.id_categorie!
+              let categorie = Categorie(id, tdata.nom_categorie)
              categories.append(categorie)
           }
     return categories
