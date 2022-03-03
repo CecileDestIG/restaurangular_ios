@@ -24,7 +24,7 @@ struct ContentView: View {
                 Text("Stock")
             }.tag(2)
             AllergeneListView().tabItem{
-                Image(systemName: "heart.fill")
+                Image(systemName: "allergens")
                 Text("Allergènes")
             }.tag(3)
             EtiquetteListView().tabItem{

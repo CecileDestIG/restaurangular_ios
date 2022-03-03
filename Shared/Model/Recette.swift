@@ -114,7 +114,9 @@ class Recette {
         }
     }
     
-    init(_ id_recette:Int = 0,_ id_createur : Int = 0,_ nom_recette : String = "",_ nb_couvert : Int = 0,_ id_categorie : Int = 0,_ nom_categorie : String = "",_ prix_vente : Double = 0,_ etapes : [EtapeInclus]? = nil,_ recinclus : [RecetteInclus]? = nil,_ ingredients : [IngredientInclus]? = nil ){
+    var image : String?
+    
+    init(_ id_recette:Int = 0,_ id_createur : Int = 0,_ nom_recette : String = "",_ nb_couvert : Int = 0,_ id_categorie : Int = 0,_ nom_categorie : String = "",_ prix_vente : Double = 0,_ etapes : [EtapeInclus]? = nil,_ recinclus : [RecetteInclus]? = nil,_ ingredients : [IngredientInclus]? = nil, image : String? = nil){
         self.id_recette=id_recette
         self.id_createur=id_createur
         self.nom_recette=nom_recette
@@ -125,6 +127,7 @@ class Recette {
         self.recinclus=recinclus
         self.ingredients=ingredients
         self.nom_categorie = nom_categorie
+        self.image = image
     }
 }
 

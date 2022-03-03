@@ -57,6 +57,7 @@ class RecetteVM : ObservableObject, RecetteObserver, Subscriber{
     @Published var etapes : [EtapeInclus]?
     @Published var recinclus : [RecetteInclus]?
     @Published var ingredients : [IngredientInclus]?
+    @Published var image : String?
     
     func change(id_createur: Int) {
         print("vm observer: id_createur changé => self.id_createur = '\(id_createur)'")
@@ -152,6 +153,7 @@ class RecetteVM : ObservableObject, RecetteObserver, Subscriber{
         self.etapes=r.etapes
         self.recinclus = r.recinclus
         self.ingredients = r.ingredients
+        self.image = r.image
     }
 }
 
