@@ -46,7 +46,7 @@ struct IngredientListView: View {
                 List {
                     ForEach(self.listeCatIngr.cat_ingr_list, id:\.id_cat_ingr){
                         section in
-                        Section(header: Text("\(section.nom_cat_ingr)")){
+                        Section(header: Text("\(section.nom_cat_ingr)"),footer: NavigationLink(destination:(CatIngrDetailView(civm: CatIngrVM(ci: section), cilvm: self.listeCatIngr))){Text("Modifier la categorie")}.foregroundColor(Color.blue)){
                             ForEach(self.searchResultsIngredient,id:\.id_ingredient){
                                 item in
                                 if(item.nom_cat_ingr == section.nom_cat_ingr){

@@ -108,7 +108,8 @@ struct RecetteDetailView : View {
                         }
                     }
                 }
-            }.padding()
+            }
+            .padding()
         }
     }
 }
