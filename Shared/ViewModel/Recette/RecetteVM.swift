@@ -23,6 +23,7 @@ enum RecetteVMError : Error, CustomStringConvertible, Equatable {
     case etapesError([Etape])
     case recinclusError([Recette])
     case ingredientsError([Ingredient])
+    case imageError(String)
 
     var description: String {
         switch self {
@@ -35,6 +36,7 @@ enum RecetteVMError : Error, CustomStringConvertible, Equatable {
         case .etapesError(let i) :  return "Erreur dans etapes :  \(i)"
         case .recinclusError(let i) :  return "Erreur dans les recettes incluses :  \(i)"
         case .ingredientsError(let i) :  return "Erreur dans ingredients :  \(i)"
+        case .imageError(let i) :  return "Erreur dans image :  \(i)"
         }
     }
 }
@@ -99,6 +101,11 @@ class RecetteVM : ObservableObject, RecetteObserver, Subscriber{
         self.ingredients=ingredients
     }
     
+    func change(image: String?) {
+        print("vm observer: image changée => self.image")
+        self.image=image
+    }
+    
     func receive(subscription: Subscription) {
         subscription.request(.unlimited)
     }
@@ -138,6 +145,9 @@ class RecetteVM : ObservableObject, RecetteObserver, Subscriber{
         case .ingredientsChanging(let r):
             self.recette.ingredients=r
             print("vm : change model ingredients")
+        case .imageChanging(let r):
+            self.recette.image=r
+            print("vm : change model image")
         }
         return .none
     }

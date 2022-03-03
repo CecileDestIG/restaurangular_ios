@@ -55,6 +55,7 @@ protocol RecetteObserver{
     func change(etapes:[EtapeInclus]?)
     func change(recinclus:[RecetteInclus]?)
     func change(ingredients:[IngredientInclus]?)
+    func change(image:String?)
 
 }
 
@@ -114,9 +115,13 @@ class Recette {
         }
     }
     
-    var image : String?
+    var image : String? {
+        didSet{
+            self.recetteObserver?.change(image : self.image)
+        }
+    }
     
-    init(_ id_recette:Int = 0,_ id_createur : Int = 0,_ nom_recette : String = "",_ nb_couvert : Int = 0,_ id_categorie : Int = 0,_ nom_categorie : String = "",_ prix_vente : Double = 0,_ etapes : [EtapeInclus]? = nil,_ recinclus : [RecetteInclus]? = nil,_ ingredients : [IngredientInclus]? = nil, image : String? = nil){
+    init(_ id_recette:Int = 0,_ id_createur : Int = 0,_ nom_recette : String = "",_ nb_couvert : Int = 0,_ id_categorie : Int = 0,_ nom_categorie : String = "",_ prix_vente : Double = 0,_ etapes : [EtapeInclus]? = nil,_ recinclus : [RecetteInclus]? = nil,_ ingredients : [IngredientInclus]? = nil,_ image : String? = nil){
         self.id_recette=id_recette
         self.id_createur=id_createur
         self.nom_recette=nom_recette

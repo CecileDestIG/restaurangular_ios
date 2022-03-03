@@ -52,7 +52,7 @@ struct IngredientListView: View {
                                 if(item.nom_cat_ingr == section.nom_cat_ingr){
                                     VStack{
                                         NavigationLink(destination: IngredientDetailView(ivm: IngredientVM(i: item), ilvm: self.ingredientList)){
-                                            IngrView(ingredient:item)
+                                            IngredientView(ingredient:item)
                                         }
                                     }
                                 }
@@ -79,11 +79,36 @@ struct IngredientListView: View {
     }
 }
 
-struct IngrView: View {
+struct IngredientView: View {
     let ingredient : Ingredient
     var body : some View {
-        HStack{
-            Text("\(ingredient.nom_ingredient) (\(ingredient.stock,specifier: "%.2f")\(ingredient.unite))")
+        HStack(spacing:10){
+            if let url = ingredient.image {
+                AsyncImage(url: URL(string:url),content: { img in
+                    img
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 75, height: 75, alignment: .center)
+                    .scaledToFit()
+                    .cornerRadius(20)
+                },placeholder: {
+                    ProgressView()
+                })
+            }
+            else{
+                Image(systemName: "photo")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 30, height: 30, alignment: .center)
+                    .scaledToFit()
+                    .cornerRadius(5)
+            }
+            VStack(alignment: .center){
+                Text("\(ingredient.nom_ingredient)")
+                    .bold()
+                Text("(\(ingredient.stock,specifier: "%.2f") \(ingredient.unite))")
+                Text("Cout unitaire : \(ingredient.cout_unitaire,specifier: "%.2f") €")
+            }
         }
     }
 }
