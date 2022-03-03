@@ -16,6 +16,7 @@ enum IngredientVMError : Error, CustomStringConvertible, Equatable {
     case stockError(Double)
     case id_cat_ingrError(Int)
     case id_allergeneError(Int)
+    case imageError(String)
     
     var description: String {
         switch self {
@@ -26,6 +27,7 @@ enum IngredientVMError : Error, CustomStringConvertible, Equatable {
         case .stockError(let i) :  return "Erreur dans stock :  \(i)"
         case .id_cat_ingrError(let i) :  return "Erreur dans id cat ingr :  \(i)"
         case .id_allergeneError(let i) :  return "Erreur dans id allergene :  \(i)"
+        case .imageError(let i) :  return "Erreur dans image :  \(i)"
         }
     }
 }
@@ -47,6 +49,7 @@ class IngredientVM : ObservableObject, IngredientObserver, Subscriber{
     @Published var id_allergene : Int
     @Published var nom_cat_ingr : String
     @Published var allergene : String
+    @Published var image : String?
     
     func getId()->Int{
         return ingredient.id_ingredient
@@ -82,6 +85,11 @@ class IngredientVM : ObservableObject, IngredientObserver, Subscriber{
         self.id_allergene=id_allergene
     }
     
+    func change(image: String?) {
+        print("vm observer: image changé => self.image = '\(image)'")
+        self.image=image
+    }
+    
     func receive(subscription: Subscription) {
         subscription.request(.unlimited)
     }
@@ -115,8 +123,8 @@ class IngredientVM : ObservableObject, IngredientObserver, Subscriber{
             print("vm : change model id_cat_ingr to '\(self.ingredient.id_cat_ingr)'")
             self.ingredient.id_allergene=i.id_allergene
             print("vm : change model id_allergene to '\(self.ingredient.id_allergene)'")
-            
-            
+            self.ingredient.image=i.image
+            print("vm : change model image to '\(self.ingredient.image)'")
         }
         return .none
     }
@@ -131,5 +139,6 @@ class IngredientVM : ObservableObject, IngredientObserver, Subscriber{
         self.id_allergene=i.id_allergene
         self.allergene = i.allergene
         self.nom_cat_ingr = i.nom_cat_ingr
+        self.image = i.image
     }
 }

@@ -22,6 +22,7 @@ enum IntentStateRecette : CustomStringConvertible, Equatable {
     case etapesChanging([EtapeInclus])
     case recinclusChanging([RecetteInclus])
     case ingredientsChanging([IngredientInclus])
+    case imageChanging(String)
 
     var description: String {
         switch self{
@@ -34,6 +35,7 @@ enum IntentStateRecette : CustomStringConvertible, Equatable {
             case .etapesChanging(let i) : return "state : .etapes(\(i))"
             case .recinclusChanging(let i) : return "state : .recinclus(\(i))"
             case .ingredientsChanging(let i) : return "state : .ingredients(\(i))"
+            case .imageChanging(let i) : return "state : .image(\(i))"
         }
     }
 }
@@ -79,6 +81,10 @@ struct IntentRecette {
     
     func intentToChange(ingredients:[IngredientInclus]){
         self.stateRecette.send(.ingredientsChanging(ingredients))
+    }
+    
+    func intentToChange(image:String){
+        self.stateRecette.send(.imageChanging(image))
     }
 }
 

@@ -82,8 +82,32 @@ struct RecetteListView: View {
 struct RecetteView: View {
     let recette : Recette
     var body : some View {
-        HStack{
-            Text("\(recette.nom_recette) (\(recette.nb_couvert) pers.)")
+        HStack(spacing:10){
+            if let url = recette.image {
+                AsyncImage(url: URL(string:url),content: { img in
+                    img
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 75, height: 75, alignment: .center)
+                    .scaledToFit()
+                    .cornerRadius(20)
+                },placeholder: {
+                    ProgressView()
+                })
+            }
+            else{
+                Image(systemName: "photo")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 75, height: 75, alignment: .center)
+                    .scaledToFit()
+                    .cornerRadius(20)
+            }
+            VStack{
+                Text("\(recette.nom_recette)")
+                    .bold()
+                Text("(\(recette.nb_couvert) personnes)")
+            }
         }
     }
 }

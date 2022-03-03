@@ -21,10 +21,10 @@ struct ContentView: View {
             }.tag(1)
             IngredientListView().tabItem{
                 Image(systemName: "list.dash")
-                Text("Stock")
+                Text("Mercuriale")
             }.tag(2)
             AllergeneListView().tabItem{
-                Image(systemName: "heart.fill")
+                Image(systemName: "allergens")
                 Text("Allergènes")
             }.tag(3)
             EtiquetteListView().tabItem{
