@@ -34,6 +34,7 @@ struct IntentCategorie {
         self.stateCategorie.subscribe(clvm)
     }
     
+    @MainActor
     func intentToChange(categorie:CategorieVM) async{
         self.stateCategorie.send(.nom_categorieChanging(categorie.nom_categorie))
         await CategorieDAO.modifierCategorie(id_categorie: categorie.getId(), nom_categorie: categorie.nom_categorie)
