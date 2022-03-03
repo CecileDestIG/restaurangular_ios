@@ -13,6 +13,11 @@ struct EtapeCreateView : View {
     @State var errorMessage = "Error !"
     @State var showingAlert : Bool = false
     var intentEtape : IntentEtape
+    let formatter : NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        return formatter
+    }()
     
     init(elvm:EtapeListVM ){
         self.intentEtape=IntentEtape()
@@ -29,7 +34,7 @@ struct EtapeCreateView : View {
             }
             HStack{
                 Text("Temps : ");
-                TextField("temps", value: $etapeVM.temps_etape, formatter: NumberFormatter())
+                TextField("temps", value: $etapeVM.temps_etape, formatter: formatter)
                     
             }
             HStack{

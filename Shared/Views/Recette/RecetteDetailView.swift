@@ -2,7 +2,7 @@
 //  RecetteDetailView.swift
 //  Restaurangular (iOS)
 //
-//  Created by Ingrid on 22/02/2022.
+//  Created by Cecile on 22/02/2022.
 //
 
 import Foundation
@@ -14,6 +14,11 @@ struct RecetteDetailView : View {
     @State var showingAlert : Bool = false
     var intentR : IntentRecette
     var recetteList : RecetteListVM
+    let formatter : NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        return formatter
+    }()
     
     init(rvm : RecetteVM, rlvm:RecetteListVM ){
         self.recetteVM=rvm
@@ -52,7 +57,7 @@ struct RecetteDetailView : View {
                 }
                 HStack(spacing:20){
                     Text("Prix vente : ");
-                    TextField("modele",value:$recetteVM.prix_vente, formatter: NumberFormatter())
+                    TextField("modele",value:$recetteVM.prix_vente, formatter:formatter)
                         .onSubmit {
                             intentR.intentToChange(prix_vente: recetteVM.prix_vente)
                         }

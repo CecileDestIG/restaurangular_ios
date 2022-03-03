@@ -15,6 +15,11 @@ struct IngredientCreationView : View {
     var intentI : IntentIngredient
     @StateObject var listeAllergene : AllergeneListVM = AllergeneListVM()
     @StateObject var listeCatIngr : CatIngrListVM = CatIngrListVM()
+    let formatter : NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        return formatter
+    }()
     
     init(ilvm:IngredientListVM ){
         self.intentI=IntentIngredient()
@@ -36,11 +41,11 @@ struct IngredientCreationView : View {
             }
             HStack{
                 Text("cout_unitaire : ");
-                TextField("modele", value: $ingredientVM.cout_unitaire, formatter: NumberFormatter())
+                TextField("modele", value: $ingredientVM.cout_unitaire, formatter:formatter)
             }
             HStack{
                 Text("stock : ");
-                TextField("modele", value: $ingredientVM.stock, formatter: NumberFormatter())
+                TextField("modele", value: $ingredientVM.stock, formatter:formatter)
             }
                 Picker("Catégorie : ", selection: $ingredientVM.id_cat_ingr) {
                     ForEach(listeCatIngr.cat_ingr_list, id:\.id_cat_ingr){item in
