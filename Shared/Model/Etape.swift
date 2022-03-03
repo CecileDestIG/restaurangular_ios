@@ -2,7 +2,7 @@
 //  Etape.swift
 //  Restaurangular (iOS)
 //
-//  Created by Ingrid on 20/02/2022.
+//  Created by Cecile on 20/02/2022.
 //
 
 import Foundation
@@ -36,7 +36,7 @@ class Etape {
         }
     }
     
-    init (_ id_etape:Int = 0,_ titre_etape:String = "",_ temps_etape: Double = 0,_ description_etape: String = ""){
+    init (_ id_etape:Int = 0,_ titre_etape:String = "",_ temps_etape: Double = 0.0,_ description_etape: String = ""){
         self.id_etape=id_etape
         self.titre_etape=titre_etape
         self.temps_etape=temps_etape
@@ -52,7 +52,7 @@ class EtapeInclus {
     var temps_etape : Double
     var description_etape : String
     
-    init(_ id_etape : Int = 0,_ place_et : Int = 0,_ titre_etape : String = "",_ id_recette : Int = 0,_ temps_etape : Double = 0,_ description_etape : String = ""){
+    init(_ id_etape : Int = 0,_ place_et : Int = 0,_ titre_etape : String = "",_ id_recette : Int = 0,_ temps_etape : Double = 0.0,_ description_etape : String = ""){
         self.id_etape = id_etape
         self.titre_etape = titre_etape
         self.id_recette = id_recette
