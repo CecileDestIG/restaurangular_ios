@@ -27,7 +27,7 @@ class RecetteDAO {
               let recetteInclus = RecetteInclus(id, tdata.place_rec)
              recetteInclus_list.append(recetteInclus)
           }
-    print("recetteInclus_list : ",recetteInclus_list)
+    //print("recetteInclus_list : ",recetteInclus_list)
     return recetteInclus_list
     }
     
@@ -51,7 +51,7 @@ class RecetteDAO {
               let recette = Recette(id, tdata.r[0].id_createur, tdata.r[0].nom_recette, tdata.r[0].nb_couvert, tdata.r[0].id_categorie,tdata.r[0].nom_categorie,tdata.r[0].prix_vente,etapetmp , recettetmp, ingredienttmp)
               recette_list.append(recette)
           }
-    print("recette_list : ",recette_list)
+    //print("recette_list : ",recette_list)
     return recette_list
     }
 }

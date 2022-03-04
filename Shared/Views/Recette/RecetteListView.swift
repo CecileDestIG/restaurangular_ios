@@ -27,7 +27,7 @@ struct RecetteListView: View {
         NavigationView{
             VStack{
                 HStack{
-                    NavigationLink(destination:RecetteCreateView()){
+                    NavigationLink(destination:RecetteCreateView(rlvm: recetteList)){
                         Text("Nouvelle recette")
                     }
                     .padding()
@@ -66,12 +66,10 @@ struct RecetteListView: View {
                     //  RECETTES
                     if let list = await RecetteDAO.getAllRecette(){
                         self.recetteList.recette_list = list.sorted{$0.nom_recette < $1.nom_recette}
-                        print("Recette list : ",list)
                     }
                     // CATEGORIES
                     if let list = await CategorieDAO.getAllCategorie(){
                         self.categorieList.categorie_list = list.sorted{ $0.nom_categorie < $1.nom_categorie }
-                        print("Categorie list : ",list)
                     }
                 }
             }

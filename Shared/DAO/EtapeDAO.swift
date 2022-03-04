@@ -26,7 +26,7 @@ class EtapeDAO {
               let etapeInclus = EtapeInclus(id, tdata.place_et,tdata.titre_etape,tdata.id_recette,tdata.temps_etape,tdata.description_etape)
              etapeInclus_list.append(etapeInclus)
           }
-    print("etapeInclus_list : ",etapeInclus_list)
+    //print("etapeInclus_list : ",etapeInclus_list)
     return etapeInclus_list
     }
     
@@ -68,7 +68,7 @@ class EtapeDAO {
             }
         }
         catch{
-            print("bad request")
+            print("bad request create etape")
         }
     }
     
@@ -96,7 +96,7 @@ class EtapeDAO {
             }
         }
         catch{
-            print("bad request")
+            print("bad request modifier etape")
         }
     }
 }

@@ -63,7 +63,7 @@ class CategorieDAO {
             }
         }
         catch{
-            print("bad request")
+            print("bad request create categorie")
         }
     }
     
@@ -91,7 +91,7 @@ class CategorieDAO {
             }
         }
         catch{
-            print("bad request")
+            print("bad request modify categorie")
         }
     }
 }

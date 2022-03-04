@@ -28,7 +28,7 @@ class APIRequest {
            return gorest
         }
         catch{
-            print("bad request")
+            print("bad request get all")
             return nil
         }
     }
@@ -49,7 +49,7 @@ class APIRequest {
             return gorest
         }
         catch{
-            print("bad request")
+            print("bad request get")
             return nil
         }
     }
