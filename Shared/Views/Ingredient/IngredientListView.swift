@@ -107,7 +107,7 @@ struct IngredientView: View {
                 Text("\(ingredient.nom_ingredient)")
                     .bold()
                 Text("(\(ingredient.stock,specifier: "%.2f") \(ingredient.unite))")
-                Text("Cout unitaire : \(ingredient.cout_unitaire,specifier: "%.2f") €")
+                Text("Cout unitaire : \(ingredient.cout_unitaire) €")
             }
         }
     }
