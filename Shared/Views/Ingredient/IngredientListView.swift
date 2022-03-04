@@ -91,6 +91,7 @@ struct IngredientView: View {
                     .frame(width: 75, height: 75, alignment: .center)
                     .scaledToFit()
                     .cornerRadius(20)
+                    .padding()
                 },placeholder: {
                     ProgressView()
                 })
@@ -102,13 +103,15 @@ struct IngredientView: View {
                     .frame(width: 30, height: 30, alignment: .center)
                     .scaledToFit()
                     .cornerRadius(5)
+                    .padding()
             }
             VStack(alignment: .center){
                 Text("\(ingredient.nom_ingredient)")
                     .bold()
                 Text("(\(ingredient.stock,specifier: "%.2f") \(ingredient.unite))")
-                Text("Cout unitaire : \(ingredient.cout_unitaire) €")
+                Text("Cout unitaire : \(ingredient.cout_unitaire,specifier: "%.2f") €")
             }
+            .padding()
         }
     }
 }

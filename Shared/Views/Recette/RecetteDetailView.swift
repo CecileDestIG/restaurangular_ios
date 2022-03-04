@@ -21,7 +21,7 @@ struct RecetteDetailView : View {
         return formatter
     }()
     
-    init(rvm : RecetteVM, rlvm:RecetteListVM ){
+    init(rvm : RecetteVM, rlvm:RecetteListVM){
         self.recetteVM=rvm
         self.intentR=IntentRecette()
         self.intentR.addObserver(rvm: rvm)
@@ -63,11 +63,21 @@ struct RecetteDetailView : View {
                             .bold()
                         Text(recetteVM.nom_categorie)
                     }.padding()
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.pink,lineWidth: 2)
+                        )
+                        .foregroundColor(Color.pink)
                     VStack(spacing:20){
                         Text("Prix vente")
                             .bold()
                         Text("\(recetteVM.prix_vente,specifier: "%.2f") €")
                     }.padding()
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.pink,lineWidth: 2)
+                        )
+                        .foregroundColor(Color.pink)
                 }
                 Divider()
                 VStack(spacing:20){
@@ -82,11 +92,18 @@ struct RecetteDetailView : View {
                         }
                     }
                 }
+                .padding()
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.pink,lineWidth: 2)
+                )
+                .foregroundColor(Color.pink)
                 Divider()
                 if((self.recetteVM.recinclus != nil) || (self.recetteVM.etapes != nil)){
                     VStack{
                         Text("PROGRESSION")
                             .bold()
+                            .padding()
                         EtapeRecetteInclusView(recette: self.recetteVM,liste_recette: self.recetteList)
                     }
                     .padding()
@@ -101,6 +118,7 @@ struct RecetteDetailView : View {
 struct EtapeRecetteInclusView : View {
     let recette : RecetteVM
     let liste_recette : RecetteListVM
+    var etapeList : EtapeListVM = EtapeListVM()
     var indexList : [Int : String] {
         var indexList : [Int : String] = [0:""]
         if let l1 = recette.recinclus {
@@ -148,23 +166,88 @@ struct EtapeRecetteInclusView : View {
         }
         return recette
     }
-    var body: some View{
-        ForEach(self.indexList.sorted(by: <),id:\.key){ key,value in
-            if(value == "recette"){
-                let r = findRecetteInclus(position: key)
-                let r2 = findRecette(id: r.id_recincl, list: self.liste_recette)
-                HStack{
-                    Text("\(key). ")
-                    Text("\(r2.nom_recette)")
-                }
+    
+    func findEtape(id : Int,list : EtapeListVM) -> Etape{
+        var etape : Etape = Etape()
+        for e in list.etape_list {
+            if(e.id_etape == id){
+                print("etape trouvée: ",e)
+                etape = e
             }
-            if(value == "etape"){
-                let e = findEtapeInclus(position: key)
-                HStack{
-                    Text("\(key). ")
-                    Text("\(e.titre_etape)")
+        }
+        return etape
+    }
+    
+    var body: some View{
+        VStack{
+            ForEach(self.indexList.sorted(by: <),id:\.key){ key,value in
+                if(value == "recette"){
+                    let r = findRecetteInclus(position: key)
+                    let r2 = findRecette(id: r.id_recincl, list: self.liste_recette)
+                    RecetteInclusView(r: r2, rl: self.liste_recette,position:key)
+                }
+                if(value == "etape"){
+                    let e = findEtapeInclus(position: key)
+                    let e2 = findEtape(id: e.id_etape, list: self.etapeList)
+                    EtapeInclusView(e: e,position: key)
                 }
             }
         }
+        .task{
+            // ETAPES
+            if let list = await EtapeDAO.getAllEtape(){
+                self.etapeList.etape_list = list
+            }
+        }
+    }
+}
+
+struct EtapeInclusView : View {
+    
+    let e : EtapeInclus
+    let position : Int
+    
+    var body: some View {
+        VStack{
+            VStack{
+                Text("\(position) | "+e.titre_etape)
+                    .bold()
+                Text("(\(e.temps_etape,specifier: "%.1f") minute)")
+            }.padding()
+            ZStack{
+                List{
+                    Text(e.description_etape)
+                }
+            }
+        }
+        .padding()
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(Color.purple,lineWidth: 2)
+        )
+        .foregroundColor(Color.purple)
+    }
+}
+
+struct RecetteInclusView : View {
+    
+    let r : Recette
+    let rl : RecetteListVM
+    let position : Int
+    
+    var body: some View {
+        VStack{
+            Text("\(position) | "+r.nom_recette)
+                .bold().padding()
+            Text(r.nom_categorie)
+            Text("pour \(r.nb_couvert) personnes")
+            Text("à \(r.prix_vente,specifier: "%.2f") €")
+        }
+        .padding()
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(Color.pink,lineWidth: 2)
+        )
+        .foregroundColor(Color.pink)
     }
 }
