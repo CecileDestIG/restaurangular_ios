@@ -91,6 +91,7 @@ struct RecetteView: View {
                     .frame(width: 75, height: 75, alignment: .center)
                     .scaledToFit()
                     .cornerRadius(20)
+                    .padding()
                 },placeholder: {
                     ProgressView()
                 })
@@ -102,12 +103,14 @@ struct RecetteView: View {
                     .frame(width: 75, height: 75, alignment: .center)
                     .scaledToFit()
                     .cornerRadius(20)
+                    .padding()
             }
             VStack{
                 Text("\(recette.nom_recette)")
                     .bold()
                 Text("(\(recette.nb_couvert) personnes)")
             }
+            .padding()
         }
     }
 }
