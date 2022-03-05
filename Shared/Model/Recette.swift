@@ -6,45 +6,6 @@
 //
 
 import Foundation
-/*{
-    "id_createur" :1,
-    "nom_recette" : "Lasagne",
-    "nb_couvert" : 8,
-    "id_categorie":2,
-    "prix_vente":8.99,
-    "nom_categorie":"Plat",
-    "etapes":[
-        {
-            "id_etape":1,
-            "place_et":1
-        },
-        {
-            "id_etape":1,
-            "place_et":2
-        }
-    ],
-    "recinclus":[
-        {
-            "id_recincl":30,
-            "place_rec":5
-        }
-    ],
-    "ingredients":[
-        {
-            "id_ingredient":2,
-            "quantite_necessaire":12
-        },
-        {
-            "id_ingredient":3,
-            "quantite_necessaire":2
-        },
-        {
-            "id_ingredient":5,
-            "quantite_necessaire":6
-        }
-    ]
-}
-*/
 
 protocol RecetteObserver{
     func change(id_createur:Int)
@@ -121,7 +82,24 @@ class Recette {
         }
     }
     
-    init(_ id_recette:Int = 0,_ id_createur : Int = 0,_ nom_recette : String = "",_ nb_couvert : Int = 0,_ id_categorie : Int = 0,_ nom_categorie : String = "",_ prix_vente : Double = 0,_ etapes : [EtapeInclus]? = nil,_ recinclus : [RecetteInclus]? = nil,_ ingredients : [IngredientInclus]? = nil,_ image : String? = nil){
+    var temps : Double{
+        get{
+            var t : Double = 0
+            if let rec = recinclus{
+                for r in rec{
+                    t += r.temps
+                }
+            }
+            if let et = etapes{
+                for e in et{
+                    t += e.temps_etape
+                }
+            }
+            return t
+        }
+    }
+    
+    init(_ id_recette:Int = 0,_ id_createur : Int = 0,_ nom_recette : String = "Recette",_ nb_couvert : Int = 0,_ id_categorie : Int = 0,_ nom_categorie : String = "Catégorie",_ prix_vente : Double = 0,_ etapes : [EtapeInclus]? = nil,_ recinclus : [RecetteInclus]? = nil,_ ingredients : [IngredientInclus]? = nil,_ image : String? = nil){
         self.id_recette=id_recette
         self.id_createur=id_createur
         self.nom_recette=nom_recette
@@ -139,10 +117,12 @@ class Recette {
 class RecetteInclus {
     var id_recincl : Int
     var place_rec : Int
+    var temps : Double
     
-    init(_ id_recincl : Int = 0,_ place_rec : Int = 0){
+    init(_ id_recincl : Int = 0,_ place_rec : Int = 0,_ temps : Double = 0){
         self.id_recincl = id_recincl
         self.place_rec = place_rec
+        self.temps = temps
     }
 }
 
