@@ -66,30 +66,27 @@ struct RecetteCreateView: View {
                         ForEach(listeCat.categorie_list, id:\.id_categorie){item in
                             Text(item.nom_categorie)
                         }
+                        
                     }
+
                     NavigationLink(destination: CategorieCreateView(clvm: self.listeCat)){
                         Button("Nouvelle Categorie"){}
                     }
                 }
                 Group{
-                    
                     Section{
                         Picker("Ingredients : +", selection: $ingredientSelect) {
-                            Text("Choisir la quantité des ingredients selectionnés : ")
+                            Text("Modifier la quantité de l'ingrédient : ")
                             ForEach($ingrinclus, id:\.id_ingredient){item in
                                 HStack{
                                 Text("Quantite : ")
                                 TextField("quantite", value: item.quantite_necessaire, formatter:formatter)
                                 TextField("nom", text:item.nom_ingredient)
                                 }
-                            }.task{//pour remettre le tableau ingredients  à envoyer à 0 quand on modifie la quantite
-                                ingrDTO = []
                             }
-                                  
-                            
-                            Section{
-                                Text("Choisir les ingrédients :")
+                            Text("Selectionner les ingrédients :")
                             ForEach(listeIngr.ingredient_list, id:\.id_ingredient){item in
+                                List{
                                     HStack{
                                         Text("\(item.nom_ingredient)")
                                         Button(action: {
@@ -97,9 +94,10 @@ struct RecetteCreateView: View {
                                             ingrinclus.append(IngredientCreateInclus(id_ingredient: item.id_ingredient, quantite:0, nom: item.nom_ingredient, unite: item.unite))
                                         }, label:{Text("+")})
                                     }
-                                } }
+                                    }
+                                }
+                            
                             }
-                                
                         
                         //pour afficher la liste des etapes selectionnees
                         ForEach(ingrinclus, id:\.id_ingredient){item in
@@ -108,9 +106,6 @@ struct RecetteCreateView: View {
                                 Text("\(item.nom_ingredient) : \(item.quantite_necessaire) \(item.unite) ")
                                     
                                 }
-                            }.task{
-                                ingrDTO.append(IngredientCreateRecetteDTO(id_ingredient: item.id_ingredient, quantite_necessaire: item.quantite_necessaire))
-                                print(ingrDTO)
                             }
                         }
                     
@@ -124,19 +119,15 @@ struct RecetteCreateView: View {
                 //section pour ajout, creation choix etapes
                     Section{
                         Picker("Etapes : +", selection: $etapeSelect) {
-                            Section{
-                            Text("Choisir la place de l'étape dans la recette : ")
+                            Text("Modifier la place de l'étape incluse dans la recette : ")
                             ForEach($etincluses, id:\.id_etape){item in
                                 HStack{
                                 Text("place : ")
                                 TextField("N° place", value: item.place_et, formatter:formatter)
                                 TextField("titre", text:item.titre_etape)
                                 }
-                            }.task{//pour remettre le tableau d etapes incluses à envoyer à 0 quand on modifie la place_et
-                                etDTO = []
-                            }}
-                            Section{
-                                Text("Choisir les étapes : ")
+                            }
+                            Text("Selectionner les étapes : ")
                             ForEach(listeEtape.etape_list, id:\.id_etape){item in
                                 List{
                                     HStack{
@@ -150,8 +141,9 @@ struct RecetteCreateView: View {
                                         }, label:{Text("+")})
                                     }
                                     }
-                                }
-                            }}
+                            }
+                            
+                            }
                         
                         //pour afficher la liste des etapes selectionnees
                         ForEach(etincluses, id:\.self){item in
@@ -163,34 +155,30 @@ struct RecetteCreateView: View {
                                     }
                                     Text(item.description_etape)
                                 }
-                            }.task{
-                                etDTO.append(EtapeCreateRecetteDTO(id_etape: item.id_etape, place_et: item.place_et))
-                        }
+                            }
                         }
                     
                         //pour creer une nouvelle etape
                         NavigationLink(destination: EtapeCreateView(elvm: self.listeEtape)){
                             Button("Nouvelle Etape"){}
                         }
-                    }
+                    
+                }
                 }
                 Group{
                     Section{
                     //section ajout, choix, selection recettes incluses
                         Picker("Recettes à inclures : +", selection: $recetteSelect) {
-                            Section{
-                            Text("Choisir la place de la recette incluse dans la recette : ")
+                            Text("Modifier la place de la recette incluse dans la recette : ")
                             ForEach($recincluses, id:\.id){item in
                                 HStack{
                                 Text("place : ")
                                 TextField("N° place", value: item.place_rec, formatter:formatter)
                                 TextField("titre", text:item.titre_recette)
                                 }
-                            }.task{ //pour remettre le tableau de recettes incluses à envoyer à 0 quand on modifie la place_rec
-                                recDTO = []
-                            }}
-                            Section{
-                                Text("Choisir les recettes à inclure :")
+                            }
+
+                            Text("Selectionner les recettes à inclure : ")
                             ForEach(listeRecette.recette_list, id:\.id_recette){item in
                                 List{
                                     HStack{
@@ -205,17 +193,14 @@ struct RecetteCreateView: View {
                                     }
                                 }
                             }
-                                
-                            }
-                }
+            
                 
+                        }
                     ForEach(recincluses, id:\.id){item in
                         HStack{
                             Text("\(item.place_rec). ")
                             Text(item.titre_recette)
-                        }.task{
-                            recDTO.append(RecetteInclusDTO(id_recincl: item.id, place_rec: item.place_rec))
-                    }
+                        }
                     }
                     }
                     
@@ -224,6 +209,16 @@ struct RecetteCreateView: View {
                         Spacer()
                         Button("Enregistrer Recette"){
                             Task{
+                                ingrinclus.forEach{item in
+                                    ingrDTO.append(IngredientCreateRecetteDTO(id_ingredient: item.id_ingredient, quantite_necessaire: item.quantite_necessaire))
+                                    print("nb ingr DTO \(ingrDTO.count)")
+                                }
+                                recincluses.forEach{item in
+                                    recDTO.append(RecetteInclusDTO(id_recincl: item.id, place_rec: item.place_rec))
+                                }
+                                etincluses.forEach{item in
+                                    etDTO.append(EtapeCreateRecetteDTO(id_etape: item.id_etape, place_et: item.place_et))
+                                }
                                 await intentR.intentToCreate(recette: recetteVM, recincl: recDTO, etincl: etDTO, ingr: ingrDTO)
                             }
                         }

@@ -96,8 +96,8 @@ struct IntentRecette {
         }
         
         self.stateRecette.send(.recetteCreate(recette))
+    }
     func intentToChange(image:String){
         self.stateRecette.send(.imageChanging(image))
     }
 }
-
