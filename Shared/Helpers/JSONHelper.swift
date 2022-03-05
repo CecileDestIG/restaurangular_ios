@@ -21,19 +21,4 @@ struct JSONHelper{
       return try? encoder.encode(data)
    }
 }
-/*
-struct AppleMusicHelper{
-   struct ResultDTO : Decodable{
-      var resultCount: Int
-      var results: [TrackDTO]
-   }
-   static func decode(data: Data) async -> [TrackDTO]?{
-      let decoder = JSONDecoder()
-      guard let decoded = try? decoder.decode(Self.ResultDTO, from: data) else {
-         return nil
-      }
-      return decoded.results
-   }
 
-}
- */

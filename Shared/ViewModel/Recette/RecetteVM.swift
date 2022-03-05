@@ -41,13 +41,23 @@ enum RecetteVMError : Error, CustomStringConvertible, Equatable {
     }
 }
     
-class RecetteVM : ObservableObject, RecetteObserver, Subscriber{
-
+class RecetteVM : ObservableObject, RecetteObserver, Subscriber, Hashable{
+    
+    static func == (lhs: RecetteVM, rhs: RecetteVM) -> Bool {
+        lhs.getId()==rhs.getId()
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(recette.id_recette)
+    }
     
     typealias Input = IntentStateRecette
     
     typealias Failure = Never
     
+    func getId()->Int{
+        return recette.id_recette
+    }
         
     private var recette : Recette
     @Published var id_createur : Int
@@ -145,6 +155,8 @@ class RecetteVM : ObservableObject, RecetteObserver, Subscriber{
         case .ingredientsChanging(let r):
             self.recette.ingredients=r
             print("vm : change model ingredients")
+        case .recetteCreate(let r):
+            print("recette create \(r.nom_recette)")
         case .imageChanging(let r):
             self.recette.image=r
             print("vm : change model image")

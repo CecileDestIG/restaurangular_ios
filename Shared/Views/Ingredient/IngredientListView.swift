@@ -66,12 +66,10 @@ struct IngredientListView: View {
                     // INGREDIENTS
                     if let list = await IngredientDAO.getAllIngredient(){
                         self.ingredientList.ingredient_list = list.sorted{$0.nom_ingredient < $1.nom_ingredient}
-                        print("Content list : ",list)
                     }
                     // CATEGORIES INGREDIENT
                     if let list = await CatIngrDAO.getAllCatIngr(){
                         self.listeCatIngr.cat_ingr_list = list.sorted{ $0.nom_cat_ingr < $1.nom_cat_ingr }
-                        print("Content list : ",list)
                     }
                 }
             }

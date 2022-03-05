@@ -25,3 +25,8 @@ struct IngredientInclusDTO : Codable, Hashable {
     var id_recette : Int
     var quantite_necessaire : Double
 }
+
+struct IngredientCreateRecetteDTO : Codable, Hashable {
+    var id_ingredient : Int
+    var quantite_necessaire : Double
+}

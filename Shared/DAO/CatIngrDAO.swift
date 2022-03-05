@@ -69,7 +69,7 @@ class CatIngrDAO {
             }
         }
         catch{
-            print("bad request")
+            print("bad request create catingr")
         }
     }
     
@@ -97,7 +97,7 @@ class CatIngrDAO {
             }
         }
         catch{
-            print("bad request")
+            print("bad request modif catingr")
         }
     }
 }

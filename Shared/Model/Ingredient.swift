@@ -105,3 +105,17 @@ class IngredientInclus {
         self.quantite_necessaire = quantite_necessaire
     }
 }
+
+class IngredientCreateInclus {
+    var id_ingredient : Int
+    var quantite_necessaire : Double
+    var nom_ingredient : String
+    var unite : String
+    
+    init(id_ingredient : Int, quantite : Double, nom : String, unite : String){
+        self.id_ingredient=id_ingredient
+        self.quantite_necessaire=quantite
+        self.nom_ingredient=nom
+        self.unite=unite
+    }
+}

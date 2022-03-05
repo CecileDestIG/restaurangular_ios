@@ -22,6 +22,7 @@ enum IntentStateRecette : CustomStringConvertible, Equatable {
     case etapesChanging([EtapeInclus])
     case recinclusChanging([RecetteInclus])
     case ingredientsChanging([IngredientInclus])
+    case recetteCreate(RecetteVM)
     case imageChanging(String)
 
     var description: String {
@@ -35,6 +36,7 @@ enum IntentStateRecette : CustomStringConvertible, Equatable {
             case .etapesChanging(let i) : return "state : .etapes(\(i))"
             case .recinclusChanging(let i) : return "state : .recinclus(\(i))"
             case .ingredientsChanging(let i) : return "state : .ingredients(\(i))"
+        case .recetteCreate(let r) :  return "state : .recette(\(r.nom_recette))"
             case .imageChanging(let i) : return "state : .image(\(i))"
         }
     }
@@ -83,8 +85,19 @@ struct IntentRecette {
         self.stateRecette.send(.ingredientsChanging(ingredients))
     }
     
+    
+    func intentToCreate(recette:RecetteVM,recincl:[RecetteInclusDTO], etincl:[EtapeCreateRecetteDTO], ingr: [IngredientCreateRecetteDTO] ) async{
+        
+        if (recincl.isEmpty){
+            await RecetteDAO.createRecette(recette:recette,recincl:nil,etincl: etincl, ingredients: ingr)
+        }
+        else{
+            await RecetteDAO.createRecette(recette:recette,recincl:recincl,etincl:etincl, ingredients: ingr)
+        }
+        
+        self.stateRecette.send(.recetteCreate(recette))
+    }
     func intentToChange(image:String){
         self.stateRecette.send(.imageChanging(image))
     }
 }
-

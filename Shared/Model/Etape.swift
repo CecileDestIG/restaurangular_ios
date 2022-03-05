@@ -61,3 +61,28 @@ class EtapeInclus {
         self.description_etape = description_etape
     }
 }
+
+class EtapeInclusCreate : Hashable {
+    static func == (lhs: EtapeInclusCreate, rhs: EtapeInclusCreate) -> Bool {
+        lhs.id_etape==rhs.id_etape
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id_etape)
+    }
+    
+    var id_etape : Int
+    var titre_etape : String
+    var description_etape : String
+    var temps_etape : Double
+    var place_et : Int
+
+    
+    init(id_etape : Int = 0,place_et : Int = 0,titre_etape : String = "", temps_etape : Double = 0.0, description_etape : String = ""){
+        self.id_etape = id_etape
+        self.titre_etape = titre_etape
+        self.place_et = place_et
+        self.temps_etape = temps_etape
+        self.description_etape = description_etape
+    }
+}

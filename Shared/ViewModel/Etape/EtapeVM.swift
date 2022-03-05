@@ -26,8 +26,15 @@ enum EtapeVMError : Error, CustomStringConvertible, Equatable {
     }
 }
     
-class EtapeVM : ObservableObject, EtapeObserver, Subscriber{
-
+class EtapeVM : ObservableObject, EtapeObserver, Subscriber, Hashable{
+    
+    static func == (lhs: EtapeVM, rhs: EtapeVM) -> Bool {
+        lhs.getId()==rhs.getId()
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(etape.id_etape)
+    }
     
     typealias Input = IntentStateEtape
     

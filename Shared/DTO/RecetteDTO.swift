@@ -28,3 +28,25 @@ struct RecetteInclusDTO : Codable, Hashable {
     var id_recincl : Int
     var place_rec : Int
 }
+
+struct RecetteCreateDTO : Codable, Hashable {
+    var id_createur : Int
+    var nom_recette : String
+    var nb_couvert : Int
+    var id_categorie : Int
+    var prix_vente : Double
+    var ingredients : [IngredientCreateRecetteDTO]
+    var recinclus : [RecetteInclusDTO]
+    var etapes : [EtapeCreateRecetteDTO]
+}
+
+struct RecetteCreateSansDTO : Codable, Hashable {
+    var id_createur : Int
+    var nom_recette : String
+    var nb_couvert : Int
+    var id_categorie : Int
+    var prix_vente : Double
+    var ingredients : [IngredientCreateRecetteDTO]
+    var recinclus : String
+    var etapes : [EtapeCreateRecetteDTO]
+}

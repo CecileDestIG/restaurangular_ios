@@ -20,7 +20,7 @@ class IngredientDAO {
               let ingredientInclus = IngredientInclus(id,tdata.quantite_necessaire,tdata.nom_ingredient,tdata.unite,tdata.cout_unitaire,tdata.stock,tdata.id_allergene ?? 0,tdata.allergene ?? "",tdata.id_cat_ingr,tdata.nom_cat_ingr,tdata.id_recette)
              ingredientInclus_list.append(ingredientInclus)
           }
-    print("ingredientInclus_list : ",ingredientInclus_list)
+    //print("ingredientInclus_list : ",ingredientInclus_list)
     return ingredientInclus_list
     }
     
@@ -35,7 +35,7 @@ class IngredientDAO {
              let ingredient = Ingredient(id, tdata.nom_ingredient, tdata.unite, tdata.cout_unitaire, tdata.stock, tdata.id_cat_ingr, tdata.id_allergene ?? -1 , tdata.allergene ?? "Aucun", tdata.nom_cat_ingr ?? "Aucun")
              ingredient_list.append(ingredient)
           }
-    print("ingredient_list : ",ingredient_list)
+    //print("ingredient_list : ",ingredient_list)
     return ingredient_list
     }
     
@@ -63,7 +63,7 @@ class IngredientDAO {
             }
         }
         catch{
-            print("bad request")
+            print("bad request create ingredient")
         }
     }
     
@@ -91,7 +91,7 @@ class IngredientDAO {
             }
         }
         catch{
-            print("bad request")
+            print("bad request modifier ingredient")
         }
     }
     

@@ -145,3 +145,19 @@ class RecetteInclus {
         self.place_rec = place_rec
     }
 }
+
+
+
+class RecetteInclAffiche{
+    
+    var titre_recette : String
+    var id : Int
+    @Published var place_rec : Int
+    
+    init(titre_recette:String,id:Int,place_rec:Int){
+        self.titre_recette=titre_recette
+        self.id=id
+        self.place_rec=place_rec
+    }
+    
+}

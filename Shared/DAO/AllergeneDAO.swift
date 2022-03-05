@@ -23,7 +23,7 @@ struct AllergeneDAO {
             return AllergeneDAO.allergeneDTOtoAllergene(data: gorest)
         }
         catch{
-            print("bad request")
+            print("bad request get all allergene")
         }
         return nil
     }
@@ -68,7 +68,7 @@ struct AllergeneDAO {
             }
         }
         catch{
-            print("bad request")
+            print("bad request create allergene")
         }
     }
 
@@ -96,7 +96,7 @@ struct AllergeneDAO {
             }
         }
         catch{
-            print("bad request")
+            print("bad request modifier allergene")
         }
     }
 }
