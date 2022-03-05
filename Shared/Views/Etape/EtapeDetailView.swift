@@ -29,20 +29,20 @@ struct EtapeDetailView : View {
         VStack{
             Text("\(etapeVM.titre_etape)").font(.largeTitle).bold()
             Form{
-            HStack{
-                Text("Titre : ");
-                TextField("titre", text: $etapeVM.titre_etape)
-                    
-            }
-            HStack{
-                Text("Temps : ");
-                TextField("temps", value: $etapeVM.temps_etape, formatter: formatter)
-                    
-            }
-            HStack{
-                Text("Description : ");
-                TextEditor(text:  $etapeVM.description_etape)
-            }
+                HStack{
+                    Text("Titre : ");
+                    TextField("titre", text: $etapeVM.titre_etape)
+                        
+                }
+                HStack{
+                    Text("Temps : ");
+                    TextField("temps", value: $etapeVM.temps_etape, formatter: formatter)
+                        
+                }
+                HStack{
+                    Text("Description : ");
+                    TextEditor(text:  $etapeVM.description_etape)
+                }
                 HStack{
                     Spacer()
                 Button("modifier"){
@@ -50,7 +50,7 @@ struct EtapeDetailView : View {
                         await intentEtape.intentToChange(etape: etapeVM)
                     }
                 }
-                    Spacer()
+                Spacer()
                 }
             }
             Spacer()

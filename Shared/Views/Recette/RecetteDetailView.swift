@@ -213,14 +213,9 @@ struct EtapeInclusView : View {
                 Text("\(position) | "+e.titre_etape)
                     .bold()
                 Text("(\(e.temps_etape,specifier: "%.1f") minute)")
-            }.padding()
-            ZStack{
-                List{
-                    Text(e.description_etape)
-                }
+                Text(e.description_etape).frame(width:250,height:100)
             }
         }
-        .padding()
         .overlay(
             RoundedRectangle(cornerRadius: 10)
                 .stroke(Color.purple,lineWidth: 2)
