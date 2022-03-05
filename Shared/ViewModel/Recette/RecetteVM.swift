@@ -23,6 +23,7 @@ enum RecetteVMError : Error, CustomStringConvertible, Equatable {
     case etapesError([Etape])
     case recinclusError([Recette])
     case ingredientsError([Ingredient])
+    case imageError(String)
 
     var description: String {
         switch self {
@@ -35,6 +36,7 @@ enum RecetteVMError : Error, CustomStringConvertible, Equatable {
         case .etapesError(let i) :  return "Erreur dans etapes :  \(i)"
         case .recinclusError(let i) :  return "Erreur dans les recettes incluses :  \(i)"
         case .ingredientsError(let i) :  return "Erreur dans ingredients :  \(i)"
+        case .imageError(let i) :  return "Erreur dans image :  \(i)"
         }
     }
 }
@@ -67,6 +69,7 @@ class RecetteVM : ObservableObject, RecetteObserver, Subscriber, Hashable{
     @Published var etapes : [EtapeInclus]?
     @Published var recinclus : [RecetteInclus]?
     @Published var ingredients : [IngredientInclus]?
+    @Published var image : String?
     
     func change(id_createur: Int) {
         print("vm observer: id_createur changé => self.id_createur = '\(id_createur)'")
@@ -106,6 +109,11 @@ class RecetteVM : ObservableObject, RecetteObserver, Subscriber, Hashable{
     func change(ingredients: [IngredientInclus]?) {
         print("vm observer: ingredients changé => self.ingredients")
         self.ingredients=ingredients
+    }
+    
+    func change(image: String?) {
+        print("vm observer: image changée => self.image")
+        self.image=image
     }
     
     func receive(subscription: Subscription) {
@@ -149,6 +157,9 @@ class RecetteVM : ObservableObject, RecetteObserver, Subscriber, Hashable{
             print("vm : change model ingredients")
         case .recetteCreate(let r):
             print("recette create \(r.nom_recette)")
+        case .imageChanging(let r):
+            self.recette.image=r
+            print("vm : change model image")
         }
         return .none
     }
@@ -164,6 +175,7 @@ class RecetteVM : ObservableObject, RecetteObserver, Subscriber, Hashable{
         self.etapes=r.etapes
         self.recinclus = r.recinclus
         self.ingredients = r.ingredients
+        self.image = r.image
     }
 }
 

@@ -46,7 +46,7 @@ struct RecetteListView: View {
                 List {
                     ForEach(self.categorieList.categorie_list, id:\.id_categorie){
                         section in
-                        Section(header: Text("\(section.nom_categorie)")){
+                        Section(header: Text("\(section.nom_categorie)"),footer: NavigationLink(destination:(CategorieDetailView())){Text("Modifier la categorie")}.foregroundColor(Color.blue)){
                             ForEach(self.searchResultsRecette,id:\.id_recette){
                                 item in
                                 if(item.nom_categorie == section.nom_categorie){
@@ -80,8 +80,35 @@ struct RecetteListView: View {
 struct RecetteView: View {
     let recette : Recette
     var body : some View {
-        HStack{
-            Text("\(recette.nom_recette) (\(recette.nb_couvert) pers.)")
+        HStack(spacing:10){
+            if let url = recette.image {
+                AsyncImage(url: URL(string:url),content: { img in
+                    img
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 75, height: 75, alignment: .center)
+                    .scaledToFit()
+                    .cornerRadius(20)
+                    .padding()
+                },placeholder: {
+                    ProgressView()
+                })
+            }
+            else{
+                Image(systemName: "photo")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 75, height: 75, alignment: .center)
+                    .scaledToFit()
+                    .cornerRadius(20)
+                    .padding()
+            }
+            VStack{
+                Text("\(recette.nom_recette)")
+                    .bold()
+                Text("(\(recette.nb_couvert) personnes)")
+            }
+            .padding()
         }
     }
 }

@@ -10,11 +10,13 @@ import SwiftUI
 struct Accueil: View {
     
     var body: some View {
-        NavigationView{
-            ZStack{
-                Text("Bienvenue sur restaurangular !")
-            }
+        VStack{
+            Text("Bienvenue sur restaurangular !")
         }
+        .padding(10)
+        .foregroundColor(Color.white)
+        .background(Color.blue)
+        .cornerRadius(10)
     }
 }
 

@@ -14,6 +14,7 @@ protocol IngredientObserver{
     func change(stock:Double)
     func change(id_cat_ingr:Int)
     func change(id_allergene:Int)
+    func change(image:String?)
 }
 
 class Ingredient {
@@ -61,7 +62,9 @@ class Ingredient {
     
     var nom_cat_ingr : String
     
-    init (_ id_ingredient:Int = 0,_ nom_ingredient:String = "",_ unite:String = "",_ cout_unitaire:Double = 0.0,_ stock:Double = 0,_ id_cat_ingr : Int = 0,_ id_allergene : Int = 0,_ allergene : String = "",_ nom_cat_ingr : String = ""){
+    var image : String?
+    
+    init (_ id_ingredient:Int = 0,_ nom_ingredient:String = "",_ unite:String = "",_ cout_unitaire:Double = 0.0,_ stock:Double = 0,_ id_cat_ingr : Int = 0,_ id_allergene : Int = 0,_ allergene : String = "",_ nom_cat_ingr : String = "",_ image : String? = nil){
         self.id_ingredient=id_ingredient
         self.nom_ingredient=nom_ingredient
         self.unite=unite
@@ -71,6 +74,7 @@ class Ingredient {
         self.id_allergene=id_allergene
         self.allergene=allergene
         self.nom_cat_ingr=nom_cat_ingr
+        self.image=image
     }
 }
 

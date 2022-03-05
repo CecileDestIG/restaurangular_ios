@@ -21,17 +21,15 @@ struct ContentView: View {
             }.tag(1)
             IngredientListView().tabItem{
                 Image(systemName: "list.dash")
-                Text("Stock")
+                Text("Mercuriale")
             }.tag(2)
             AllergeneListView().tabItem{
-                Image(systemName: "heart.fill")
+                Image(systemName: "allergens")
                 Text("Allergènes")
-            }.tag(5)
-            CatIngrListView().tabItem{
-                Text("Cat. Ingrédient")
             }.tag(3)
-            EtapeListView().tabItem{
-                Text("Etapes")
+            EtiquetteListView().tabItem{
+                Image(systemName: "barcode")
+                Text("Etiquettes")
             }.tag(4)
         }
     }
