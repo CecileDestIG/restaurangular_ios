@@ -30,8 +30,15 @@ enum IngredientVMError : Error, CustomStringConvertible, Equatable {
     }
 }
     
-class IngredientVM : ObservableObject, IngredientObserver, Subscriber{
+class IngredientVM : ObservableObject, IngredientObserver, Subscriber, Hashable{
 
+    static func == (lhs: IngredientVM, rhs: IngredientVM) -> Bool {
+        lhs.getId()==rhs.getId()
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(ingredient.id_ingredient)
+    }
     
     typealias Input = IntentStateIngredient
     

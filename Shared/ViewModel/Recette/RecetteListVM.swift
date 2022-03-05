@@ -37,7 +37,7 @@ class RecetteListVM : ObservableObject, Subscriber{
         switch input {
         case .ready:
             break
-        case .id_createurChanging(_), .nom_recetteChanging(_), .nb_couvertChanging(_), .id_categorieChanging(_), .prix_venteChanging(_), .etapesChanging(_), .recinclusChanging(_), .ingredientsChanging(_) :
+        case .id_createurChanging(_), .nom_recetteChanging(_), .nb_couvertChanging(_), .id_categorieChanging(_), .prix_venteChanging(_), .etapesChanging(_), .recinclusChanging(_), .ingredientsChanging(_), .recetteCreate(_) :
             self.objectWillChange.send()
         }
         return .none
