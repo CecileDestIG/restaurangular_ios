@@ -48,7 +48,7 @@ class IngredientDAO {
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            guard let encoded = await JSONHelper.encode(data: IngredientDTO(nom_ingredient: ingredient.nom_ingredient, unite: ingredient.unite, cout_unitaire: ingredient.cout_unitaire, stock: ingredient.stock, id_cat_ingr: ingredient.id_cat_ingr, id_allergene: ingredient.id_allergene)) else {
+            guard let encoded = await JSONHelper.encode(data: IngredientDTO(nom_ingredient: ingredient.nom_ingredient, unite: ingredient.unite, cout_unitaire: ingredient.cout_unitaire, stock: ingredient.stock, id_cat_ingr: ingredient.id_cat_ingr, id_allergene: ingredient.id_allergene, image: ingredient.image)) else {
                 print("pb encodage")
                 return
             }
@@ -76,7 +76,7 @@ class IngredientDAO {
             var request = URLRequest(url: url)
             request.httpMethod = "PUT"
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            guard let encoded = await JSONHelper.encode(data: IngredientDTO(nom_ingredient: ingredient.nom_ingredient, unite: ingredient.unite, cout_unitaire: ingredient.cout_unitaire, stock: ingredient.stock, id_cat_ingr: ingredient.id_cat_ingr, id_allergene: ingredient.id_allergene)) else {
+            guard let encoded = await JSONHelper.encode(data: IngredientDTO(nom_ingredient: ingredient.nom_ingredient, unite: ingredient.unite, cout_unitaire: ingredient.cout_unitaire, stock: ingredient.stock, id_cat_ingr: ingredient.id_cat_ingr, id_allergene: ingredient.id_allergene, image: ingredient.image)) else {
                 print("pb encodage")
                 return
             }

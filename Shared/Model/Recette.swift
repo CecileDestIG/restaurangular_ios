@@ -124,11 +124,15 @@ class RecetteInclAffiche{
     var titre_recette : String
     var id : Int
     @Published var place_rec : Int
+    var temps : Double
+    var cout_production: Double
     
-    init(titre_recette:String,id:Int,place_rec:Int){
+    init(titre_recette:String,id:Int,place_rec:Int, temps: Double, cout:Double){
         self.titre_recette=titre_recette
         self.id=id
         self.place_rec=place_rec
+        self.temps = temps
+        self.cout_production=cout
     }
     
 }

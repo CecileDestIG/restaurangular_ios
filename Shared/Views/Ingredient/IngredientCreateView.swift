@@ -33,19 +33,23 @@ struct IngredientCreationView : View {
             Form{
             HStack{
                 Text("Nom ingredient : ");
-                TextField("modele", text: $ingredientVM.nom_ingredient)
+                TextField("nom", text: $ingredientVM.nom_ingredient)
             }
+                HStack{
+                    Text("Lien image : ");
+                    TextField("image", text: $ingredientVM.image)
+                }
             HStack{
                 Text("unite : ");
-                TextField("modele", text: $ingredientVM.unite)
+                TextField("unite", text: $ingredientVM.unite)
             }
             HStack{
                 Text("cout_unitaire : ");
-                TextField("modele", value: $ingredientVM.cout_unitaire, formatter:formatter)
+                TextField("cout", value: $ingredientVM.cout_unitaire, formatter:formatter)
             }
             HStack{
                 Text("stock : ");
-                TextField("modele", value: $ingredientVM.stock, formatter:formatter)
+                TextField("stock", value: $ingredientVM.stock, formatter:formatter)
             }
                 Picker("Catégorie : ", selection: $ingredientVM.id_cat_ingr) {
                     ForEach(listeCatIngr.cat_ingr_list, id:\.id_cat_ingr){item in

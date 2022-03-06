@@ -32,7 +32,7 @@ struct RecetteCreateView: View {
     @State var recetteSelect : RecetteVM = RecetteVM(r: Recette())
     @State var i = 0
     @State var recincluses : [RecetteInclAffiche] = []
-    @State var recDTO : [RecetteInclusDTO] = []
+    @State var recDTO : [RecetteInclusCreateDTO] = []
 
     @State var ingredientSelect : IngredientVM = IngredientVM(i: Ingredient())
     @State var ingrDTO : [IngredientCreateRecetteDTO] = []
@@ -191,7 +191,7 @@ struct RecetteCreateView: View {
                                             print(item.nom_recette)
                                             i+=1
                                             print("i : \(i)")
-                                            recincluses.append(RecetteInclAffiche(titre_recette: item.nom_recette, id: item.id_recette, place_rec: i))
+                                            recincluses.append(RecetteInclAffiche(titre_recette: item.nom_recette, id: item.id_recette, place_rec: i, temps: item.temps_recette, cout:item.cout_production))
                                             //recettesincluses[RecetteVM(r:item)]=i
                                         }, label:{Text("+")})
                                     }
@@ -218,7 +218,7 @@ struct RecetteCreateView: View {
                                     print("nb ingr DTO \(ingrDTO.count)")
                                 }
                                 recincluses.forEach{item in
-                                    recDTO.append(RecetteInclusDTO(id_recincl: item.id, place_rec: item.place_rec))
+                                    recDTO.append(RecetteInclusCreateDTO(id_recincl: item.id, place_rec: item.place_rec, temps_recette:item.temps, cout_production:item.cout_production))
                                 }
                                 etincluses.forEach{item in
                                     etDTO.append(EtapeCreateRecetteDTO(id_etape: item.id_etape, place_et: item.place_et))

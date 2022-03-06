@@ -106,7 +106,6 @@ struct RecetteDetailView : View {
                             .padding()
                         EtapeRecetteInclusView(recette: self.recetteVM,liste_recette: self.recetteList)
                     }
-                    .padding()
                 }
                 Divider()
                 VStack{
@@ -194,11 +193,14 @@ struct EtapeRecetteInclusView : View {
                     let r = findRecetteInclus(position: key)
                     let r2 = findRecette(id: r.id_recincl, list: self.liste_recette)
                     RecetteInclusView(r: r2, rl: self.liste_recette,position:key)
+                    Spacer(minLength: 20)
+
                 }
                 if(value == "etape"){
                     let e = findEtapeInclus(position: key)
                     let e2 = findEtape(id: e.id_etape, list: self.etapeList)
                     EtapeInclusView(e: e,position: key)
+                    Spacer(minLength: 20)
                 }
             }
         }
@@ -222,7 +224,7 @@ struct EtapeInclusView : View {
                 Text("\(position) | "+e.titre_etape)
                     .bold()
                 Text("(\(e.temps_etape,specifier: "%.1f") minute)")
-                Text(e.description_etape).frame(width:250,height:100)
+                Text(e.description_etape)
             }
         }
         .overlay(
