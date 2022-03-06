@@ -54,7 +54,7 @@ struct RecetteListView: View {
                 List {
                     ForEach(self.categorieList.categorie_list, id:\.id_categorie){
                         section in
-                        Section(header: Text("\(section.nom_categorie)"),footer: NavigationLink(destination:(CategorieDetailView())){Text("Modifier la categorie")}.foregroundColor(Color.blue)){
+                        Section(header: Text("\(section.nom_categorie)"),footer: NavigationLink(destination:(CategorieDetailView(cvm: CategorieVM(section), clvm: categorieList))){Text("Modifier la categorie")}.foregroundColor(Color.blue)){
                             ForEach(self.searchResultsRecette,id:\.id_recette){
                                 item in
                                 if(item.nom_categorie == section.nom_categorie){

@@ -121,4 +121,53 @@ class RecetteDAO {
             task.resume()
     }
 
+
+
+
+static func modifyRecette(recette : RecetteVM, recincl:[RecetteInclusCreateDTO]?, etincl:[EtapeCreateRecetteDTO], ingredients:[IngredientCreateRecetteDTO]) async{
+    guard let url = URL(string: "https://restaurangularappli.herokuapp.com/recette/\(recette.getId())") else {
+        print("pb url")
+        return
+    }
+    do{
+        var request = URLRequest(url: url)
+        request.httpMethod = "PUT"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        if (recincl==nil){
+            guard let encoded = await JSONHelper.encode(data: RecetteCreateSansDTO(id_createur: 1, nom_recette: recette.nom_recette, nb_couvert: recette.nb_couvert, id_categorie: recette.id_categorie, prix_vente: recette.prix_vente, temps_recette: recette.tempsRecette(), cout_production: 0, nom_createur: "user", ingredients: ingredients, recinclus: "rien", etapes: etincl)) else {
+                print("pb encodage")
+                return
+            }
+            let (data, response) = try await URLSession.shared.upload(for:request,from:encoded)
+            _ = String(data: data, encoding: .utf8)
+            let httpresponse = response as! HTTPURLResponse
+            if httpresponse.statusCode==201 {
+                print("requete 201")
+            }
+            else{
+                print("error status")
+            }
+        }
+        else{
+            guard let encoded = await JSONHelper.encode(data: RecetteCreateDTO(id_createur: 1, nom_recette: recette.nom_recette, nb_couvert: recette.nb_couvert, id_categorie: recette.id_categorie, prix_vente: recette.prix_vente, temps_recette: recette.tempsRecette(), cout_production: 0, nom_createur: "user", ingredients: ingredients, recinclus: recincl!, etapes: etincl)) else {
+                print("pb encodage")
+                return
+        }
+            let (data, response) = try await URLSession.shared.upload(for:request,from:encoded)
+            let sdata = String(data: data, encoding: .utf8)
+            let httpresponse = response as! HTTPURLResponse
+            if httpresponse.statusCode==201 {
+                print("requete 201")
+            }
+            else{
+                print("error status")
+            }
+        }
+        
+    }
+    catch{
+        print("bad request create recette")
+    }
+}
+
 }
