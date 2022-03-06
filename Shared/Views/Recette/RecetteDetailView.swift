@@ -30,7 +30,20 @@ struct RecetteDetailView : View {
     }
     
     var body : some View {
-      
+        Form{
+            Section{
+                HStack{
+                    Spacer()
+                    Button("Supprimer") {
+                        Task{
+                            await intentR.intentToDelete(id: self.recetteVM.getId())
+                            print("suppr")
+                        }
+                    }
+                    Spacer()
+                }
+            }
+            Section{
         List{
             VStack(spacing:20){
                 
@@ -115,8 +128,8 @@ struct RecetteDetailView : View {
                 }
             }
             .padding()
-        }.navigationTitle(recetteVM.nom_recette)
-        
+        }}.navigationTitle(recetteVM.nom_recette)
+        }
     }
 }
 
