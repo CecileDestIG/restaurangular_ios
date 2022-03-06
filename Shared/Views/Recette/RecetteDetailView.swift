@@ -32,6 +32,12 @@ struct RecetteDetailView : View {
     var body : some View {
         List{
             VStack(spacing:20){
+                Button("suppr") {
+                    Task{
+                        await intentR.intentToDelete(id: self.recetteVM.getId())
+                        print("suppr")
+                    }
+                }
                 HStack(spacing:20){
                     Text("Pour \(recetteVM.nb_couvert) personnes");
                 }

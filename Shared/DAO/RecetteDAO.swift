@@ -100,4 +100,30 @@ class RecetteDAO {
             print("bad request create recette")
         }
     }
+    
+    @MainActor
+    static func deleteRecette(id:Int) async{
+        guard let url = URL(string: "https://restaurangularappli.herokuapp.com/recette/\(id)") else {
+            print("pb url")
+            return
+        }
+        do{
+            var request = URLRequest(url: url)
+            request.httpMethod = "DELETE"
+            let task = URLSession.shared.dataTask(with: request)
+            {
+              (data, response, error) in
+              guard let _ = data else {
+                print("error calling DELETE on /todos/1")
+                return
+              }
+              print("DELETE ok")
+            }
+            task.resume()
+        }
+        catch{
+            print("bad request create recette")
+        }
+    }
+
 }

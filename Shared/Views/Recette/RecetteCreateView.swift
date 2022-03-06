@@ -93,8 +93,8 @@ struct RecetteCreateView: View {
                                 List{
                                     HStack{
                                         Text("\(item.nom_ingredient)")
+                                        Spacer()
                                         Button(action: {
-                                            print(item.nom_ingredient)
                                             ingrinclus.append(IngredientCreateInclus(id_ingredient: item.id_ingredient, quantite:0, nom: item.nom_ingredient, unite: item.unite))
                                         }, label:{Text("+")})
                                     }
@@ -104,13 +104,19 @@ struct RecetteCreateView: View {
                             }
                         
                         //pour afficher la liste des etapes selectionnees
-                        ForEach(ingrinclus, id:\.id_ingredient){item in
+                        ForEach(ingrinclus.indices, id:\.self){item in
                             List{
                                 VStack(alignment : .leading){
-                                Text("\(item.nom_ingredient) : \(item.quantite_necessaire) \(item.unite) ")
-                                    
+                                    HStack{
+                                Text("\(ingrinclus[item].nom_ingredient) : \(ingrinclus[item].quantite_necessaire) \(ingrinclus[item].unite) ")
+                                        Spacer()
+                                    Button(action : {
+                                        ingrinclus.remove(at: item)
+                                    },label:{Text("-")})
+                                    }
                                 }
                             }
+                            
                         }
                     
                         //pour creer une nouvelle etape
@@ -136,6 +142,7 @@ struct RecetteCreateView: View {
                                 List{
                                     HStack{
                                         Text("\(item.titre_etape)")
+                                        Spacer()
                                         Button(action: {
                                             print(item.titre_etape)
                                             i+=1
@@ -150,15 +157,20 @@ struct RecetteCreateView: View {
                             }
                         
                         //pour afficher la liste des etapes selectionnees
-                        ForEach(etincluses, id:\.self){item in
+                        ForEach(etincluses.indices, id:\.self){item in
                             List{
                                 VStack(alignment : .leading){
                                     HStack{
-                                        Text("\(item.place_et). ")
-                                        Text(item.titre_etape)
+                                        Text("\(etincluses[item].place_et). ")
+                                        Text(etincluses[item].titre_etape)
+                                        Spacer()
+                                    Button(action : {
+                                        etincluses.remove(at: item)
+                                    },label:{Text("-")})
                                     }
-                                    Text(item.description_etape)
+                                    Text(etincluses[item].description_etape)
                                 }
+                               
                             }
                         }
                     
@@ -187,6 +199,7 @@ struct RecetteCreateView: View {
                                 List{
                                     HStack{
                                         Text("\(item.nom_recette)")
+                                        Spacer()
                                         Button(action: {
                                             print(item.nom_recette)
                                             i+=1
@@ -200,10 +213,14 @@ struct RecetteCreateView: View {
             
                 
                         }
-                    ForEach(recincluses, id:\.id){item in
+                        ForEach(recincluses.indices, id:\.self){item in
                         HStack{
-                            Text("\(item.place_rec). ")
-                            Text(item.titre_recette)
+                            Text("\(recincluses[item].place_rec). ")
+                            Text(recincluses[item].titre_recette)
+                            Spacer()
+                            Button(action : {
+                                recincluses.remove(at: item)
+                            },label:{Text("-")})
                         }
                     }
                     }

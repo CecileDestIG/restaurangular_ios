@@ -84,7 +84,9 @@ struct RecetteListView: View {
 }
 
 struct RecetteView: View {
+    var intentR : IntentRecette = IntentRecette()
     let recette : Recette
+    
     var body : some View {
         HStack(spacing:10){
             if(recette.image != "") {

@@ -89,6 +89,7 @@ struct IntentRecette {
         self.stateRecette.send(.imageChanging(image))
     }
     
+    @MainActor
     func intentToCreate(recette:RecetteVM,recincl:[RecetteInclusCreateDTO], etincl:[EtapeCreateRecetteDTO], ingr: [IngredientCreateRecetteDTO] ) async{
         
         if (recincl.isEmpty){
@@ -99,6 +100,11 @@ struct IntentRecette {
         }
         
         self.stateRecette.send(.recetteCreate(recette))
+    }
+    
+    @MainActor
+    func intentToDelete(id:Int) async {
+        await RecetteDAO.deleteRecette(id: id)
     }
     
     func intentToLoad(recettes:RecetteListVM) async {
