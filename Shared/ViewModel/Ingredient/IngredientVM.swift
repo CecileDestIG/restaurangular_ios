@@ -56,7 +56,7 @@ class IngredientVM : ObservableObject, IngredientObserver, Subscriber, Hashable{
     @Published var id_allergene : Int
     @Published var nom_cat_ingr : String
     @Published var allergene : String
-    @Published var image : String?
+    @Published var image : String
     
     func getId()->Int{
         return ingredient.id_ingredient
@@ -92,7 +92,7 @@ class IngredientVM : ObservableObject, IngredientObserver, Subscriber, Hashable{
         self.id_allergene=id_allergene
     }
     
-    func change(image: String?) {
+    func change(image: String) {
         print("vm observer: image changé => self.image = '\(image)'")
         self.image=image
     }

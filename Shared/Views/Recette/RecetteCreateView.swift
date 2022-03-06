@@ -55,6 +55,10 @@ struct RecetteCreateView: View {
                         TextField("nom", text: $recetteVM.nom_recette)
                     }
                     HStack{
+                        Text("Image : ");
+                        TextField("URL de l'image", text: $recetteVM.image)
+                    }
+                    HStack{
                         Text("Nombre Couvert : ");
                         TextField("couverts", value: $recetteVM.nb_couvert, formatter:formatter)
                     }

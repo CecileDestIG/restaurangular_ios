@@ -81,8 +81,8 @@ struct IngredientView: View {
     let ingredient : Ingredient
     var body : some View {
         HStack(spacing:10){
-            if let url = ingredient.image {
-                AsyncImage(url: URL(string:url),content: { img in
+            if (ingredient.image != "") {
+                AsyncImage(url: URL(string:ingredient.image),content: { img in
                     img
                     .resizable()
                     .scaledToFit()

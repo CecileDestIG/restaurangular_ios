@@ -58,6 +58,60 @@ class RecetteVM : ObservableObject, RecetteObserver, Subscriber, Hashable{
     func getId()->Int{
         return recette.id_recette
     }
+    
+    func tempsRecette() -> Double{
+        var t : Double = 0
+        if let rec = self.recinclus{
+            for r in rec{
+                t += r.temps_recetteincl
+            }
+        }
+        if let et = self.etapes{
+            for e in et{
+                t += e.temps_etape
+            }
+        }
+        return t
+    }
+    
+    func coutMatiere(type:Bool,relatif:Double,absolu:Double) -> Double{
+        var abs = absolu
+        var rel = relatif
+        if(type){
+            abs = 0
+        }
+        else{
+            rel = 0
+        }
+        var cm : Double = 0
+        if let ing = self.ingredients{
+            for i in ing{
+                cm += Double(i.cout_unitaire) * Double(i.quantite_necessaire)
+            }
+            return cm*(1+rel/100)+abs
+        }
+        else{
+            return 0
+        }
+    }
+    
+    func coutCharge(coutFluide : Double, coutPersonnel : Double) -> Double{
+        return (tempsRecette()/60)*(coutFluide+coutPersonnel)
+    }
+
+    func coutProduction(type:Bool,coutMatiere:Double,coutCharge:Double) -> Double{
+        var cp : Double = 0
+        var cc = coutCharge
+        if(!type){
+            cc = 0
+        }
+        if let rec = self.recinclus{
+            for r in rec{
+                cp += r.cout_productionincl
+            }
+        }
+        return coutMatiere+cc+cp
+    }
         
     private var recette : Recette
     @Published var id_createur : Int
@@ -69,7 +123,8 @@ class RecetteVM : ObservableObject, RecetteObserver, Subscriber, Hashable{
     @Published var etapes : [EtapeInclus]?
     @Published var recinclus : [RecetteInclus]?
     @Published var ingredients : [IngredientInclus]?
-    @Published var image : String?
+    @Published var image : String
+    // gestion des couts
     
     func change(id_createur: Int) {
         print("vm observer: id_createur changé => self.id_createur = '\(id_createur)'")
@@ -111,7 +166,7 @@ class RecetteVM : ObservableObject, RecetteObserver, Subscriber, Hashable{
         self.ingredients=ingredients
     }
     
-    func change(image: String?) {
+    func change(image: String) {
         print("vm observer: image changée => self.image")
         self.image=image
     }
