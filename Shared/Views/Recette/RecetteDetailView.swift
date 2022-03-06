@@ -30,14 +30,7 @@ struct RecetteDetailView : View {
     }
     
     var body : some View {
-        Form{
-            Section {
-                NavigationLink(destination : RecetteModifyView(rlvm: recetteList, r: recetteVM)){
-                    Text("modifier")
-                }
-
-            }
-            Section{
+      
         List{
             VStack(spacing:20){
                 
@@ -122,8 +115,8 @@ struct RecetteDetailView : View {
                 }
             }
             .padding()
-        }}.navigationTitle(recetteVM.nom_recette)
-        }
+        }.navigationTitle(recetteVM.nom_recette)
+        
     }
 }
 
