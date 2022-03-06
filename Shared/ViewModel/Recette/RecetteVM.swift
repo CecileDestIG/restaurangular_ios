@@ -184,36 +184,28 @@ class RecetteVM : ObservableObject, RecetteObserver, Subscriber, Hashable{
         switch input {
         case .ready :
             break
-        case .id_createurChanging(let r):
-            self.recette.id_createur=r
+        case .recetteCreate(let r):
+            print("recette create \(r.nom_recette)")
+        case .recetteChanging(let r):
+            self.recette.id_createur=r.id_createur
             print("vm : change model id createur to '\(self.recette.id_createur)'")
-        case .nom_recetteChanging(let r):
-            let rClean = r.trimmingCharacters(in: .whitespacesAndNewlines)
+            let rClean = r.nom_recette.trimmingCharacters(in: .whitespacesAndNewlines)
             print("vm : change model nom_recette to '\(rClean)'")
             self.recette.nom_recette=rClean
             print("vm : change model nom recette to '\(self.recette.nom_recette)'")
-        case .nb_couvertChanging(let r):
-            self.recette.nb_couvert=r
+            self.recette.nb_couvert=r.nb_couvert
             print("vm : change model nb couvert to '\(self.recette.nb_couvert)'")
-        case .id_categorieChanging(let r):
-            self.recette.id_categorie=r
+            self.recette.id_categorie=r.id_categorie
             print("vm : change model id categorie to '\(self.recette.id_categorie)'")
-        case .prix_venteChanging(let r):
-            self.recette.prix_vente=r
+            self.recette.prix_vente=r.prix_vente
             print("vm : change model prix vente to '\(self.recette.prix_vente)'")
-        case .etapesChanging(let r):
-            self.recette.etapes=r
+            self.recette.etapes=r.etapes
             print("vm : change model etapes")
-        case .recinclusChanging(let r):
-            self.recette.recinclus=r
+            self.recette.recinclus=r.recinclus
             print("vm : change model recettes")
-        case .ingredientsChanging(let r):
-            self.recette.ingredients=r
+            self.recette.ingredients=r.ingredients
             print("vm : change model ingredients")
-        case .recetteCreate(let r):
-            print("recette create \(r.nom_recette)")
-        case .imageChanging(let r):
-            self.recette.image=r
+            self.recette.image=r.image
             print("vm : change model image")
         }
         return .none

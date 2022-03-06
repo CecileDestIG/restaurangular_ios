@@ -30,8 +30,17 @@ struct RecetteDetailView : View {
     }
     
     var body : some View {
+        Form{
+            Section {
+                NavigationLink(destination : RecetteModifyView(rlvm: recetteList, r: recetteVM)){
+                    Text("modifier")
+                }
+
+            }
+            Section{
         List{
             VStack(spacing:20){
+                
                 HStack(spacing:20){
                     Text("Pour \(recetteVM.nb_couvert) personnes");
                 }
@@ -110,15 +119,11 @@ struct RecetteDetailView : View {
                 Divider()
                 VStack{
                     CoutView(recette: recetteVM)
-                    Button("Enregistrer"){
-                        Task{
-                            //await intentR.intentToChange(cout_production:cp)
-                        }
-                    }
                 }
             }
             .padding()
-        }.navigationTitle(recetteVM.nom_recette)
+        }}.navigationTitle(recetteVM.nom_recette)
+        }
     }
 }
 

@@ -1,16 +1,18 @@
 //
-//  RecetteCreateView.swift
+//  RecetteModifyView.swift
 //  Restaurangular (iOS)
 //
-//  Created by m1 on 02/03/2022.
+//  Created by Cecile on 06/03/2022.
 //
+
+import Foundation
 
 import SwiftUI
 import Foundation
 
-struct RecetteCreateView: View {
+struct RecetteModifyView: View {
     
-    @ObservedObject var recetteVM : RecetteVM = RecetteVM(r: Recette())
+    @ObservedObject var recetteVM : RecetteVM
     @State var errorMessage = "Error !"
     @State var showingAlert : Bool = false
     var intentR : IntentRecette
@@ -25,29 +27,52 @@ struct RecetteCreateView: View {
     }()
     
     @State var etapeSelect : EtapeVM = EtapeVM(e: Etape())
-    @State var etapes : [EtapeVM] = []
     @State var etincluses : [EtapeInclusCreate] = []
-    @State var etDTO : [EtapeCreateRecetteDTO] = []
+    @State var eDTO : [EtapeCreateRecetteDTO] = []
     
     @State var recetteSelect : RecetteVM = RecetteVM(r: Recette())
     @State var i = 0
     @State var recincluses : [RecetteInclAffiche] = []
-    @State var recDTO : [RecetteInclusCreateDTO] = []
+    @State var rDTO : [RecetteInclusCreateDTO] = []
 
     @State var ingredientSelect : IngredientVM = IngredientVM(i: Ingredient())
-    @State var ingrDTO : [IngredientCreateRecetteDTO] = []
+    @State var iDTO : [IngredientCreateRecetteDTO] = []
     @State var ingrinclus : [IngredientCreateInclus] = []
 
-    init(rlvm:RecetteListVM ){
+    init(rlvm:RecetteListVM, r : RecetteVM ){
         self.intentR=IntentRecette()
         self.intentR.addObserver(rlvm: rlvm)
         self.listeRecette=rlvm
-
+        self.recetteVM = r
+        if (r.ingredients != nil){
+            r.ingredients!.forEach{item in
+                ingrinclus.append(IngredientCreateInclus(id_ingredient: item.id_ingredient, quantite:item.quantite_necessaire, nom: item.nom_ingredient, unite: item.unite))
+                print(item.nom_ingredient)
+        }
+        }
+        if (r.recinclus != nil){
+            r.recinclus!.forEach{item in
+                @State var rct : RecetteVM = RecetteVM(r: Recette())
+                    listeRecette.recette_list.forEach{rec in
+                        if(rec.id_recette==item.id_recincl){
+                        rct = RecetteVM(r: rec)
+                    }
+                }
+                recincluses.append(RecetteInclAffiche(titre_recette: rct.nom_recette, id: item.id_recincl, place_rec: item.place_rec, temps: item.temps_recetteincl, cout: item.cout_productionincl))
+        }
+        }
+        if (r.etapes != nil){
+            r.etapes!.forEach{item in
+                etincluses.append(EtapeInclusCreate(id_etape : item.id_etape, place_et:i, titre_etape : item.titre_etape, temps_etape : item.temps_etape, description_etape : item.description_etape))
+        }
+        
     }
+}
+    
     
     var body : some View {
         VStack{
-            Text("Création Recette").font(.largeTitle).bold()
+            Text("Modifier Recette").font(.largeTitle).bold()
             Form{
                 Group{
                     HStack{
@@ -226,25 +251,36 @@ struct RecetteCreateView: View {
                     }
                     
                 }
+                
+                    HStack{
+                        Spacer()
+                        Button("Supprimer") {
+                            Task{
+                                await intentR.intentToDelete(id: self.recetteVM.getId())
+                                print("suppr")
+                            }
+                        }
+                        Spacer()
+                    }
+                Section{
                     HStack{
                         Spacer()
                         Button("Enregistrer Recette"){
                             Task{
                                 ingrinclus.forEach{item in
-                                    ingrDTO.append(IngredientCreateRecetteDTO(id_ingredient: item.id_ingredient, quantite_necessaire: item.quantite_necessaire))
-                                    print("nb ingr DTO \(ingrDTO.count)")
+                                    iDTO.append(IngredientCreateRecetteDTO(id_ingredient: item.id_ingredient, quantite_necessaire: item.quantite_necessaire))
                                 }
                                 recincluses.forEach{item in
-                                    recDTO.append(RecetteInclusCreateDTO(id_recincl: item.id, place_rec: item.place_rec, temps_recette:item.temps, cout_production:item.cout_production))
+                                    rDTO.append(RecetteInclusCreateDTO(id_recincl: item.id, place_rec: item.place_rec, temps_recette:item.temps, cout_production:item.cout_production))
                                 }
                                 etincluses.forEach{item in
-                                    etDTO.append(EtapeCreateRecetteDTO(id_etape: item.id_etape, place_et: item.place_et))
+                                    eDTO.append(EtapeCreateRecetteDTO(id_etape: item.id_etape, place_et: item.place_et))
                                 }
-                                await intentR.intentToCreate(recette: recetteVM, recincl: recDTO, etincl: etDTO, ingr: ingrDTO)
+                                await intentR.intentToModify(recette: recetteVM, recincl: rDTO, etincl: eDTO, ingr: iDTO)
                             }
                         }
                         Spacer()
-                    }
+                    }}
             
             
             Spacer()
