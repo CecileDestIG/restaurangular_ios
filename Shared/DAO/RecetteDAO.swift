@@ -107,7 +107,6 @@ class RecetteDAO {
             print("pb url")
             return
         }
-        do{
             var request = URLRequest(url: url)
             request.httpMethod = "DELETE"
             let task = URLSession.shared.dataTask(with: request)
@@ -120,10 +119,6 @@ class RecetteDAO {
               print("DELETE ok")
             }
             task.resume()
-        }
-        catch{
-            print("bad request create recette")
-        }
     }
 
 }
