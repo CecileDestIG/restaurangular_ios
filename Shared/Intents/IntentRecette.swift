@@ -86,7 +86,7 @@ struct IntentRecette {
     }
     
     
-    func intentToCreate(recette:RecetteVM,recincl:[RecetteInclusDTO], etincl:[EtapeCreateRecetteDTO], ingr: [IngredientCreateRecetteDTO] ) async{
+    func intentToCreate(recette:RecetteVM,recincl:[RecetteInclusCreateDTO], etincl:[EtapeCreateRecetteDTO], ingr: [IngredientCreateRecetteDTO] ) async{
         
         if (recincl.isEmpty){
             await RecetteDAO.createRecette(recette:recette,recincl:nil,etincl: etincl, ingredients: ingr)
