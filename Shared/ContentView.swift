@@ -11,10 +11,6 @@ struct ContentView: View {
     
     var body: some View {
         TabView {
-            Accueil().tabItem{
-                Image(systemName: "house.fill")
-                Text("Accueil")
-            }.tag(0)
             RecetteListView().tabItem{
                 Image(systemName: "leaf.fill")
                 Text("Recettes")
