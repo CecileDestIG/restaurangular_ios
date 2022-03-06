@@ -109,7 +109,12 @@ struct RecetteDetailView : View {
                 }
                 Divider()
                 VStack{
-                   CoutView(recette: recetteVM)
+                    CoutView(recette: recetteVM)
+                    Button("Enregistrer"){
+                        Task{
+                            //await intentR.intentToChange(cout_production:cp)
+                        }
+                    }
                 }
             }
             .padding()

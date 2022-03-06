@@ -85,6 +85,9 @@ struct IntentRecette {
         self.stateRecette.send(.ingredientsChanging(ingredients))
     }
     
+    func intentToChange(image:String){
+        self.stateRecette.send(.imageChanging(image))
+    }
     
     func intentToCreate(recette:RecetteVM,recincl:[RecetteInclusCreateDTO], etincl:[EtapeCreateRecetteDTO], ingr: [IngredientCreateRecetteDTO] ) async{
         
@@ -97,7 +100,15 @@ struct IntentRecette {
         
         self.stateRecette.send(.recetteCreate(recette))
     }
-    func intentToChange(image:String){
-        self.stateRecette.send(.imageChanging(image))
+    
+    func intentToLoad(recettes:RecetteListVM) async {
+        if let list = await RecetteDAO.getAllRecette(){
+            recettes.recette_list = list.sorted{$0.nom_recette < $1.nom_recette}
+        }
+        else{
+            recettes.recette_list = []
+        }
+            
     }
+    
 }
