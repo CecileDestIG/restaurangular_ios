@@ -36,8 +36,8 @@ struct RecetteDetailView : View {
                     Text("Pour \(recetteVM.nb_couvert) personnes");
                 }
                 HStack(spacing:10){
-                    if let url = recetteVM.image {
-                        AsyncImage(url: URL(string:url),content: { img in
+                    if (recetteVM.image != "") {
+                        AsyncImage(url: URL(string:recetteVM.image),content: { img in
                             img
                             .resizable()
                             .scaledToFit()
@@ -106,6 +106,10 @@ struct RecetteDetailView : View {
                             .padding()
                         EtapeRecetteInclusView(recette: self.recetteVM,liste_recette: self.recetteList)
                     }
+                }
+                Divider()
+                VStack{
+                   CoutView(recette: recetteVM)
                 }
             }
             .padding()
@@ -238,13 +242,125 @@ struct RecetteInclusView : View {
                 .bold().padding()
             Text(r.nom_categorie)
             Text("pour \(r.nb_couvert) personnes")
-            Text("à \(r.prix_vente,specifier: "%.2f") €")
+            Text("à \(r.prix_vente,specifier: "%.2f") €").frame(width: 250)
+            VStack{
+                NavigationLink(destination:RecetteDetailView(rvm: RecetteVM(r:self.r), rlvm: self.rl)){
+                    Button("Voir"){}
+                }.padding()
+            }
         }
-        .padding()
         .overlay(
             RoundedRectangle(cornerRadius: 10)
                 .stroke(Color.pink,lineWidth: 2)
         )
         .foregroundColor(Color.pink)
+    }
+}
+
+
+struct CoutView : View {
+    
+    @State var typeAssaisonnement : Bool = false // Vrai -> assaisonnement relatif, Faux -> assasionnement absolu
+    @State var assaisonnementRelatif : Double = 0
+    @State var assaisonnementAbsolu : Double = 0
+    @State var coutFluide : Double = 0
+    @State var coutPersonnel : Double = 10
+    @State var charge : Bool = false
+    
+    let recette : RecetteVM
+    var cm : Double{
+        return recette.coutMatiere(type:typeAssaisonnement,relatif: assaisonnementRelatif, absolu: assaisonnementAbsolu)
+    }
+    var cc : Double{
+        return recette.coutCharge(coutFluide: coutFluide, coutPersonnel: coutPersonnel)
+    }
+    var cp : Double{
+        return recette.coutProduction(type:charge,coutMatiere: cm, coutCharge: cc)
+    }
+    
+    let formatter : NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        return formatter
+    }()
+    
+    var body: some View{
+        VStack(spacing:40){
+            Text("Calcul des coûts").bold()
+            VStack{
+                Text("Coût matiere")
+                Toggle("Type d'assaisonnement",isOn:$typeAssaisonnement)
+                    if(typeAssaisonnement){
+                        VStack{
+                            Text("Assaisonnement relatif au coût matière")
+                            HStack{
+                                TextField("coefficient",value : $assaisonnementRelatif, formatter: formatter)
+                                Text("%")
+                            }.padding()
+                        }
+                    }
+                    else{
+                        VStack{
+                            Text("Assaisonnement absolu")
+                                HStack{
+                                TextField("valeur",value : $assaisonnementAbsolu, formatter: formatter)
+                                Text("€")
+                                }.padding()
+                        }
+                    }
+                Text("Coût matière : \(cm,specifier:"%.4f") €")
+            }
+            .padding()
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color.blue,lineWidth: 2)
+            )
+            .foregroundColor(Color.blue)
+            .background(Color.white)
+            VStack(spacing:20){
+                VStack{
+                    Text("Coût des charges").bold()
+                    Text("(\(recette.tempsRecette(),specifier:"%.2f") minutes)")
+                }
+                HStack(spacing:5){
+                    VStack{
+                        Text("Fluides").bold()
+                        HStack{
+                            TextField("",value : $coutFluide, formatter: formatter)
+                            Text("€/H")
+                        }
+                    }
+                    VStack{
+                        Text("Personnel").bold()
+                        HStack{
+                            TextField("",value : $coutPersonnel, formatter: formatter)
+                            Text("€/H")
+                        }
+                    }
+                }
+                Text("Coût des charges : \(cc,specifier:"%.4f") €")
+            }
+            .padding()
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color.cyan,lineWidth: 2)
+            )
+            .foregroundColor(Color.cyan)
+            .background(Color.white)
+            VStack{
+                Toggle("Calcul avec les charges",isOn: $charge)
+                Text("Coût de production : \(cp,specifier:"%.2f") €")
+            }
+            .padding()
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color.green,lineWidth: 2)
+            )
+            .foregroundColor(Color.green)
+            .background(Color.white)
+            
+        }
+        .foregroundColor(Color.red)
+        
     }
 }

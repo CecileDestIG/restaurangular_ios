@@ -10,6 +10,7 @@ struct IngredientDTO : Codable, Hashable {
     var nom_cat_ingr : String?
     var id_allergene : Int?
     var allergene : String?
+    var image : String?
 }
 
 struct IngredientInclusDTO : Codable, Hashable {

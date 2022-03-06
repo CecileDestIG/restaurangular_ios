@@ -22,6 +22,7 @@ struct RecettesDTO : Codable, Hashable {
     var id_categorie : Int
     var prix_vente : Double
     var nom_categorie : String
+    var image : String?
 }
 
 struct RecetteInclusDTO : Codable, Hashable {
@@ -44,6 +45,7 @@ struct RecetteCreateDTO : Codable, Hashable {
     var ingredients : [IngredientCreateRecetteDTO]
     var recinclus : [RecetteInclusDTO]
     var etapes : [EtapeCreateRecetteDTO]
+    var image : String?
 }
 
 struct RecetteCreateSansDTO : Codable, Hashable {
@@ -59,4 +61,5 @@ struct RecetteCreateSansDTO : Codable, Hashable {
     var ingredients : [IngredientCreateRecetteDTO]
     var recinclus : String
     var etapes : [EtapeCreateRecetteDTO]
+    var image : String?
 }

@@ -48,7 +48,7 @@ class RecetteDAO {
                   recettetmp = RecetteDAO.toRecetteInclus(data: recettes)
               }
               let ingredienttmp = IngredientDAO.toIngredientInclus(data: tdata.ingredients)
-              let recette = Recette(id, tdata.r[0].id_createur, tdata.r[0].nom_recette, tdata.r[0].nb_couvert, tdata.r[0].id_categorie,tdata.r[0].nom_categorie,tdata.r[0].prix_vente,etapetmp , recettetmp, ingredienttmp)
+              let recette = Recette(id, tdata.r[0].id_createur, tdata.r[0].nom_recette, tdata.r[0].nb_couvert, tdata.r[0].id_categorie,tdata.r[0].nom_categorie,tdata.r[0].prix_vente,etapetmp , recettetmp, ingredienttmp,tdata.r[0].image ?? "")
               recette_list.append(recette)
           }
     //print("recette_list : ",recette_list)
@@ -64,7 +64,6 @@ class RecetteDAO {
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            
             if (recincl==nil){
                 guard let encoded = await JSONHelper.encode(data: RecetteCreateSansDTO(id_createur: 1, nom_recette: recette.nom_recette, nb_couvert: recette.nb_couvert, id_categorie: recette.id_categorie, prix_vente: recette.prix_vente, image: recette.image, temps_recette: recette.temps_recette, cout_production: recette.cout_production, nom_createur: recette.nom_createur, ingredients: ingredients, recinclus: "rien", etapes: etincl )) else {
                     print("pb encodage")
@@ -86,7 +85,7 @@ class RecetteDAO {
                     return
             }
                 let (data, response) = try await URLSession.shared.upload(for:request,from:encoded)
-                _ = String(data: data, encoding: .utf8)
+                let sdata = String(data: data, encoding: .utf8)
                 let httpresponse = response as! HTTPURLResponse
                 if httpresponse.statusCode==201 {
                     print("requete 201")
