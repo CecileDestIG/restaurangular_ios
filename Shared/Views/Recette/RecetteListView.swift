@@ -9,10 +9,18 @@ import SwiftUI
 
 struct RecetteListView: View {
     
-    @StateObject var recetteList : RecetteListVM = RecetteListVM()
+    @ObservedObject var recetteList : RecetteListVM = RecetteListVM()
     @StateObject var categorieList : CategorieListVM = CategorieListVM()
-    
+    @State var errorMessage = "Error !"
+    @State var showingAlert : Bool = false
+    var intentR : IntentRecette
     @State var searchTextRecette = ""
+    
+    init(rlvm:RecetteListVM ){
+        self.intentR=IntentRecette()
+        self.intentR.addObserver(rlvm: rlvm)
+
+    }
     
     var searchResultsRecette : [Recette] {
         if searchTextRecette.isEmpty {
@@ -64,9 +72,7 @@ struct RecetteListView: View {
                 .navigationTitle("Recettes")
                 .task{
                     //  RECETTES
-                    if let list = await RecetteDAO.getAllRecette(){
-                        self.recetteList.recette_list = list.sorted{$0.nom_recette < $1.nom_recette}
-                    }
+                    await intentR.intentToLoad(recettes: self.recetteList)
                     // CATEGORIES
                     if let list = await CategorieDAO.getAllCategorie(){
                         self.categorieList.categorie_list = list.sorted{ $0.nom_categorie < $1.nom_categorie }
@@ -115,6 +121,6 @@ struct RecetteView: View {
 
 struct RecetteListView_Previews: PreviewProvider {
     static var previews: some View {
-        RecetteListView()
+        RecetteListView(rlvm: RecetteListVM())
     }
 }

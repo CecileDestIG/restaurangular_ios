@@ -11,7 +11,7 @@ struct ContentView: View {
     
     var body: some View {
         TabView {
-            RecetteListView().tabItem{
+            RecetteListView(rlvm: RecetteListVM()).tabItem{
                 Image(systemName: "leaf.fill")
                 Text("Recettes")
             }.tag(1)
