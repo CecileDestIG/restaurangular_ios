@@ -70,6 +70,8 @@ class RecetteVM : ObservableObject, RecetteObserver, Subscriber, Hashable{
     @Published var recinclus : [RecetteInclus]?
     @Published var ingredients : [IngredientInclus]?
     @Published var image : String?
+    @Published var cout_production : Double
+    @Published var temps_recette : Double
     
     func change(id_createur: Int) {
         print("vm observer: id_createur changé => self.id_createur = '\(id_createur)'")
@@ -176,6 +178,8 @@ class RecetteVM : ObservableObject, RecetteObserver, Subscriber, Hashable{
         self.recinclus = r.recinclus
         self.ingredients = r.ingredients
         self.image = r.image
+        self.cout_production=r.cout_production
+        self.temps_recette=r.temps
     }
 }
 

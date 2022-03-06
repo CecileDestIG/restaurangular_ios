@@ -99,6 +99,12 @@ class Recette {
         }
     }
     
+    var cout_production : Double {
+        get{
+            return 0
+        }
+    }
+    
     init(_ id_recette:Int = 0,_ id_createur : Int = 0,_ nom_recette : String = "Recette",_ nb_couvert : Int = 0,_ id_categorie : Int = 0,_ nom_categorie : String = "Catégorie",_ prix_vente : Double = 0,_ etapes : [EtapeInclus]? = nil,_ recinclus : [RecetteInclus]? = nil,_ ingredients : [IngredientInclus]? = nil,_ image : String? = nil){
         self.id_recette=id_recette
         self.id_createur=id_createur
@@ -118,11 +124,13 @@ class RecetteInclus {
     var id_recincl : Int
     var place_rec : Int
     var temps : Double
+    var cout_production: Double
     
-    init(_ id_recincl : Int = 0,_ place_rec : Int = 0,_ temps : Double = 0){
+    init(_ id_recincl : Int = 0,_ place_rec : Int = 0,_ temps : Double = 0,_ cout_prod: Double = 0){
         self.id_recincl = id_recincl
         self.place_rec = place_rec
         self.temps = temps
+        self.cout_production=cout_prod
     }
 }
 
@@ -133,11 +141,15 @@ class RecetteInclAffiche{
     var titre_recette : String
     var id : Int
     @Published var place_rec : Int
+    var temps : Double
+    var cout_production: Double
     
-    init(titre_recette:String,id:Int,place_rec:Int){
+    init(titre_recette:String,id:Int,place_rec:Int, temps: Double, cout:Double){
         self.titre_recette=titre_recette
         self.id=id
         self.place_rec=place_rec
+        self.temps = temps
+        self.cout_production=cout
     }
     
 }
