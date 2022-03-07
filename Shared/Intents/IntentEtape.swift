@@ -50,7 +50,7 @@ struct IntentEtape {
         self.stateEtape.send(.etapeCreation(etape.titre_etape))
     }
     
-    func intentToLoad(etapes:EtapeListVM) async -> [Etape]?{
+    func intentToLoad() async -> [Etape]?{
         if let list = await EtapeDAO.getAllEtape(){
             return list.sorted{$0.titre_etape < $1.titre_etape}
         }

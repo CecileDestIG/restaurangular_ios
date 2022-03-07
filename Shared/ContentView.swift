@@ -11,15 +11,15 @@ struct ContentView: View {
     
     var body: some View {
         TabView {
-            RecetteListView(rlvm: RecetteListVM()).tabItem{
+            RecetteListView(rlvm: RecetteListVM(),clvm: CategorieListVM()).tabItem{
                 Image(systemName: "leaf.fill")
                 Text("Recettes")
             }.tag(1)
-            IngredientListView().tabItem{
+            IngredientListView(ilvm: IngredientListVM(), cilvm: CatIngrListVM()).tabItem{
                 Image(systemName: "list.dash")
                 Text("Mercuriale")
             }.tag(2)
-            AllergeneListView().tabItem{
+            AllergeneListView(alvm: AllergeneListVM()).tabItem{
                 Image(systemName: "allergens")
                 Text("Allergènes")
             }.tag(3)

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6F864BE427D58D0D000F3824 /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = 6F864BE327D58D0D000F3824 /* AlertToast */; };
 		6FA6B1D327C5238000344B21 /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA6B1D227C5238000344B21 /* APIRequest.swift */; };
 		6FA6B1D427C5238000344B21 /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA6B1D227C5238000344B21 /* APIRequest.swift */; };
 		6FA6B1DB27C5253A00344B21 /* CategorieDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA6B1DA27C5253A00344B21 /* CategorieDTO.swift */; };
@@ -185,6 +186,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F864BE427D58D0D000F3824 /* AlertToast in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -521,6 +523,9 @@
 			dependencies = (
 			);
 			name = "Restaurangular (iOS)";
+			packageProductDependencies = (
+				6F864BE327D58D0D000F3824 /* AlertToast */,
+			);
 			productName = "Restaurangular (iOS)";
 			productReference = BFB78EB927C0FA4200B33479 /* Restaurangular.app */;
 			productType = "com.apple.product-type.application";
@@ -613,6 +618,9 @@
 				Base,
 			);
 			mainGroup = BFB78EAC27C0FA3F00B33479;
+			packageReferences = (
+				6F864BE227D58D0D000F3824 /* XCRemoteSwiftPackageReference "AlertToast" */,
+			);
 			productRefGroup = BFB78EBA27C0FA4200B33479 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1129,6 +1137,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		6F864BE227D58D0D000F3824 /* XCRemoteSwiftPackageReference "AlertToast" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/elai950/AlertToast.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6F864BE327D58D0D000F3824 /* AlertToast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6F864BE227D58D0D000F3824 /* XCRemoteSwiftPackageReference "AlertToast" */;
+			productName = AlertToast;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = BFB78EAD27C0FA3F00B33479 /* Project object */;
 }
