@@ -101,6 +101,7 @@ struct EtiquetteListView: View {
                 }.padding()
                 HStack(spacing:5){
                     Button("Imprimer"){
+                        
                         exportToPDF(width: 200, height: 200)
                     }
                 }.padding()

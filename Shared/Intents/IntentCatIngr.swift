@@ -45,5 +45,14 @@ struct IntentCatIngr {
         await CatIngrDAO.createCatIngr(nom_cat_ingr: nom_cat_ingr)
         self.stateCatIngr.send(.catingrCreation(nom_cat_ingr))
     }
+    
+    func intentToLoad(cat_ingr_list:CatIngrListVM) async -> [CatIngr]?{
+        if let list = await CatIngrDAO.getAllCatIngr(){
+            return list.sorted{$0.nom_cat_ingr < $1.nom_cat_ingr}
+        }
+        else{
+            return nil
+        }
+    }
 }
 

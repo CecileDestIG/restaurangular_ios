@@ -65,7 +65,7 @@ class RecetteDAO {
             request.httpMethod = "POST"
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             if (recincl==nil){
-                guard let encoded = await JSONHelper.encode(data: RecetteCreateSansDTO(id_createur: 1, nom_recette: recette.nom_recette, nb_couvert: recette.nb_couvert, id_categorie: recette.id_categorie, prix_vente: recette.prix_vente, temps_recette: recette.tempsRecette(), cout_production: 0, nom_createur: "user", ingredients: ingredients, recinclus: "rien", etapes: etincl)) else {
+                guard let encoded = await JSONHelper.encode(data: RecetteCreateSansDTO(id_createur: 1, nom_recette: recette.nom_recette, nb_couvert: recette.nb_couvert, id_categorie: recette.id_categorie, prix_vente: recette.prix_vente, temps_recette: recette.tempsRecette(), cout_production: recette.coutProduction(coutMatiere: recette.coutMatiere(), coutCharge: recette.coutCharge()), nom_createur: "user", ingredients: ingredients, recinclus: "rien", etapes: etincl)) else {
                     print("pb encodage")
                     return
                 }
@@ -80,7 +80,7 @@ class RecetteDAO {
                 }
             }
             else{
-                guard let encoded = await JSONHelper.encode(data: RecetteCreateDTO(id_createur: 1, nom_recette: recette.nom_recette, nb_couvert: recette.nb_couvert, id_categorie: recette.id_categorie, prix_vente: recette.prix_vente, temps_recette: recette.tempsRecette(), cout_production: 0, nom_createur: "user", ingredients: ingredients, recinclus: recincl!, etapes: etincl)) else {
+                guard let encoded = await JSONHelper.encode(data: RecetteCreateDTO(id_createur: 1, nom_recette: recette.nom_recette, nb_couvert: recette.nb_couvert, id_categorie: recette.id_categorie, prix_vente: recette.prix_vente, temps_recette: recette.tempsRecette(), cout_production: recette.coutProduction(coutMatiere: recette.coutMatiere(), coutCharge: recette.coutCharge()), nom_createur: "user", ingredients: ingredients, recinclus: recincl!, etapes: etincl)) else {
                     print("pb encodage")
                     return
             }

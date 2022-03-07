@@ -48,5 +48,14 @@ struct IntentIngredient {
         await IngredientDAO.createIngredient(ingredient: ingredient)
         self.stateIngredient.send(.ingredientCreate(ingredient.nom_ingredient))
     }
+    
+    func intentToLoad(ingredients:IngredientListVM) async -> [Ingredient]?{
+        if let list = await IngredientDAO.getAllIngredient(){
+            return list.sorted{$0.nom_ingredient < $1.nom_ingredient}
+        }
+        else{
+            return nil
+        }
+    }
 }
 

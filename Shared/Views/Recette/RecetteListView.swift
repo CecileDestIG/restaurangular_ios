@@ -31,6 +31,7 @@ struct RecetteListView: View {
         }
     }
     
+    
     var body: some View {
         NavigationView{
             VStack{
@@ -71,8 +72,16 @@ struct RecetteListView: View {
                 .searchable(text: $searchTextRecette)
                 .navigationTitle("Recettes")
                 .task{
-                    //  RECETTES
-                    await intentR.intentToLoad(recettes: self.recetteList)
+                    /*  RECETTES
+                    if let request = await intentR.intentToLoad(){
+                        self.recetteList.recette_list = request
+                    }
+                    else{
+                        self.recetteList.recette_list = []
+                    }*/
+                    if let list = await RecetteDAO.getAllRecette(){
+                        self.recetteList.recette_list = list.sorted{$0.nom_recette < $1.nom_recette}
+                    }
                     // CATEGORIES
                     if let list = await CategorieDAO.getAllCategorie(){
                         self.categorieList.categorie_list = list.sorted{ $0.nom_categorie < $1.nom_categorie }

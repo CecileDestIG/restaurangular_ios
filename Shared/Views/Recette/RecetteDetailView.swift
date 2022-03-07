@@ -88,6 +88,16 @@ struct RecetteDetailView : View {
                         )
                         .foregroundColor(Color.pink)
                 }
+                VStack(spacing:20){
+                    Text("Durée")
+                        .bold()
+                    Text("\(recetteVM.tempsRecette(),specifier: "%.0f") minutes")
+                }.padding()
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.pink,lineWidth: 2)
+                    )
+                    .foregroundColor(Color.pink)
                 Divider()
                 VStack(spacing:20){
                     if (recetteVM.ingredients != nil){
@@ -225,13 +235,15 @@ struct EtapeInclusView : View {
     
     var body: some View {
         VStack{
-            VStack{
-                Text("\(position) | "+e.titre_etape)
-                    .bold()
-                Text("(\(e.temps_etape,specifier: "%.1f") minute)")
+            VStack(spacing:15){
+                HStack{
+                    Text("\(position) | "+e.titre_etape).bold()
+                    Text("(\(e.temps_etape,specifier: "%.0f") min)")
+                }
                 Text(e.description_etape)
             }
-        }
+        }.frame(width: 250, height: 200)
+        .scenePadding()
         .overlay(
             RoundedRectangle(cornerRadius: 10)
                 .stroke(Color.purple,lineWidth: 2)
@@ -252,11 +264,11 @@ struct RecetteInclusView : View {
                 .bold().padding()
             Text(r.nom_categorie)
             Text("pour \(r.nb_couvert) personnes")
-            Text("à \(r.prix_vente,specifier: "%.2f") €").frame(width: 250)
+            Text("à \(r.prix_vente,specifier: "%.2f") €")
             VStack{
                 NavigationLink(destination:RecetteDetailView(rvm: RecetteVM(r:self.r), rlvm: self.rl)){
                     Button("Voir"){}
-                }.padding()
+                }.scenePadding()
             }
         }
         .overlay(
@@ -318,7 +330,7 @@ struct CoutView : View {
                                 }.padding()
                         }
                     }
-                Text("Coût matière : \(cm,specifier:"%.4f") €")
+                Text("Coût matière : \(cm,specifier:"%.2f") €")
             }
             .padding()
             .overlay(
@@ -330,7 +342,7 @@ struct CoutView : View {
             VStack(spacing:20){
                 VStack{
                     Text("Coût des charges").bold()
-                    Text("(\(recette.tempsRecette(),specifier:"%.2f") minutes)")
+                    Text("(\(recette.tempsRecette(),specifier:"%.0f") minutes)")
                 }
                 HStack(spacing:5){
                     VStack{
@@ -348,7 +360,7 @@ struct CoutView : View {
                         }
                     }
                 }
-                Text("Coût des charges : \(cc,specifier:"%.4f") €")
+                Text("Coût des charges : \(cc,specifier:"%.2f") €")
             }
             .padding()
             .overlay(

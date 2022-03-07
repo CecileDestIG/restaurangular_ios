@@ -74,7 +74,7 @@ class RecetteVM : ObservableObject, RecetteObserver, Subscriber, Hashable{
         return t
     }
     
-    func coutMatiere(type:Bool,relatif:Double,absolu:Double) -> Double{
+    func coutMatiere(type:Bool = true,relatif:Double = 5,absolu:Double = 0) -> Double{
         var abs = absolu
         var rel = relatif
         if(type){
@@ -95,11 +95,11 @@ class RecetteVM : ObservableObject, RecetteObserver, Subscriber, Hashable{
         }
     }
     
-    func coutCharge(coutFluide : Double, coutPersonnel : Double) -> Double{
+    func coutCharge(coutFluide : Double = 0.5, coutPersonnel : Double = 10) -> Double{
         return (tempsRecette()/60)*(coutFluide+coutPersonnel)
     }
 
-    func coutProduction(type:Bool,coutMatiere:Double,coutCharge:Double) -> Double{
+    func coutProduction(type:Bool=true,coutMatiere:Double,coutCharge:Double) -> Double{
         var cp : Double = 0
         var cc = coutCharge
         if(!type){
