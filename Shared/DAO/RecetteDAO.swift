@@ -101,7 +101,7 @@ class RecetteDAO {
         }
     }
     
-    @MainActor
+    
     static func deleteRecette(id:Int) async{
         guard let url = URL(string: "https://restaurangularappli.herokuapp.com/recette/\(id)") else {
             print("pb url")

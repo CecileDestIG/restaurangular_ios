@@ -31,11 +31,17 @@ struct RecetteDetailView : View {
     
     var body : some View {
         Form{
-            Section {
-                NavigationLink(destination : RecetteModifyView(rlvm: recetteList, r: recetteVM)){
-                    Text("modifier")
+            Section{
+                HStack{
+                    Spacer()
+                    Button("Supprimer") {
+                        Task{
+                            await intentR.intentToDelete(id: self.recetteVM.getId())
+                            print("suppr")
+                        }
+                    }
+                    Spacer()
                 }
-
             }
             Section{
         List{
