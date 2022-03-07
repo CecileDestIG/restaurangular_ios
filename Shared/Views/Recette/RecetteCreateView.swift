@@ -57,6 +57,17 @@ struct RecetteCreateView: View {
                     HStack{
                         Text("Image : ");
                         TextField("URL de l'image", text: $recetteVM.image)
+                        AsyncImage(url: URL(string:recetteVM.image),content: { img in
+                            img
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 100, height: 100, alignment: .center)
+                            .scaledToFit()
+                            .cornerRadius(5)
+                            .padding()
+                        },placeholder: {
+                            ProgressView()
+                        })
                     }
                     HStack{
                         Text("Nombre Couvert : ");
@@ -108,7 +119,7 @@ struct RecetteCreateView: View {
                             List{
                                 VStack(alignment : .leading){
                                     HStack{
-                                Text("\(ingrinclus[item].nom_ingredient) : \(ingrinclus[item].quantite_necessaire) \(ingrinclus[item].unite) ")
+                                Text("\(ingrinclus[item].nom_ingredient) : \(ingrinclus[item].quantite_necessaire,specifier: "%.2f") \(ingrinclus[item].unite) ")
                                         Spacer()
                                     Button(action : {
                                         ingrinclus.remove(at: item)

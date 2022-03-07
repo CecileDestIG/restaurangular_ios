@@ -47,5 +47,14 @@ struct IntentAllergene {
             await AllergeneDAO.createAllergene(nom_allergene: nom_allergene)
             self.stateAllergene.send(.allergeneCreation(nom_allergene))
         }
+    
+    func intentToLoad(allergenes:AllergeneListVM) async -> [Allergene]?{
+        if let list = await AllergeneDAO.allergeneGetAll(){
+            return list.sorted{$0.nom_allergene < $1.nom_allergene}
+        }
+        else{
+            return nil
+        }
+    }
 }
 

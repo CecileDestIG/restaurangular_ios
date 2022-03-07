@@ -22,7 +22,7 @@ struct RecettesDTO : Codable, Hashable {
     var id_categorie : Int
     var prix_vente : Double
     var nom_categorie : String
-    var image : String?
+    var image : String
 }
 
 struct RecetteInclusDTO : Codable, Hashable {
