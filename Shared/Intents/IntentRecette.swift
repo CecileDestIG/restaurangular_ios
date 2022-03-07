@@ -55,12 +55,12 @@ struct IntentRecette {
         await RecetteDAO.deleteRecette(id: id)
     }
     
-    func intentToLoad(recettes:RecetteListVM) async {
+    func intentToLoad() async -> [Recette]?{
         if let list = await RecetteDAO.getAllRecette(){
-            recettes.recette_list = list.sorted{$0.nom_recette < $1.nom_recette}
+            return list.sorted{$0.nom_recette < $1.nom_recette}
         }
         else{
-            recettes.recette_list = []
+            return nil
         }
             
     }
