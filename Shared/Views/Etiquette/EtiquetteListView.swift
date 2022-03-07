@@ -11,6 +11,15 @@ struct EtiquetteListView: View {
     
     @StateObject var etiquette : Etiquette = Etiquette()
     
+    var intentI : IntentIngredient
+    
+    @State var showingAlert : Bool = false
+    
+    init(){
+        self.intentI=IntentIngredient()
+        self.intentI.addObserver(ilvm: self.etiquette.ingredientList)
+    }
+    
     @State var decrement = false
     
     
@@ -21,7 +30,7 @@ struct EtiquetteListView: View {
             let width: CGFloat = width
             //Estimate the height of your view
             let height: CGFloat = height
-            let charts = EtiquetteListView(etiquette: self.etiquette)
+            let charts = EtiquetteListView()
             let pdfVC = UIHostingController(rootView: charts)
             pdfVC.view.frame = CGRect(x: 0, y: 0, width: width, height: height)
             //Render the view behind all other views
@@ -101,11 +110,25 @@ struct EtiquetteListView: View {
                 }.padding()
                 HStack(spacing:5){
                     Button("Imprimer"){
-                        
+                        Task{
+                            if(decrement){
+                                for ingr in etiquette.recette.ingredients!{
+                                    if(ingr.stock - ingr.quantite_necessaire >= 0){
+                                        await self.intentI.intentToChange(ingredient: IngredientVM(i: Ingredient(ingr.id_ingredient,ingr.nom_ingredient,ingr.unite,ingr.cout_unitaire,ingr.stock-Double(ingr.quantite_necessaire),ingr.id_cat_ingr,ingr.id_allergene ?? 0,ingr.allergene ?? "",ingr.nom_cat_ingr)))
+                                    }
+                                    else{
+                                        showingAlert = true
+                                    }
+                                }
+                            }
+                        }
                         exportToPDF(width: 200, height: 200)
                     }
                 }.padding()
             }
+            .alert("Stock insuffisant", isPresented: $showingAlert){
+                          Button("Ok", role: .cancel){}
+            }.padding()
             .navigationTitle("Etiquette")
             
         }
@@ -114,6 +137,11 @@ struct EtiquetteListView: View {
             if let list = await RecetteDAO.getAllRecette(){
                 self.etiquette.recetteList.recette_list = list.sorted{$0.nom_recette < $1.nom_recette}
                 print("Recette list : ",list)
+            }
+            //  INGREDIENTS
+            if let list = await IngredientDAO.getAllIngredient(){
+                self.etiquette.ingredientList.ingredient_list = list.sorted{$0.nom_ingredient < $1.nom_ingredient}
+                print("Ingredient list : ",list)
             }
         }
     }

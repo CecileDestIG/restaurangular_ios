@@ -14,6 +14,11 @@ class Etiquette : ObservableObject {
             objectWillChange.send()
         }
     }
+    @Published var ingredientList : IngredientListVM{
+        didSet{
+            objectWillChange.send()
+        }
+    }
     @Published var id_recette : Int{
         didSet{
             objectWillChange.send()
@@ -31,9 +36,10 @@ class Etiquette : ObservableObject {
         return recette
     }
     
-    init(_ id_recette : Int = 0,_ recetteList : RecetteListVM = RecetteListVM()){
+    init(_ id_recette : Int = 0,_ recetteList : RecetteListVM = RecetteListVM(),_ ingredientList : IngredientListVM = IngredientListVM()){
         self.id_recette = id_recette
         self.recetteList = recetteList
+        self.ingredientList = ingredientList
     }
     
 }
