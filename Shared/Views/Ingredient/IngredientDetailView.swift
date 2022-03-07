@@ -42,6 +42,10 @@ struct IngredientDetailView : View {
                 TextField("unité", text: $ingredientVM.unite)
                 }
                 HStack{
+                    Text("Lien image : ");
+                    TextField("image", text: $ingredientVM.image)
+                }
+                HStack{
                 Text("cout_unitaire : ");
                 TextField("cout unitaire", value: $ingredientVM.cout_unitaire, formatter: formatter)
                 }
@@ -72,6 +76,7 @@ struct IngredientDetailView : View {
                     Button("modifier"){
                         Task{
                             await intentI.intentToChange(ingredient: ingredientVM)
+                            print("ingr change")
                         }
                     }
                     Spacer()
