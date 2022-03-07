@@ -46,7 +46,7 @@ struct IntentCategorie {
         self.stateCategorie.send(.categorieCreation(nom_categorie))
     }
     
-    func intentToLoad(categories:CategorieListVM) async -> [Categorie]?{
+    func intentToLoad() async -> [Categorie]?{
         if let list = await CategorieDAO.getAllCategorie(){
             return list.sorted{$0.nom_categorie < $1.nom_categorie}
         }

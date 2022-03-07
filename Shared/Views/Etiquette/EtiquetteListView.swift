@@ -9,7 +9,7 @@ import SwiftUI
 
 struct EtiquetteListView: View {
     
-    @StateObject var etiquette : Etiquette = Etiquette()
+    @ObservedObject var etiquette : Etiquette = Etiquette()
     
     var intentI : IntentIngredient
     
@@ -130,7 +130,6 @@ struct EtiquetteListView: View {
                           Button("Ok", role: .cancel){}
             }.padding()
             .navigationTitle("Etiquette")
-            
         }
         .task{
             //  RECETTES

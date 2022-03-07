@@ -14,9 +14,12 @@ struct RecetteListView: View {
     @State var errorMessage = "Error !"
     @State var showingAlert : Bool = false
     var intentR : IntentRecette
+    var intentCat : IntentCategorie
     @State var searchTextRecette = ""
     
-    init(rlvm:RecetteListVM ){
+    init(rlvm:RecetteListVM, clvm:CategorieListVM ){
+        self.intentCat = IntentCategorie()
+        self.intentCat.addObserver(clvm: clvm)
         self.intentR=IntentRecette()
         self.intentR.addObserver(rlvm: rlvm)
 
@@ -72,19 +75,13 @@ struct RecetteListView: View {
                 .searchable(text: $searchTextRecette)
                 .navigationTitle("Recettes")
                 .task{
-                    /*  RECETTES
+                    // RECETTES
                     if let request = await intentR.intentToLoad(){
                         self.recetteList.recette_list = request
                     }
-                    else{
-                        self.recetteList.recette_list = []
-                    }*/
-                    if let list = await RecetteDAO.getAllRecette(){
-                        self.recetteList.recette_list = list.sorted{$0.nom_recette < $1.nom_recette}
-                    }
                     // CATEGORIES
-                    if let list = await CategorieDAO.getAllCategorie(){
-                        self.categorieList.categorie_list = list.sorted{ $0.nom_categorie < $1.nom_categorie }
+                    if let request = await intentCat.intentToLoad(){
+                        self.categorieList.categorie_list = request
                     }
                 }
             }
@@ -132,6 +129,6 @@ struct RecetteView: View {
 
 struct RecetteListView_Previews: PreviewProvider {
     static var previews: some View {
-        RecetteListView(rlvm: RecetteListVM())
+        RecetteListView(rlvm: RecetteListVM(),clvm: CategorieListVM())
     }
 }

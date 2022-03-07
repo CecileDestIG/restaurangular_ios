@@ -5,10 +5,9 @@
 //  Created by m1 on 02/03/2022.
 //
 
-import SwiftUI
-
 import Foundation
 import SwiftUI
+import AlertToast
 
 struct CategorieCreateView : View {
     
@@ -16,6 +15,7 @@ struct CategorieCreateView : View {
     @State var showingAlert : Bool = false
     var intentCat : IntentCategorie
     @State var catcreate : CategorieDTO = CategorieDTO( nom_categorie: "")
+    @State var showToast = false
     
     init(clvm:CategorieListVM ){
         self.intentCat=IntentCategorie()

@@ -11,7 +11,8 @@ struct IngredientListView: View {
     
     @StateObject var ingredientList : IngredientListVM = IngredientListVM()
     @StateObject var listeCatIngr : CatIngrListVM = CatIngrListVM()
-    
+    var intentI : IntentIngredient
+    var intentCatIngr : IntentCatIngr
     @State var searchTextIngr = ""
     
     var searchResultsIngredient : [Ingredient] {
@@ -21,6 +22,13 @@ struct IngredientListView: View {
         else{
             return ingredientList.ingredient_list.filter { $0.nom_ingredient.uppercased().contains(searchTextIngr.uppercased())}
         }
+    }
+    
+    init(ilvm : IngredientListVM,cilvm:CatIngrListVM){
+        self.intentCatIngr = IntentCatIngr()
+        self.intentCatIngr.addObserver(cilvm: cilvm)
+        self.intentI = IntentIngredient()
+        self.intentI.addObserver(ilvm: ilvm)
     }
     
     var body: some View {
@@ -64,13 +72,15 @@ struct IngredientListView: View {
                 .navigationTitle("Stock")
                 .task{
                     // INGREDIENTS
-                    if let list = await IngredientDAO.getAllIngredient(){
-                        self.ingredientList.ingredient_list = list.sorted{$0.nom_ingredient < $1.nom_ingredient}
+                    if let request = await intentI.intentToLoad(){
+                        self.ingredientList.ingredient_list = request
                     }
+
                     // CATEGORIES INGREDIENT
-                    if let list = await CatIngrDAO.getAllCatIngr(){
-                        self.listeCatIngr.cat_ingr_list = list.sorted{ $0.nom_cat_ingr < $1.nom_cat_ingr }
+                    if let request = await intentCatIngr.intentToLoad(){
+                        self.listeCatIngr.cat_ingr_list = request
                     }
+
                 }
             }
         }
@@ -116,6 +126,6 @@ struct IngredientView: View {
 
 struct IngredientListView_Previews: PreviewProvider {
     static var previews: some View {
-        IngredientListView()
+        IngredientListView(ilvm: IngredientListVM(), cilvm: CatIngrListVM())
     }
 }
